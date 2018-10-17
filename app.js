@@ -1,49 +1,51 @@
 const express = require('express');
-const authRoutes = require('./routes/auth-routes');
-const profileRoutes = require('./routes/profile-routes');
-const app = express();
-const passportSetup = require('./config/passport-setup');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const mongoose = require('mongoose');
-const keys = require('./config/keys');
-const cookieSession = require('cookie-session');
-const passport = require('passport');
-const bodyParser = require('body-parser')
+const index = require('./routes/index');
+const keys = require('./keys');
+const app = express();
 
-//set up view engine
-app.set('view engine', 'ejs');
-//cookieSession encrypts cookies so you don't send private id's to browser
-app.use(cookieSession({
-  maxAge: 24 * 60 * 60 * 1000,
-  keys: [keys.session.cookieKey]
-}));
-//initialize passport and setup cookies
-app.use(passport.initialize());
-app.use(passport.session());
+var corsOption = {
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    exposedHeaders: ['x-auth-token']
+};
+
+app.use(cors(corsOption));
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 // middleware
 app.use(bodyParser.json())
 
 //connect to mongodb
-mongoose.connect(keys.mongodb.dbURI, () => {
-  console.log('connected to mongodb')
-})
+mongoose.connect(keys.mongodb.dbURI, {useNewURLParser: true})
+
+// middleware
+app.use(bodyParser.json())
+app.use(logger('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/api/v1/', index);
+
 //set up routes
-
 const router = express.Router();
-
-app.use('/auth', authRoutes);
-app.use('/profile', profileRoutes);
 app.use('/api', router)
-
 const userRoutes = require('./routes/user-routes.js')
 userRoutes(router)
 
-//creat home route
-app.get('/',(req, res)=> {
-  res.render('home');
-});
+//do we need this
+// //creat home route
+// app.get('/',(req, res)=> {
+//   res.render('home');
+// });
 
-
-app.listen(5000, () => {
-  console.log('server now listening for requests on port 5000');
-});
+module.exports = app;

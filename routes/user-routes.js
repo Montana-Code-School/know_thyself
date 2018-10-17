@@ -1,6 +1,6 @@
-const Entry = require('../models/user-model').entry
-const User = require('../models/user-model').user
-const Prompt = require('../models/user-model').prompt
+const Entry = require('../models/entry-model').entry
+const User = require('../models/user-model')
+const Prompt = require('../models/entry-model').prompt
 
 // post and view writing prompt entries
 module.exports = (router) => {
