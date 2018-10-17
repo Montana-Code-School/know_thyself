@@ -4,9 +4,24 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   username: String,
   //so we can see if they have been to website before, and retrieve record, they login with this id
-  googleId: String
+  googleId: String,
+  goals: [],
+  habits: [],
+  entries: [{type: Schema.Types.ObjectId, ref: 'entry'}]
 })
 
-const User = mongoose.model('user', userSchema);
+const entrySchema = new Schema({
+  title: {type: Schema.Types.ObjectId, ref: 'prompt'},
+  body: String,
+  user: {type: Schema.Types.ObjectId, ref: 'user'}
+})
 
-module.exports = User;
+const promptSchema = new Schema({
+  body: String
+})
+
+module.exports = {
+   user: mongoose.model('user', userSchema),
+   entry: mongoose.model('entry', entrySchema),
+   prompt: mongoose.model('prompt', promptSchema)
+ }
