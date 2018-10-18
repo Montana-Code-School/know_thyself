@@ -1,0 +1,6 @@
+.time {
+  display: flex;
+  justify-content: flex-end;
+  font-family: inherit;
+  font-size: 10pt
+}
