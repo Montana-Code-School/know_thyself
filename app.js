@@ -5,9 +5,10 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const app = express();
+const auth = require('./routes/auth-routes')
 const index = require('./routes/index');
 const keys = require('./keys');
-const app = express();
 
 var corsOption = {
     origin: true,
@@ -35,7 +36,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/v1/', index);
-
+app.use('/cheese', auth)
+app.use('/cheese/burger', (req, res)=> {
+  res.json({message:'colen butts'})
+})
 //set up routes
 const router = express.Router();
 app.use('/api', router)

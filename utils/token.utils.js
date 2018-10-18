@@ -1,9 +1,11 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const config = require('../config')
+const { someOtherSecret } =  config.googleAuth
 
-var createToken = function(auth) {
+const createToken = function(auth) {
     return jwt.sign({
             id: auth.id
-        }, 'my-secret',
+        }, someOtherSecret,
         {
             expiresIn: 60 * 120
         });
