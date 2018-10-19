@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const config = require('../config')
+const User = require('../models/user-model')
 
 module.exports = (req, res, next) => {
   if(!req.headers.authorization) {
@@ -11,12 +12,15 @@ module.exports = (req, res, next) => {
 
   return jwt.verify(token, someOtherSecret, (err, decoded) => {
     if(err){
-      console.error(err)
       res.status(401).end()
+    } else {
+      const { id } = decoded
+      // find user and attach to request
+      return User.findById(id, (err, user) => {
+        if (err) res.status(401).end()
+        req.user = user
+        return next()
+      })
     }
-
-    console.log(decoded)
   })
-
-  next()
 }

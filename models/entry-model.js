@@ -5,7 +5,17 @@ const EntrySchema = new Schema({
   title: {type: Schema.Types.ObjectId, ref: 'prompt'},
   body: String,
   user: {type: Schema.Types.ObjectId, ref: 'user'},
-  date: String
+  createdAt: Date,
+  modifiedAt: Date
+})
+
+EntrySchema.pre('save', function(next) {
+  if (this.isNew) {
+    this.createdAt = new Date()
+  } else {
+    this.modifiedAt = new Date()
+  }
+  return next()
 })
 
 const PromptSchema = new Schema({

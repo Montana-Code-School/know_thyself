@@ -32,8 +32,7 @@ class Profile extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    const {data} = this.props
-    if (data.length) {
+    if (this.props.data.length) {
       return false
     } else
       return true

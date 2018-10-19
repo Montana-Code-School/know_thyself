@@ -28,12 +28,17 @@ class App extends Component {
 
   handleSubmit() {
     if (Storage.getToken()) {
-      fetch('http://localhost:4001/cheese/burger', {
-        method: 'GET',
+      const fakeData = {
+        title: 'a prompt',
+        body: 'a body'
+      }
+      fetch('http://localhost:4001/verify/entry', {
+        method: 'POST',
         headers: {
-          'Content-type' : 'application/x-www-form-urlencoded',
+          'Content-type' : 'application/json',
           'Authorization': `bearer ${Storage.getToken()}`
-        }
+        },
+        body: JSON.stringify()
       })
       .then(res => res.json())
       .then(data => console.log(data))
