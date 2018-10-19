@@ -27,17 +27,17 @@ module.exports = (router) => {
       User.findById(req.params.user_id, (err, user) => {
         if (err) res.send(err)
       let entry = new Entry()
-      entry.body = req.body.body
-      entry.title = req.body.title
-      entry.user = user._id
-      entry.save((err) => {
-        if (err) res.send(err)
-        user.entries.push(entry)
-            user.save((err) => {
-              if (err) res.send(err)
-              res.json({msg: 'entry saved'})
-            })
-        })
+      // entry.body = req.body.body
+      // entry.title = req.body.title
+      // entry.user = user._id
+      // entry.save((err) => {
+      //   if (err) res.send(err)
+      //   user.entries.push(entry)
+      //       user.save((err) => {
+      //         if (err) res.send(err)
+      //         res.json({msg: 'entry saved'})
+      //       })
+      //   })
       })
     })
 
