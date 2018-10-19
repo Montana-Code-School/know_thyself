@@ -57,3 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
+# ClientSecret DatabaseName and other Keys
+config/
