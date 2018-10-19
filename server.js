@@ -4,6 +4,9 @@ var http = require('http');
 
 var port = normalizePort(process.env.PORT || '4001');
 app.set('port', port);
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/build"));
+}
 
 var server = http.createServer(app);
 

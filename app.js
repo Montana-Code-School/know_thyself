@@ -57,29 +57,6 @@ router.route('/entry')
   })
 app.use('/verify', router)
 
-// app.use('/verify/entry', (req, res) => {
-//   if (!req.user) console.log('you shall not pass!')
-//   console.log(req.user, "if statement")
-//   router.route(`/users/${req.user._id}/entries`)
-//     .post((req, res) => {
-//       console.log("post reached")
-//       const { body } = req
-//       let entry = new Entry()
-//       entry.body = body.body
-//   // entry.title = body.title
-//   entry.user = req.user._id
-//   entry.save((err) => {
-//     if (err) res.send(err)
-//     user.entries.push(entry)
-//       user.save((err) => {
-//       if (err) res.send(err)
-//         res.json({msg: 'entry saved'})
-//       })
-//     })
-//   console.log(entry)
-//   })
-// })
-
 //set up routes
 const userRoutes = require('./routes/user-routes.js')
 const nonVerifiedRouter = express.Router();
