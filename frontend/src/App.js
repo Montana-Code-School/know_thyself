@@ -23,14 +23,12 @@ class App extends Component {
     this.setState({
       value: event.target.value
     })
-    console.log(this.state.value)
   }
 
   handleSubmit() {
     if (Storage.getToken()) {
-      const fakeData = {
-        title: 'a prompt',
-        body: 'a body'
+      const input = {
+        body: this.state.value  
       }
       fetch('http://localhost:4001/verify/entry', {
         method: 'POST',
@@ -38,7 +36,7 @@ class App extends Component {
           'Content-type' : 'application/json',
           'Authorization': `bearer ${Storage.getToken()}`
         },
-        body: JSON.stringify()
+        body: JSON.stringify(input)
       })
       .then(res => res.json())
       .then(data => console.log(data))
