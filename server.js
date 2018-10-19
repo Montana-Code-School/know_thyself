@@ -1,6 +1,7 @@
 var app = require('./app');
 var debug = require('debug')('backend:server');
 var http = require('http');
+var express = require('express');
 
 var port = normalizePort(process.env.PORT || '4001');
 app.set('port', port);

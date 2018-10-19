@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const app = express();
 const auth = require('./routes/auth-routes')
 const index = require('./routes/index');
-const keys = require('./keys');
+const keys = require('./config/keys');
 const Entry = require('./models/entry-model').entry
 
 var corsOption = {
