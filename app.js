@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const app = express();
 const auth = require('./routes/auth-routes')
 const index = require('./routes/index');
-const keys = require('./config/keys');
+const config = require('./config/config');
 const Entry = require('./models/entry-model').entry
 
 var corsOption = {
@@ -25,7 +25,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 //connect to mongodb
-mongoose.connect(keys.mongodb.dbURI, {useNewURLParser: true})
+mongoose.connect(config.mongodb.dbURI, {useNewURLParser: true})
 
 // middleware
 app.use(bodyParser.json())
