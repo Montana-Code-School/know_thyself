@@ -2,7 +2,7 @@
 const passport = require('passport');
 //strategy to use google+
 const GoogleStrategy = require('passport-google-oauth20');
-const keys = require('./config/keys');
+const config = require('./config/config');
 const User = require('../models/user-model');
 //create cookie with id send it to browser
 passport.serializeUser((user, done) => {
@@ -19,8 +19,8 @@ passport.use(
   new GoogleStrategy({
   //options for google strategy
   callbackURL: '/auth/google/redirect',
-  clientID: keys.google.clientID,
-  clientSecret: keys.google.clientSecret
+  clientID: config.googleAuth.clientID,
+  clientSecret: config.googleAuth.clientSecret
   //access token allows us to see users data
   //refresh token refreshes access, profile brings back profile info, done is done
   }, (accessToken, refreshToken, profile, done) => {
