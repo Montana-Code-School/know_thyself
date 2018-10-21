@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Login from './login/Login'
+import Login from './login/login'
 import Profile from './profile/Profile'
 import Storage from './storage'
 
@@ -30,7 +30,7 @@ class App extends Component {
     if (Storage.getToken()) {
       const input = {
         body: this.state.value,
-        title: getRandomPrompt()
+        title: this.state.prompt
       }
       fetch('http://localhost:4001/verify/entry', {
         method: 'POST',
@@ -65,6 +65,10 @@ class App extends Component {
     const data = this.state.data
     if (!data.length) return "loading"
     const randomIndex = Math.floor(Math.random() * data.length)
+    let ranP = data[randomIndex].body
+    this.setState({
+      prompt: ranP
+    })
     return data[randomIndex].body
 
   }
