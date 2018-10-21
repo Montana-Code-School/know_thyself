@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React from 'react';
 import './Weather.css'
 import axios from 'axios'
 
@@ -50,28 +50,8 @@ class Weather extends React.Component {
     );
   }
 
-  // changeFormat(format) {
-  //
-  //   let temperature = 0;
-  //   let newFormat = '';
-  //
-  //   if (format === 'F') {
-  //     temperature = (this.state.temp * (9/5) + 32).toFixed(0);
-  //     newFormat = 'C';
-  //   } else {
-  //     temperature = ((this.state.temp - 32) * (5/9)).toFixed(0);
-  //     newFormat = 'F';
-  //   }
-  //
-  //   this.setState({
-  //     format: newFormat,
-  //     temp: temperature
-  //   });
-  // }
 
   render() {
-    let hr = (new Date).getHours()
-    let tod = (hr >= 17) ? 'night' : 'day';
 
     return (
       <div className='container'>
@@ -85,14 +65,3 @@ class Weather extends React.Component {
 }
 
 export default Weather
-
-class SwitchFormat extends React.Component {
-
-  handleChange(e) {
-    this.props.changeFormat(e.target.value);
-  }
-
-  render() {
-    return <button value={this.props.format} onClick={this.handleChange.bind(this)}>Change format</button>;
-  }
-}

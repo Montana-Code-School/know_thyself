@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       data: [],
       value: '',
-      entry: ''
+      entry: '',
+      title: ''
     }
   }
 
@@ -28,7 +29,8 @@ class App extends Component {
   handleSubmit() {
     if (Storage.getToken()) {
       const input = {
-        body: this.state.value
+        body: this.state.value,
+        title: getRandomPrompt()
       }
       fetch('http://localhost:4001/verify/entry', {
         method: 'POST',
@@ -36,11 +38,35 @@ class App extends Component {
           'Content-type' : 'application/json',
           'Authorization': `bearer ${Storage.getToken()}`
         },
-        body: JSON.stringify(input)
+        body: JSON.stringify(input),
+        title: JSON.stringify(input)
       })
       .then(res => res.json())
       .then(data => console.log(data))
+
     }
+  }
+
+
+    componentDidMount() {
+        fetch('http://localhost:4001/api/prompts')
+        .then(blob => blob.json())
+        .then(data => this.onDataLoad(data))
+    }
+
+    shouldComponentUpdate(nextProps) {
+      if (this.state.data.length) {
+        return false
+      } else
+        return true
+    }
+
+  getRandomPrompt() {
+    const data = this.state.data
+    if (!data.length) return "loading"
+    const randomIndex = Math.floor(Math.random() * data.length)
+    return data[randomIndex].body
+
   }
 
   render() {
@@ -52,7 +78,8 @@ class App extends Component {
             return <Profile onDataLoad={this.onDataLoad.bind(this)}
                             submitEntry={this.handleSubmit.bind(this)}
                             data={this.state.data}
-                            entryContent={this.handleChange.bind(this)}/>
+                            entryContent={this.handleChange.bind(this)}
+                            randomPrompt={this.getRandomPrompt.bind(this)}/>
           }} />
           <Route component={Error}/>
         </Switch>

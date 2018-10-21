@@ -43,7 +43,7 @@ router.route('/entry')
     const { body } = req
     let entry = new Entry()
     entry.body = body.body
-    // entry.title = body.title
+    entry.title = body.title
     entry.user = req.user._id
     entry.save((err) => {
       if (err) res.send(err)
