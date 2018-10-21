@@ -1,5 +1,5 @@
 import React, { Component }  from 'react';
-import './weather.css'
+import './Weather.css'
 import axios from 'axios'
 
 function getLocation() {

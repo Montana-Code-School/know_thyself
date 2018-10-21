@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var { generateToken, sendToken } = require('../utils/token.utils');
-var passport = require('passport');
-var config = require('../config/config');
-var request = require('request');
+const express = require('express');
+const router = express.Router();
+const { generateToken, sendToken } = require('../utils/token-utils');
+const passport = require('passport');
+const config = require('../config/config');
+const request = require('request');
 require('../passport')();
 
 router.route('/auth/google')

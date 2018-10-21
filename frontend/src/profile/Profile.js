@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import Navbar from '../navbar/Navbar'
-import Weather from '../weather/Weather'
-import Time from '../time/time'
-import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button';
+import Navbar from '../navbar/Navbar';
+import Weather from '../weather/Weather';
+import Time from '../time/Time';
 
 const styles = {
 

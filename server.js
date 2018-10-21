@@ -1,18 +1,18 @@
-var app = require('./app');
-var debug = require('debug')('backend:server');
-var http = require('http');
-var express = require('express');
+const app = require('./app');
+const debug = require('debug')('backend:server');
+const http = require('http');
+const express = require('express');
 
-var port = normalizePort(process.env.PORT || '4001');
+let port = normalizePort(process.env.PORT || '4001');
 app.set('port', port);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("frontend/build"));
 }
 
-var server = http.createServer(app);
+let server = http.createServer(app);
 
 function normalizePort(val) {
-    var port = parseInt(val, 10);
+    let port = parseInt(val, 10);
 
     if (isNaN(port)) {
         // named pipe
@@ -27,7 +27,7 @@ function normalizePort(val) {
     return false;
 }
 
-var expressServerUtils = require('express-server-utils')(server, port);
+let expressServerUtils = require('express-server-utils')(server, port);
 expressServerUtils.listen();
 expressServerUtils.handleOnError();
 expressServerUtils.handleOnListening();

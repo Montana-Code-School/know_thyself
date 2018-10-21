@@ -70,7 +70,7 @@ module.exports = (router) => {
       });
       User.findById(req.params.user_id, (err, user) => {
         if (err) res.send(err)
-        for (var i = 0; i < user.entries.length; i++) {
+        for (let i = 0; i < user.entries.length; i++) {
           if (user.entries[i] == req.params.entry_id) {
             user.entries.splice(i, 1)
           }

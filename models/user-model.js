@@ -24,13 +24,13 @@ const UserSchema = new Schema({
 UserSchema.set('toJSON', {getters: true, virtuals: true});
 
 UserSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profile, cb) {
-  var that = this;
+  let that = this;
   return this.findOne({
     'googleProvider.id': profile.id
   }, function(err, user) {
       // no user was found, lets create a new one
     if (!user) {
-      var newUser = new that({
+      let newUser = new that({
         fullName: profile.displayName,
         email: profile.emails[0].value,
         googleProvider: {
