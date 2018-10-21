@@ -1,10 +1,10 @@
 'use strict';
 
 require('./models/user-model')
-var passport = require('passport');
-var User = require('mongoose').model('user');
-var GoogleTokenStrategy = require('passport-google-token').Strategy;
-var config = require('./config/config');
+const passport = require('passport');
+const User = require('mongoose').model('user');
+const GoogleTokenStrategy = require('passport-google-token').Strategy;
+const config = require('./config/config');
 
 module.exports = function () {
     passport.use(new GoogleTokenStrategy({

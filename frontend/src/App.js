@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Login from './login/login'
+import Login from './login/Login'
 import Profile from './profile/Profile'
 import Storage from './storage'
 
@@ -28,7 +28,7 @@ class App extends Component {
   handleSubmit() {
     if (Storage.getToken()) {
       const input = {
-        body: this.state.value  
+        body: this.state.value
       }
       fetch('http://localhost:4001/verify/entry', {
         method: 'POST',

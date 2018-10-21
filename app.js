@@ -11,7 +11,7 @@ const index = require('./routes/index');
 const config = require('./config/config');
 const Entry = require('./models/entry-model').entry
 
-var corsOption = {
+let corsOption = {
     origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
@@ -25,7 +25,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 //connect to mongodb
-mongoose.connect(config.mongodb.dbURI, {useNewURLParser: true})
+mongoose.connect(config.mongodb.dbURI, { useNewURLParser: true })
 
 // middleware
 app.use(bodyParser.json())
