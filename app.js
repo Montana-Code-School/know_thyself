@@ -39,11 +39,12 @@ app.use('/verify', auth)
 const router = express.Router();
 router.route('/entry')
   .post((req, res) => {
+    console.log(req.body.title)
     if (!req.user) console.log('you shall not pass!')
     const { body } = req
     let entry = new Entry()
     entry.body = body.body
-    // entry.title = body.title
+    entry.title = body.title
     entry.user = req.user._id
     entry.save((err) => {
       if (err) res.send(err)

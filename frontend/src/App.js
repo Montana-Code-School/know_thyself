@@ -10,12 +10,27 @@ class App extends Component {
     this.state = {
       data: [],
       value: '',
-      entry: ''
+      entry: '',
+      prompt: ''
     }
   }
 
-  onDataLoad(data) {
-    this.setState({data})
+  // onDataLoad(data) {
+  //   this.setState({data})
+  // }
+
+  componentDidMount() {
+      fetch('http://localhost:4001/api/prompts')
+      .then(blob => blob.json())
+      .then(data => this.setState({
+        data: data}))
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if (this.state.data.length) {
+      return false
+    } else
+      return true
   }
 
 
@@ -24,11 +39,25 @@ class App extends Component {
       value: event.target.value
     })
   }
+  getRandomPrompt() {
+    const {data} = this.state
+    if (!data.length) return "loading"
+    const randomIndex = Math.floor(Math.random() * data.length)
+    console.log(data[randomIndex]._id)
+    const randomId = data[randomIndex]._id;
+    this.setState({
+      prompt: randomId
+    })
+    return data[randomIndex].body
+  }
 
   handleSubmit() {
+    console.log(this.state.prompt)
     if (Storage.getToken()) {
+      console.log(this.state.data)
       const input = {
-        body: this.state.value
+        body: this.state.value,
+        title: this.state.prompt
       }
       fetch('http://localhost:4001/verify/entry', {
         method: 'POST',
@@ -36,7 +65,8 @@ class App extends Component {
           'Content-type' : 'application/json',
           'Authorization': `bearer ${Storage.getToken()}`
         },
-        body: JSON.stringify(input)
+        body: JSON.stringify(input),
+        title: JSON.stringify(input)
       })
       .then(res => res.json())
       .then(data => console.log(data))
@@ -45,18 +75,22 @@ class App extends Component {
 
   render() {
     return (
+      <div>
+        <h3>{this.getRandomPrompt()}</h3>
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/profile" render={() => {
-            return <Profile onDataLoad={this.onDataLoad.bind(this)}
-                            submitEntry={this.handleSubmit.bind(this)}
-                            data={this.state.data}
-                            entryContent={this.handleChange.bind(this)}/>
+            return <Profile
+                      // onDataLoad={this.onDataLoad.bind(this)}
+                      submitEntry={this.handleSubmit.bind(this)}
+                      data={this.state.data}
+                      entryContent={this.handleChange.bind(this)}/>
           }} />
           <Route component={Error}/>
         </Switch>
       </BrowserRouter>
+    </div>
     );
   }
 }
