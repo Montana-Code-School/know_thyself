@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { createMuiTheme } from '@material-ui/core/styles'
-import pink from '@material-ui/core/colors/pink'
 import Login from './login/Login'
 import Profile from './profile/Profile'
 import Storage from './storage'
 
-const theme = createMuiTheme ({
-  palette: {
-    primary: pink,
-  }
-})
 
 class App extends Component {
   constructor(props){
