@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { generateToken, sendToken } = require('../utils/token-utils');
 const passport = require('passport');
-const config = require('../config/config');
 const request = require('request');
 require('../passport')();
 

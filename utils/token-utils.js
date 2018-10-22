@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
-const config = require('../config/config')
-const { someOtherSecret } =  config.googleAuth
+
+
+const someOtherSecret  =  process.env.SOME_OTHER_SECRET
 
 const createToken = function(auth) {
     return jwt.sign({

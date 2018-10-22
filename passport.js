@@ -4,7 +4,6 @@ require('./models/user-model')
 const passport = require('passport');
 const User = require('mongoose').model('user');
 const GoogleTokenStrategy = require('passport-google-token').Strategy;
-const config = require('./config/config');
 
 module.exports = function () {
   const googOpts = {
