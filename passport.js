@@ -14,7 +14,6 @@ module.exports = function () {
 
     passport.use(new GoogleTokenStrategy(googOpts,
         function (accessToken, refreshToken, profile, done) {
-          console.log("---------Google Strategy Passport------------")
             User.upsertGoogleUser(accessToken, refreshToken, profile, function(err, user) {
                 return done(err, user);
             });

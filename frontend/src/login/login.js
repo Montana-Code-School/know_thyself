@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { Redirect } from 'react-router-dom';
-import config from '../config.json';
 import Storage from '../storage';
 
 
@@ -30,7 +29,7 @@ class Login extends Component {
       mode: 'cors',
       cache: 'default'
     }
-    fetch('http://localhost:4001/api/v1/auth/google', options).then(r => {
+    fetch('https://blooming-beyond-96038.herokuapp.com/api/v1/auth/google', options).then(r => {
         const token = r.headers.get('x-auth-token');
         r.json().then(user => {
             if (token) {
@@ -50,7 +49,7 @@ class Login extends Component {
       (
         <div>
           <GoogleLogin
-            clientId={config.GOOGLE_CLIENT_ID}
+            clientId={process.env.CLIENT_ID}
             buttonText="Login"
             onSuccess={this.googleResponse}
             onFailure={this.onFailure}
