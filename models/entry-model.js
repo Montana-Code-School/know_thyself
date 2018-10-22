@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const EntrySchema = new Schema({
-  title: {type: Schema.Types.ObjectId, ref: 'prompt'},
+  title: String,
   body: String,
   user: {type: Schema.Types.ObjectId, ref: 'user'},
   createdAt: Date,

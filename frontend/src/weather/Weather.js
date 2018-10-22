@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React from 'react';
 import './Weather.css'
 import axios from 'axios'
 
@@ -70,8 +70,8 @@ class Weather extends React.Component {
   // }
 
   render() {
-    let hr = (new Date).getHours()
-    let tod = (hr >= 17) ? 'night' : 'day';
+    // let hr = new Date().getHours()
+    // let tod = (hr >= 17) ? 'night' : 'day';
 
     return (
       <div className='container'>
@@ -86,13 +86,13 @@ class Weather extends React.Component {
 
 export default Weather
 
-class SwitchFormat extends React.Component {
-
-  handleChange(e) {
-    this.props.changeFormat(e.target.value);
-  }
-
-  render() {
-    return <button value={this.props.format} onClick={this.handleChange.bind(this)}>Change format</button>;
-  }
-}
+// class SwitchFormat extends React.Component {
+//
+//   handleChange(e) {
+//     this.props.changeFormat(e.target.value);
+//   }
+//
+//   render() {
+//     return <button value={this.props.format} onClick={this.handleChange.bind(this)}>Change format</button>;
+//   }
+// }

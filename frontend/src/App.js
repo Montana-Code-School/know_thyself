@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { createMuiTheme } from '@material-ui/core/styles'
+import pink from '@material-ui/core/colors/pink'
 import Login from './login/Login'
 import Profile from './profile/Profile'
 import Storage from './storage'
+
+const theme = createMuiTheme ({
+  palette: {
+    primary: pink,
+  }
+})
 
 class App extends Component {
   constructor(props){
@@ -15,9 +23,9 @@ class App extends Component {
     }
   }
 
-  // onDataLoad(data) {
-  //   this.setState({data})
-  // }
+  onDataLoad(data) {
+    this.setState({data})
+  }
 
   componentDidMount() {
       fetch('http://localhost:4001/api/prompts')
@@ -39,14 +47,14 @@ class App extends Component {
       value: event.target.value
     })
   }
+
   getRandomPrompt() {
     const {data} = this.state
     if (!data.length) return "loading"
     const randomIndex = Math.floor(Math.random() * data.length)
-    console.log(data[randomIndex]._id)
-    const randomId = data[randomIndex]._id;
+    const randomName = data[randomIndex].body
     this.setState({
-      prompt: randomId
+      prompt: randomName
     })
     return data[randomIndex].body
   }
@@ -76,16 +84,16 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h3>{this.getRandomPrompt()}</h3>
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/profile" render={() => {
             return <Profile
-                      // onDataLoad={this.onDataLoad.bind(this)}
+                      onDataLoad={this.onDataLoad.bind(this)}
                       submitEntry={this.handleSubmit.bind(this)}
                       data={this.state.data}
-                      entryContent={this.handleChange.bind(this)}/>
+                      entryContent={this.handleChange.bind(this)}
+                      prompt={this.getRandomPrompt.bind(this)}/>
           }} />
           <Route component={Error}/>
         </Switch>
