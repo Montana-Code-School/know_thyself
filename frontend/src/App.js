@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Login from './login/login';
+import Login from './login/Login';
 import Profile from './profile/Profile';
 import Storage from './storage';
 
