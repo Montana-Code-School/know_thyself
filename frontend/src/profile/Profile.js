@@ -3,8 +3,8 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Navbar from '../navbar/Navbar';
-import Weather from '../weather/Weather';
-import Time from '../time/Time';
+import './Profile.css'
+
 
 const styles = {
 
@@ -49,9 +49,7 @@ class Profile extends Component {
     return (
       <div>
         <Navbar position="sticky"/>
-        <Time />
-        <Weather />
-        <h3>{this.props.randomPrompt()}</h3>
+        <h3 className='prompt'>{this.props.randomPrompt()}</h3>
         <Paper style={styles.paper}>
           <TextField
             onChange={(e) => this.props.entryContent(e)}

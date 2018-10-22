@@ -54,12 +54,7 @@ class Weather extends React.Component {
   render() {
 
     return (
-      <div className='container'>
-        <div className='location'>
-          <p >{this.state.location} - {this.state.weather.main} - {(this.state.temp * (9/5) + 32).toFixed(0)} &#176;</p>
-
-        </div>
-      </div>
+          <p className='weather'>{this.state.location} - {this.state.weather.main} - {(this.state.temp * (9/5) + 32).toFixed(0)} &#176;</p>
     );
   }
 }

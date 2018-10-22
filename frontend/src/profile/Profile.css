@@ -1,0 +1,11 @@
+.prompt {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 20pt;
+  color: rgb(129, 9, 66);
+  background-color: rgb(107, 206, 218);
+  margin: auto;
+
+
+}
