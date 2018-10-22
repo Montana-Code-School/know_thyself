@@ -10,6 +10,7 @@ router.route('/auth/google')
         if (!req.user) {
             return res.send(401, 'User Not Authenticated');
         }
+        console.log("----wtf is happening----")
         req.auth = {
             id: req.user.id
         };
