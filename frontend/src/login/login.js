@@ -40,10 +40,6 @@ class Login extends Component {
         });
     })
   }
-  // componentDidMount(){
-  //   const token = Storage.getToken()
-  // }
-
 
   render() {
     // if (this.state.checkingToken) return <div>loading</div>
@@ -68,11 +64,5 @@ class Login extends Component {
     );
   }
 }
-
-
-
-
-
-
 
 export default Login

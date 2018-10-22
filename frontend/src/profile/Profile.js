@@ -7,7 +7,6 @@ import Weather from '../weather/Weather';
 import Time from '../time/Time';
 
 const styles = {
-
   paper:{
     height: '100%',
     // width: 100,
