@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { Redirect } from 'react-router-dom';
 import config from '../config.json';
-import Profile from '../profile/Profile';
 import Storage from '../storage';
 
 
@@ -41,10 +40,6 @@ class Login extends Component {
         });
     })
   }
-  // componentDidMount(){
-  //   const token = Storage.getToken()
-  // }
-
 
   render() {
     // if (this.state.checkingToken) return <div>loading</div>
@@ -69,11 +64,5 @@ class Login extends Component {
     );
   }
 }
-
-
-
-
-
-
 
 export default Login
