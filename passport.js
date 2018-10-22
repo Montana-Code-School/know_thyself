@@ -8,8 +8,8 @@ const GoogleTokenStrategy = require('passport-google-token').Strategy;
 module.exports = function () {
   const googOpts = {
     callbackURL: '/auth/google/redirect',
-    clientID: process.env.CLIENT_ID || config.googleAuth.clientID,
-    clientSecret: process.env.CLIENT_SECRET || config.googleAuth.clientSecret
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET
   }
 
     passport.use(new GoogleTokenStrategy(googOpts,
