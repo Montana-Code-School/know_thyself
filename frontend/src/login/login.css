@@ -1,0 +1,44 @@
+body {
+  background-color: #white;
+}
+
+.img1 {
+  background-color: #849974;
+  margin-left: 12px;
+  margin-top: 45px;
+}
+
+.img2 {
+  background-color: #B2B2A2;
+  margin-left: 12px;
+  margin-top: 45px;
+}
+
+.img3 {
+  background-color: #613A43;
+  margin-left: 12px;
+  margin-top: 45px;
+}
+
+.logo {
+  /* background-image: url('../images/lined-paper.jpeg'); */
+  margin-left: -70%;
+  margin-top: -25%;
+  background-position: center;
+  position: absolute;
+  background-repeat: no-repeat;
+
+}
+
+.login {
+  position: relative;
+  background-color: #36384C;
+  color: white;
+  height: 50px;
+  width: 150px;
+  font: Courier;
+  font-family: monospace;
+  position: absolute;
+  left: 44%;
+  top: 46%;
+}

@@ -3,7 +3,7 @@ import { GoogleLogin } from 'react-google-login';
 import { Redirect } from 'react-router-dom';
 import config from '../config.json';
 import Storage from '../storage';
-
+import './Login.css'
 
 class Login extends Component {
   constructor() {
@@ -49,12 +49,28 @@ class Login extends Component {
       ) :
       (
         <div>
-          <GoogleLogin
-            clientId={config.GOOGLE_CLIENT_ID}
-            buttonText="Login"
-            onSuccess={this.googleResponse}
-            onFailure={this.onFailure}
-            />
+            <img className="img1" src={require('../images/person2.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img2" src={require('../images/person3.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img3" src={require('../images/person4.jpg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img2" src={require('../images/person5.jpg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img3" src={require('../images/person9.jpg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img1" src={require('../images/person12.jpg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img2" src={require('../images/person7.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img1" src={require('../images/person13.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img1" src={require('../images/person14.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img2" src={require('../images/person15.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img1" src={require('../images/person16.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img3" src={require('../images/person17.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <GoogleLogin
+              clientId={config.GOOGLE_CLIENT_ID}
+              variant="outlined"
+              buttonText="Login"
+              onSuccess={this.googleResponse}
+              onFailure={this.onFailure}
+              className="login"
+              />
+              <img class="logo" src={require('../images/Logo4.png')}  />
+
         </div>
       );
     return (
