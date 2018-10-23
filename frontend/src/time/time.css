@@ -1,6 +1,5 @@
 .time {
-  display: flex;
-  justify-content: flex-end;
-  font-family: inherit;
-  font-size: 10pt
+  font-size: 10pt;
+  color: #E7DFDD;
+  font-family: K2D, sans-serif;
 }
