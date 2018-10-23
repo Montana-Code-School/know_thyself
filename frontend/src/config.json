@@ -1,3 +1,4 @@
 {
-  "GOOGLE_CLIENT_ID": "406167655077-v2aoo8el9d2952ec45etq99ch1f8dcpg.apps.googleusercontent.com"
+  "GOOGLE_CLIENT_ID": "406167655077-v2aoo8el9d2952ec45etq99ch1f8dcpg.apps.googleusercontent.com",
+  "BASE_URL_DEV": "http://localhost:4001"
 }

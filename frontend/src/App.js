@@ -21,7 +21,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-      fetch('http://localhost:4001/api/prompts')
+      const devUrl = 'http://localhost:4001/api/prompts';
+      const prodUrl = '/api/prompts';
+      fetch(prodUrl)
       .then(blob => blob.json())
       .then(data => this.setState({
         data: data}))
