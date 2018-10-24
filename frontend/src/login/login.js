@@ -6,7 +6,7 @@ import config from '../config.json';
 import Storage from '../storage';
 import Navbar from '../navbar/Navbar'
 import './Login.css'
-import gridBackgroundImage from '../images/background.jpg'
+import gridBackgroundImage from '../images/background.jpg';
 
 const styles = {
   grid: {
@@ -52,6 +52,25 @@ class Login extends Component {
     })
   }
 
+  getEntries() {
+    if (Storage.getToken()) {
+      console.log("has token")
+      fetch('http://localhost:4001/verify/entry', {
+        method: 'GET',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization': `bearer ${Storage.getToken()}`
+        },
+      })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      //below is to set state for prompt to pass to table
+      // .then(res => res.json())
+      // .then(data => this.setState({
+      //   entry: data}))
+    }
+  }
+
   render() {
     // if (this.state.checkingToken) return <div>loading</div>
     let content = !!this.state.isAuthenticated ?
@@ -61,7 +80,6 @@ class Login extends Component {
       (
         <div>
           <Navbar className='Navbar'/>
-
             {/* <img className="img1" src={require('../images/person2.jpeg')} style={{width: 300, height: 200, padding: 5}} />
             <img className="img2" src={require('../images/person3.jpeg')} style={{width: 300, height: 200, padding: 5}} />
             <img className="img3" src={require('../images/person4.jpg')} style={{width: 300, height: 200, padding: 5}} />

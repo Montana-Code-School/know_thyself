@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Login from './login/Login'
-import Profile from './profile/Profile'
-import Storage from './storage'
-
+import Button from '@material-ui/core/Button';
+import Login from './login/Login';
+import Profile from './profile/Profile';
+import Storage from './storage';
 
 class App extends Component {
   constructor(props){
@@ -19,6 +19,8 @@ class App extends Component {
   onDataLoad(data) {
     this.setState({data})
   }
+
+
 
   componentDidMount() {
       fetch('http://localhost:4001/api/prompts')
@@ -74,9 +76,31 @@ class App extends Component {
     }
   }
 
+  getEntries() {
+    if (Storage.getToken()) {
+      console.log("has token")
+      fetch('http://localhost:4001/verify/entry', {
+        method: 'GET',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization': `bearer ${Storage.getToken()}`
+        },
+      })
+      .then(res => res.json())
+      .then(data => console.log(data))
+    }
+  }
+
   render() {
     return (
-
+      <div>
+        <Button
+          onClick={(e) => this.getEntries(e)}
+          // disabled={false}
+          >
+          entries
+        </Button>
+        {/* <SimpleTable params={this.state.data}/> */}
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Login} />
@@ -91,6 +115,7 @@ class App extends Component {
           <Route component={Error}/>
         </Switch>
       </BrowserRouter>
+    </div>
     );
   }
 }

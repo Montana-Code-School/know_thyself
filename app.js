@@ -56,6 +56,15 @@ router.route('/entry')
       })
     console.log(entry)
   })
+router.route('/entry')
+  .get((req, res) => {
+    Entry.find((err, entry) => {
+      console.log(req.user.entries)
+       if (err) res.send(err)
+       res.json(req.user.entries)
+     })
+  });
+
 app.use('/verify', router)
 
 //set up routes
