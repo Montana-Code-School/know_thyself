@@ -114,7 +114,7 @@ class Profile extends Component {
         <Button
           onClick={(e) => this.props.submitEntry(e)}
           disabled={false}
-          color="primary">
+          color="black">
           Submit
         </Button>
       </div>
