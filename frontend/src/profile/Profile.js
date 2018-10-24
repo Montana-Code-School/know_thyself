@@ -5,6 +5,13 @@ import Button from '@material-ui/core/Button';
 import Navbar from '../navbar/Navbar';
 import Weather from '../weather/Weather';
 import Time from '../time/Time';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true
+  }
+})
 
 const styles = {
   paper:{
@@ -89,9 +96,10 @@ class Profile extends Component {
 
 
   render() {
+    console.log(this.props)
     return (
-      <div>
-        <Navbar position="sticky"/>
+      <MuiThemeProvider theme={theme}>
+        <Navbar theme={theme} position="sticky" />
         <Time />
         <Weather />
         <h3>{this.props.prompt()}</h3>
@@ -114,10 +122,10 @@ class Profile extends Component {
         <Button
           onClick={(e) => this.props.submitEntry(e)}
           disabled={false}
-          color="black">
+          >
           Submit
         </Button>
-      </div>
+      </MuiThemeProvider>
     )
   }
 }

@@ -25,7 +25,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 //connect to mongodb
-mongoose.connect(config.mongodb.dbURI, { useNewURLParser: true })
+mongoose.connect(config.mongodb.dbURI, { useNewUrlParser: true, useCreateIndex: true })
 
 // middleware
 app.use(bodyParser.json())
