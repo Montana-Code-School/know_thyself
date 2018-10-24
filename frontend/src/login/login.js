@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { Redirect } from 'react-router-dom';
+import {Typography, Card, Grid , CardContent, CardActions, Button} from '@material-ui/core';
 import config from '../config.json';
 import Storage from '../storage';
+import Navbar from '../navbar/Navbar'
+import './Login.css'
+import gridBackgroundImage from '../images/background.jpg'
 
+const styles = {
+  grid: {
+    backgroundImage: `url(${gridBackgroundImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'bottom'
+  }
+}
 
 class Login extends Component {
   constructor() {
@@ -49,12 +60,64 @@ class Login extends Component {
       ) :
       (
         <div>
-          <GoogleLogin
-            clientId={config.GOOGLE_CLIENT_ID}
-            buttonText="Login"
-            onSuccess={this.googleResponse}
-            onFailure={this.onFailure}
-            />
+          <Navbar className='Navbar'/>
+
+            {/* <img className="img1" src={require('../images/person2.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img2" src={require('../images/person3.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img3" src={require('../images/person4.jpg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img2" src={require('../images/person5.jpg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img3" src={require('../images/person9.jpg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img1" src={require('../images/person12.jpg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img2" src={require('../images/person7.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img1" src={require('../images/person13.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img1" src={require('../images/person14.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img2" src={require('../images/person15.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img1" src={require('../images/person16.jpeg')} style={{width: 300, height: 200, padding: 5}} />
+            <img className="img3" src={require('../images/person17.jpeg')} style={{width: 300, height: 200, padding: 5}} /> */}
+            {/* <GoogleLogin
+              clientId={config.GOOGLE_CLIENT_ID}
+              variant="outlined"
+              buttonText="Sign in with Google"
+              onSuccess={this.googleResponse}
+              onFailure={this.onFailure}
+              className="login"
+              /> */}
+
+              <Grid
+                container
+                  direction="row"
+                  justify="space-around"
+                  alignItems="flex-end"
+                  className="grid"
+                  style={styles.grid}>
+                {/* <img class="logo" src={require('../images/Logo4.png')}  /> */}
+                <Card style={{width: '50%', height: 350, margin: 60}}>
+                </Card>
+                <Card style={{minWidth: '25%', height: 350, margin: 60}}>
+                <CardContent>
+                  <Typography color="textSecondary" gutterBottom>
+                    Welome to Know Thyself
+                  </Typography>
+                  <Typography variant="h6" component="h2">
+                  </Typography>
+                  <Typography color="textSecondary">
+                  </Typography>
+                  <Typography >
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button><GoogleLogin
+                    clientId={config.GOOGLE_CLIENT_ID}
+                    variant="outlined"
+                    buttonText="Sign in with Google"
+                    onSuccess={this.googleResponse}
+                    onFailure={this.onFailure}
+                    className="login"
+                    style={{borderRadius:7}}
+                    /></Button>
+                </CardActions>
+              </Card>
+            </Grid>
         </div>
       );
     return (
