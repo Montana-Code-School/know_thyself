@@ -93,7 +93,7 @@ class NavBar extends React.Component {
   render() {
     const { classes, theme } = this.props;
     const { open } = this.state;
-
+    console.log(this.props)
   return (
     <div >
       <AppBar position="static"
@@ -139,7 +139,7 @@ class NavBar extends React.Component {
             <Divider />
               <List>
                 <ListItem >
-                  <ListItemText>-------Entry-------</ListItemText>
+                  <ListItemText> </ListItemText>
                 </ListItem>
               </List>
               <Divider />

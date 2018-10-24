@@ -26,9 +26,10 @@ class Login extends Component {
       token: ''
      };
   }
-  logout = () => {
-    this.setState({isAuthenticated: false, token: '', user: null})
-  }
+  // logout = () => {
+  //   Storage.logOut()
+  //   this.setState({isAuthenticated: false, token: '', user: null})
+  // }
 
   onFailure = (error) => {
     alert(error);
@@ -46,7 +47,7 @@ class Login extends Component {
         r.json().then(user => {
             if (token) {
                 this.setState({isAuthenticated: true, user, token})
-                Storage.saveToken(token)
+                Storage.logIn(token)
             }
         });
     })

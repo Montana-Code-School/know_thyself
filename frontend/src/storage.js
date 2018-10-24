@@ -6,7 +6,7 @@ const Storage = (function(){
     tokenBlob: true
   }
   return {
-    saveToken(token){
+    logIn(token){
       localStorage.setItem('token', token)
       globalInfo.isAuthenticated = true;
       globalInfo.token = token;
@@ -23,7 +23,16 @@ const Storage = (function(){
       } else {
         return localStorage.getItem('token')
       }
+    },
+    isAuthenticated(){
+      return globalInfo.isAuthenticated
+    },
+    logOut(){
+      localStorage.removeItem('token')
+      globalInfo.isAuthenticated = false;
+      globalInfo.token = '';
     }
+
   }
 })()
 export default Storage

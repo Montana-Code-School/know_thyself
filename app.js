@@ -10,6 +10,7 @@ const auth = require('./routes/auth-routes')
 const index = require('./routes/index');
 const config = require('./config/config');
 const Entry = require('./models/entry-model').entry
+const User = require('./models/user-model')
 
 let corsOption = {
     origin: true,
@@ -58,11 +59,21 @@ router.route('/entry')
   })
 router.route('/entry')
   .get((req, res) => {
-    Entry.find((err, entry) => {
-      console.log(req.user.entries)
-       if (err) res.send(err)
-       res.json(req.user.entries)
-     })
+    if (!req.user) console.log('you shall not pass!')
+    User.findById(req.user, (err, user) => {
+        if (err) res.send(err);
+      })
+      .populate('entries')
+      .exec((err, user) => {
+        console.log(user)
+        if (err) res.send(err)
+        res.json(user.entries)
+      })
+    // Entry.find((err, entry) => {
+    //   console.log(entry)
+    //    if (err) res.send(err)
+    //    res.json(entry)
+    //  })
   });
 
 app.use('/verify', router)
