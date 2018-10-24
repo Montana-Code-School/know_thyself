@@ -52,11 +52,33 @@ class Weather extends React.Component {
 
 
   render() {
+<<<<<<< HEAD
 
     return (
           <p className='weather'>{this.state.location} - {this.state.weather.main} - {(this.state.temp * (9/5) + 32).toFixed(0)} &#176;</p>
+=======
+    // let hr = new Date().getHours()
+    // let tod = (hr >= 17) ? 'night' : 'day';
+
+    return (
+          <p className="weather">{this.state.location} - {this.state.weather.main} - {(this.state.temp * (9/5) + 32).toFixed(0)} &#176;</p>
+>>>>>>> 07cd3c53a4f4faad8e2312bb62a40069cea3b34d
     );
   }
 }
 
 export default Weather
+<<<<<<< HEAD
+=======
+
+// class SwitchFormat extends React.Component {
+//
+//   handleChange(e) {
+//     this.props.changeFormat(e.target.value);
+//   }
+//
+//   render() {
+//     return <button value={this.props.format} onClick={this.handleChange.bind(this)}>Change format</button>;
+//   }
+// }
+>>>>>>> 07cd3c53a4f4faad8e2312bb62a40069cea3b34d

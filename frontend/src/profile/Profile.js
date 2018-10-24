@@ -7,7 +7,6 @@ import './Profile.css'
 
 
 const styles = {
-
   paper:{
     height: '100%',
     // width: 100,
@@ -23,6 +22,7 @@ const styles = {
 };
 
 class Profile extends Component {
+<<<<<<< HEAD
 //   // gets list of prompts from backend
 //   componentDidMount() {
 //       fetch('http://localhost:4001/api/prompts')
@@ -36,6 +36,64 @@ class Profile extends Component {
 //     } else
 //       return true
 //   }
+=======
+// gets list of prompts from backend
+  // componentDidMount() {
+  //     fetch('http://localhost:4001/api/prompts')
+  //     .then(blob => blob.json())
+  //     .then(data => this.props.onDataLoad(data))
+  // }
+  //
+  // shouldComponentUpdate(nextProps) {
+  //   console.log("should component update")
+  //   if (this.props.data.length) {
+  //     return false
+  //   } else
+  //     return true
+  // }
+  //
+  // getRandomPrompt() {
+  //   console.log("get random prompt", this.props.data)
+  //   const {data} = this.props
+  //   if (!data.length) return "loading"
+  //   const randomIndex = Math.floor(Math.random() * data.length)
+  //   const randomName = data[randomIndex].body
+  //   const randomId = data[randomIndex]._id;
+  //   console.log(randomName)
+  //   return data[randomIndex].body
+  // }
+
+  // handleSubmit() {
+  //   console.log(this.randomName)
+  //   if (Storage.getToken()) {
+  //     console.log(this.props.data)
+  //     const input = {
+  //       body: this.props.value,
+  //       title: this.props.data.body
+  //     }
+  //     fetch('http://localhost:4001/verify/entry', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-type' : 'application/json',
+  //         'Authorization': `bearer ${Storage.getToken()}`
+  //       },
+  //       body: JSON.stringify(input),
+  //       title: JSON.stringify(input)
+  //     })
+  //     .then(res => res.json())
+  //     .then(data => console.log(data))
+  //   }
+  // }
+
+
+
+  // shouldComponentUpdate(nextProps) {
+  //   if (this.props.data.length) {
+  //     return false
+  //   } else
+  //     return true
+  // }
+>>>>>>> 07cd3c53a4f4faad8e2312bb62a40069cea3b34d
 
   // returns a random prompt in <paper> label on page load
   // getRandomPrompt() {
@@ -44,12 +102,22 @@ class Profile extends Component {
   //   const randomIndex = Math.floor(Math.random() * data.length)
   //   return data[randomIndex].body
   // }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 07cd3c53a4f4faad8e2312bb62a40069cea3b34d
 
   render() {
     return (
       <div>
         <Navbar position="sticky"/>
+<<<<<<< HEAD
         <h3 className='prompt'>{this.props.randomPrompt()}</h3>
+=======
+        <Time />
+        <Weather />
+        <h3>{this.props.prompt()}</h3>
+>>>>>>> 07cd3c53a4f4faad8e2312bb62a40069cea3b34d
         <Paper style={styles.paper}>
           <TextField
             onChange={(e) => this.props.entryContent(e)}
@@ -69,7 +137,7 @@ class Profile extends Component {
         <Button
           onClick={(e) => this.props.submitEntry(e)}
           disabled={false}
-          color="primary">
+          color="black">
           Submit
         </Button>
       </div>

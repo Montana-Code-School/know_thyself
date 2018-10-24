@@ -1,6 +1,12 @@
 .time {
+<<<<<<< HEAD
   color: white;
   font-size: 10pt;
   font-family: Roboto; 
 
+=======
+  font-size: 10pt;
+  color: #E7DFDD;
+  font-family: K2D, sans-serif;
+>>>>>>> 07cd3c53a4f4faad8e2312bb62a40069cea3b34d
 }
