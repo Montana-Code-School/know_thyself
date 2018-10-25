@@ -25,7 +25,7 @@ const Storage = (function(){
       }
     },
     isAuthenticated(){
-      return globalInfo.isAuthenticated
+      return !!localStorage.getItem('token')
     },
     logOut(){
       localStorage.removeItem('token')

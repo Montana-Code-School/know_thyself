@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { Redirect } from 'react-router-dom';
-import {Typography, Card, Grid , CardContent, CardActions, Button} from '@material-ui/core';
+import {Typography, Card, Grid , CardContent, CardActions } from '@material-ui/core';
 import config from '../config.json';
 import Storage from '../storage';
-import Navbar from '../navbar/Navbar'
+// import Navbar from '../navbar/Navbar'
 import './Login.css'
 import gridBackgroundImage from '../images/background.jpg';
 
@@ -104,7 +104,7 @@ class Login extends Component {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button><GoogleLogin
+                  <GoogleLogin
                     clientId={config.GOOGLE_CLIENT_ID}
                     variant="outlined"
                     buttonText="Sign in with Google"
@@ -112,7 +112,7 @@ class Login extends Component {
                     onFailure={this.onFailure}
                     className="login"
                     style={{borderRadius:7}}
-                    /></Button>
+                  />
                 </CardActions>
               </Card>
             </Grid>

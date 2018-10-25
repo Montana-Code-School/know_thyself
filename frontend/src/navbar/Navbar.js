@@ -12,7 +12,6 @@ import './Navbar.css'
 
 const drawerWidth = 110;
 
-
 const styles = theme => ({
 paper: { },
 root: {
@@ -73,7 +72,6 @@ contentShift: {
 });
 
 
-
 class NavBar extends React.Component {
 
   state = {
@@ -81,8 +79,6 @@ class NavBar extends React.Component {
   };
 
   handleDrawerOpen = () => {
-      console.log('it got clicked')
-
       this.setState({ open: true });
     };
 
@@ -91,9 +87,8 @@ class NavBar extends React.Component {
     };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, entries } = this.props;
     const { open } = this.state;
-    const { entries } = this.props
   return (
     <div >
       <AppBar position="static"
@@ -114,7 +109,6 @@ class NavBar extends React.Component {
           <div style={{flex: "1", alignItems: "flex-end", flexDirection: "column", display: "flex"}}>
             <Time />
             <Weather />
-
           </div>
         </Toolbar>
       </AppBar>
@@ -130,7 +124,6 @@ class NavBar extends React.Component {
               <List>
                 <ListItem>
                   <ListItemText>Recent User Entries</ListItemText>
-
               <IconButton onClick={this.handleDrawerClose}>
                 <ChevronLeftIcon />
               </IconButton>
@@ -139,15 +132,14 @@ class NavBar extends React.Component {
             </div>
             <div>
               {entries.map(entry =>
-                <List>
-                  <ListItem >
-                    <ListItemText onClick={(e) => this.props.revealEntry(e)} key={entry.id}>{entry.createdAt}</ListItemText>
+                <List key={entry._id}>
+                  <ListItem key={entry._id}>
+                    <ListItemText key={entry._id} onClick={(e) => this.props.revealEntry(e)} >{entry.createdAt}</ListItemText>
                   </ListItem>
                 </List>
               )}
             </div>
       </Drawer>
-
     </div>
   );
   }

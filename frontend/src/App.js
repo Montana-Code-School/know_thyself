@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
 import Login from './login/Login';
 import Profile from './profile/Profile';
-import Storage from './storage';
 import PrivateRoute from './PrivateRoute';
 
 class App extends Component {
