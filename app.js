@@ -10,6 +10,7 @@ const auth = require('./routes/auth-routes')
 const index = require('./routes/index');
 const config = require('./config/config');
 const Entry = require('./models/entry-model').entry
+const User = require('./models/user-model')
 
 let corsOption = {
     origin: true,
@@ -25,7 +26,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 //connect to mongodb
-mongoose.connect(config.mongodb.dbURI, { useNewURLParser: true })
+mongoose.connect(config.mongodb.dbURI, { useNewUrlParser: true, useCreateIndex: true })
 
 // middleware
 app.use(bodyParser.json())
@@ -56,6 +57,25 @@ router.route('/entry')
       })
     console.log(entry)
   })
+router.route('/entry')
+  .get((req, res) => {
+    if (!req.user) console.log('you shall not pass!')
+    User.findById(req.user, (err, user) => {
+        if (err) res.send(err);
+      })
+      .populate('entries')
+      .exec((err, user) => {
+        console.log(user)
+        if (err) res.send(err)
+        res.json(user.entries)
+      })
+    // Entry.find((err, entry) => {
+    //   console.log(entry)
+    //    if (err) res.send(err)
+    //    res.json(entry)
+    //  })
+  });
+
 app.use('/verify', router)
 
 //set up routes
