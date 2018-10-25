@@ -93,7 +93,7 @@ class NavBar extends React.Component {
   render() {
     const { classes, theme } = this.props;
     const { open } = this.state;
-    console.log(this.props)
+    const { entries } = this.props
   return (
     <div >
       <AppBar position="static"
@@ -123,6 +123,7 @@ class NavBar extends React.Component {
           variant="persistent"
           anchor="left"
           open={open}
+          style={{maxWidth: '20%'}}
           classes={{
           }}>
             <div className={classes.drawerHeader}>
@@ -136,30 +137,15 @@ class NavBar extends React.Component {
                 </ListItem>
               </List>
             </div>
-            <Divider />
-              <List>
-                <ListItem >
-                  <ListItemText> </ListItemText>
-                </ListItem>
-              </List>
-              <Divider />
-              <List>
-                <ListItem>
-                  <ListItemText>-------Entry-------</ListItemText>
-                </ListItem>
-              </List>
-              <Divider />
-              <List>
-                <ListItem>
-                  <ListItemText>-------Entry-------</ListItemText>
-                </ListItem>
-              </List>
-              <Divider />
-              <List>
-                <ListItem>
-                  <ListItemText>-------Entry-------</ListItemText>
-                </ListItem>
-              </List>
+            <div>
+              {entries.map(entry =>
+                <List>
+                  <ListItem >
+                    <ListItemText onClick={(e) => this.props.revealEntry(e)} key={entry.id}>{entry.createdAt}</ListItemText>
+                  </ListItem>
+                </List>
+              )}
+            </div>
       </Drawer>
 
     </div>

@@ -26,10 +26,10 @@ class Login extends Component {
       token: ''
      };
   }
-  // logout = () => {
-  //   Storage.logOut()
-  //   this.setState({isAuthenticated: false, token: '', user: null})
-  // }
+  logout = () => {
+    Storage.logOut()
+    this.setState({isAuthenticated: false, token: '', user: null})
+  }
 
   onFailure = (error) => {
     alert(error);
@@ -80,28 +80,7 @@ class Login extends Component {
       ) :
       (
         <div>
-          <Navbar className='Navbar'/>
-            {/* <img className="img1" src={require('../images/person2.jpeg')} style={{width: 300, height: 200, padding: 5}} />
-            <img className="img2" src={require('../images/person3.jpeg')} style={{width: 300, height: 200, padding: 5}} />
-            <img className="img3" src={require('../images/person4.jpg')} style={{width: 300, height: 200, padding: 5}} />
-            <img className="img2" src={require('../images/person5.jpg')} style={{width: 300, height: 200, padding: 5}} />
-            <img className="img3" src={require('../images/person9.jpg')} style={{width: 300, height: 200, padding: 5}} />
-            <img className="img1" src={require('../images/person12.jpg')} style={{width: 300, height: 200, padding: 5}} />
-            <img className="img2" src={require('../images/person7.jpeg')} style={{width: 300, height: 200, padding: 5}} />
-            <img className="img1" src={require('../images/person13.jpeg')} style={{width: 300, height: 200, padding: 5}} />
-            <img className="img1" src={require('../images/person14.jpeg')} style={{width: 300, height: 200, padding: 5}} />
-            <img className="img2" src={require('../images/person15.jpeg')} style={{width: 300, height: 200, padding: 5}} />
-            <img className="img1" src={require('../images/person16.jpeg')} style={{width: 300, height: 200, padding: 5}} />
-            <img className="img3" src={require('../images/person17.jpeg')} style={{width: 300, height: 200, padding: 5}} /> */}
-            {/* <GoogleLogin
-              clientId={config.GOOGLE_CLIENT_ID}
-              variant="outlined"
-              buttonText="Sign in with Google"
-              onSuccess={this.googleResponse}
-              onFailure={this.onFailure}
-              className="login"
-              /> */}
-
+          {/* <Navbar className='Navbar'/> */}
               <Grid
                 container
                   direction="row"

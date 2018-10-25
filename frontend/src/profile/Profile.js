@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { Paper, TextField, Button} from '@material-ui/core';
 import Navbar from '../navbar/Navbar';
 import Weather from '../weather/Weather';
 import Time from '../time/Time';
@@ -40,7 +38,6 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    console.log("in componentDidMount")
     const promptsFetch = fetch('http://localhost:4001/api/prompts')
     const entriesFetch = fetch('http://localhost:4001/verify/entry', {
       method: 'GET',
@@ -51,7 +48,6 @@ class Profile extends Component {
     })
     Promise.all([promptsFetch, entriesFetch])
       .then((results) => {
-        console.log(results)
         const promptsBlob = results[0].json()
         const entriesBlob = results[1].json()
         Promise.all([promptsBlob, entriesBlob])
@@ -72,6 +68,9 @@ class Profile extends Component {
       return true
   }
 
+  revealEntry(event) {
+    console.log(event.target)
+  }
 
   handleChange(event) {
     this.setState({
@@ -92,9 +91,7 @@ class Profile extends Component {
 
 
   handleSubmit() {
-    console.log(this.state.prompt)
     if (Storage.getToken()) {
-      console.log(this.state.data)
       const input = {
         body: this.state.value,
         title: this.state.prompt
@@ -134,19 +131,19 @@ class Profile extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <Navbar entries={this.state.entries} theme={theme} position="sticky" />
+        <Navbar entries={this.state.entries} theme={theme} position="sticky" revealEntry={this.revealEntry.bind(this)}/>
         <Time />
         <Weather />
         <h3>{this.getRandomPrompt()}</h3>
         <Paper style={styles.paper}>
           <TextField
+            fullWidth={false}
             onChange={(e) => this.handleChange(e)}
             id="filled-full-width"
             multiline={true}
             rowsMax={30}
             style={styles.textfield}
             placeholder="Put your words in me..."
-            fullWidth
             margin="normal"
             variant="standard"
             InputLabelProps={{
