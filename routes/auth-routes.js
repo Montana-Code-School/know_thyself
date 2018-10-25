@@ -3,6 +3,7 @@ const config = require('../config/config')
 const User = require('../models/user-model')
 
 module.exports = (req, res, next) => {
+  console.log("authorization")
   if(!req.headers.authorization) {
     res.status(401).end()
   }

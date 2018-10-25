@@ -36,18 +36,18 @@ UserSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profil
         googleProvider: {
           id: profile.id,
           token: accessToken
-            }
-          });
-
-          newUser.save(function(error, savedUser) {
-            if (error) {
-              console.log(error);
-            }
-            return cb(error, savedUser);
-          });
-      } else {
-        return cb(err, user);
+        }
+      });
+      newUser.save(function(error, savedUser) {
+        if (error) {
+          console.log(error);
+        }
+        return cb(error, savedUser);
+      });
       }
+    else {
+      return cb(err, user);
+    }
   });
 };
 

@@ -43,84 +43,61 @@ class Login extends Component {
       cache: 'default'
     }
     fetch('http://localhost:4001/api/v1/auth/google', options).then(r => {
-        const token = r.headers.get('x-auth-token');
-        r.json().then(user => {
-            if (token) {
-                this.setState({isAuthenticated: true, user, token})
-                Storage.logIn(token)
-            }
-        });
+      const token = r.headers.get('x-auth-token');
+      r.json().then(user => {
+        if (token) {
+          Storage.logIn(token)
+          this.setState({isAuthenticated: true, user, token})
+        }
+      });
     })
   }
 
-  getEntries() {
-    if (Storage.getToken()) {
-      console.log("has token")
-      fetch('http://localhost:4001/verify/entry', {
-        method: 'GET',
-        headers: {
-          'Content-type' : 'application/json',
-          'Authorization': `bearer ${Storage.getToken()}`
-        },
-      })
-      .then(res => res.json())
-      .then(data => console.log(data))
-      //below is to set state for prompt to pass to table
-      // .then(res => res.json())
-      // .then(data => this.setState({
-      //   entry: data}))
-    }
-  }
-
   render() {
-    // if (this.state.checkingToken) return <div>loading</div>
     let content = !!this.state.isAuthenticated ?
       (
         <Redirect to="/profile" />
-      ) :
-      (
+      ) : (
         <div>
-          {/* <Navbar className='Navbar'/> */}
-              <Grid
-                container
-                  direction="row"
-                  justify="space-around"
-                  alignItems="flex-end"
-                  className="grid"
-                  style={styles.grid}>
-                {/* <img class="logo" src={require('../images/Logo4.png')}  /> */}
-                <Card style={{width: '50%', height: 350, margin: 60}}>
-                </Card>
-                <Card style={{minWidth: '25%', height: 350, margin: 60}}>
-                <CardContent>
-                  <Typography color="textSecondary" gutterBottom>
-                    Welome to Know Thyself
-                  </Typography>
-                  <Typography variant="h6" component="h2">
-                  </Typography>
-                  <Typography color="textSecondary">
-                  </Typography>
-                  <Typography >
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <GoogleLogin
-                    clientId={config.GOOGLE_CLIENT_ID}
-                    variant="outlined"
-                    buttonText="Sign in with Google"
-                    onSuccess={this.googleResponse}
-                    onFailure={this.onFailure}
-                    className="login"
-                    style={{borderRadius:7}}
-                  />
-                </CardActions>
-              </Card>
-            </Grid>
-        </div>
-      );
+          <Grid
+            container
+              direction="row"
+              justify="space-around"
+              alignItems="flex-end"
+              className="grid"
+              style={styles.grid}>
+            <Card style={{width: '50%', height: 350, margin: 60}}>
+            </Card>
+            <Card style={{minWidth: '25%', height: 350, margin: 60}}>
+            <CardContent>
+              <Typography color="textSecondary" gutterBottom>
+                Welome to Know Thyself
+              </Typography>
+              <Typography variant="h6" component="h2">
+              </Typography>
+              <Typography color="textSecondary">
+              </Typography>
+              <Typography >
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <GoogleLogin
+                clientId={config.GOOGLE_CLIENT_ID}
+                variant="outlined"
+                buttonText="Sign in with Google"
+                onSuccess={this.googleResponse}
+                onFailure={this.onFailure}
+                className="login"
+                style={{borderRadius:7}}
+              />
+            </CardActions>
+          </Card>
+        </Grid>
+      </div>
+    );
     return (
       <div className="App">
-          {content}
+        {content}
       </div>
     );
   }

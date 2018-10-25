@@ -15,9 +15,6 @@ const theme = createMuiTheme({
 const styles = {
   paper:{
     height: '100%',
-    // width: 100,
-    // margin: 5,
-    // textAlign: 'center',
     display: 'flex',
     justifyContent: 'center'
   },
@@ -68,10 +65,6 @@ class Profile extends Component {
       return true
   }
 
-  revealEntry(event) {
-    console.log(event.target)
-  }
-
   handleChange(event) {
     this.setState({
       value: event.target.value
@@ -88,7 +81,6 @@ class Profile extends Component {
     })
     return prompts[randomIndex].body
   }
-
 
   handleSubmit() {
     if (Storage.getToken()) {
@@ -127,11 +119,10 @@ class Profile extends Component {
     }
   }
 
-
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <Navbar entries={this.state.entries} theme={theme} position="sticky" revealEntry={this.revealEntry.bind(this)}/>
+        <Navbar entries={this.state.entries} theme={theme} position="sticky"/>
         <Time />
         <Weather />
         <h3>{this.getRandomPrompt()}</h3>

@@ -32,7 +32,7 @@ const Storage = (function(){
       globalInfo.isAuthenticated = false;
       globalInfo.token = '';
     }
-
   }
 })()
+
 export default Storage

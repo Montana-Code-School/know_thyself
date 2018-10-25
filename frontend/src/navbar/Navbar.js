@@ -9,8 +9,7 @@ import Time from '../time/Time'
 import Weather from '../weather/Weather'
 import './Navbar.css'
 
-
-const drawerWidth = 110;
+const drawerWidth = 200;
 
 const styles = theme => ({
 paper: { },
@@ -42,6 +41,7 @@ hide: {
 drawer: {
   width: drawerWidth,
   flexShrink: 0,
+  overflow: 'hidden'
 },
 drawerPaper: {
   width: drawerWidth,
@@ -71,77 +71,77 @@ contentShift: {
   },
 });
 
-
 class NavBar extends React.Component {
-
   state = {
     open: false,
   };
 
   handleDrawerOpen = () => {
-      this.setState({ open: true });
-    };
+    this.setState({ open: true });
+  };
 
-    handleDrawerClose = () => {
-      this.setState({ open: false });
-    };
+  handleDrawerClose = () => {
+    this.setState({ open: false });
+  };
+
+  //click event to handle panel redirect
+  revealEntry(event) {
+    console.log(event.target)
+  }
 
   render() {
     const { classes, entries } = this.props;
     const { open } = this.state;
-  return (
-    <div >
-      <AppBar position="static"
-        className={classNames(classes.appBar, {
-            [classes.appBarShift]: open,
+    return (
+      <div >
+        <AppBar position="static"
+          className={classNames(classes.appBar, {
+              [classes.appBarShift]: open,
           })}>
-        <Toolbar className="toolbar" variant="dense" disableGutters={!open}>
-          <IconButton
+          <Toolbar className="toolbar" variant="dense" disableGutters={!open}>
+            <IconButton
               className={classNames(classes.menuButton, open && classes.hide)}
               color="inherit"
               aria-label="Menu"
               onClick={this.handleDrawerOpen}>
-            <MenuIcon />
-          </IconButton>
-          <Typography noWrap style={{fontFamily: "'Satisfy', cursive", color: "#E7DFDD"}} variant="h4">
-            Know Thyself
-          </Typography>
-          <div style={{flex: "1", alignItems: "flex-end", flexDirection: "column", display: "flex"}}>
-            <Time />
-            <Weather />
-          </div>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className='drawer'
+              <MenuIcon />
+            </IconButton>
+            <Typography noWrap style={{fontFamily: "'Satisfy', cursive", color: "#E7DFDD"}} variant="h4">
+              Know Thyself
+            </Typography>
+            <div style={{flex: "1", alignItems: "flex-end", flexDirection: "column", display: "flex"}}>
+              <Time />
+              <Weather />
+            </div>
+          </Toolbar>
+        </AppBar>
+        <Drawer
           variant="persistent"
           anchor="left"
           open={open}
-          style={{maxWidth: '20%'}}
-          classes={{
-          }}>
-            <div className={classes.drawerHeader}>
+          className="drawer"
+          >
+          <div className={classes.drawerHeader}>
+            <List>
+              <ListItem>
+                <ListItemText>Recent User Entries</ListItemText>
+                <IconButton onClick={this.handleDrawerClose}>
+                  <ChevronLeftIcon />
+                </IconButton>
+              </ListItem>
+            </List>
+          </div>
+          <Divider />
               <List>
-                <ListItem>
-                  <ListItemText>Recent User Entries</ListItemText>
-              <IconButton onClick={this.handleDrawerClose}>
-                <ChevronLeftIcon />
-              </IconButton>
-                </ListItem>
-              </List>
-            </div>
-            <div>
-              {entries.map(entry =>
-                <List key={entry._id}>
+                {entries.map(entry => (
                   <ListItem key={entry._id}>
-                    <ListItemText key={entry._id} onClick={(e) => this.props.revealEntry(e)} >{entry.createdAt}</ListItemText>
+                    <ListItemText style={{maxWidth:200, textOverflow:'ellipsis', whiteSpace:'nowrap', overflow: 'hidden'}} key={entry._id} onClick={(e) => this.revealEntry(e)} >{entry.createdAt}</ListItemText>
                   </ListItem>
-                </List>
-              )}
-            </div>
-      </Drawer>
-    </div>
-  );
+                ))}
+               </List>
+        </Drawer>
+      </div>
+    );
   }
 }
 

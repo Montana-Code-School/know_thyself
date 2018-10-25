@@ -5,10 +5,6 @@ import Profile from './profile/Profile';
 import PrivateRoute from './PrivateRoute';
 
 class App extends Component {
-
-
-
-
   render() {
     return (
       <BrowserRouter>
@@ -17,8 +13,9 @@ class App extends Component {
           <PrivateRoute path="/profile" component={Profile} />
           <Route component={Error}/>
         </Switch>
-      </BrowserRouter>);
-    }
+      </BrowserRouter>
+    );
   }
+}
 
 export default App;
