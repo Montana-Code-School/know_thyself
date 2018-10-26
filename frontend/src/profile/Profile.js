@@ -5,6 +5,7 @@ import Weather from '../weather/Weather';
 import Time from '../time/Time';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Storage from '../storage'
+import './Profile.css'
 
 const theme = createMuiTheme({
   typography: {
@@ -16,7 +17,8 @@ const styles = {
   paper:{
     height: '100%',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    margin: '0 12% 0 12%'
   },
   textfield:{
     height: '100%',
@@ -143,6 +145,7 @@ class Profile extends Component {
           />
         </Paper>
         <Button
+          className='submit'
           onClick={(e) => this.handleSubmit(e)}
           disabled={false}
           >
