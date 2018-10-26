@@ -1,12 +1,13 @@
 {
-  "name": "oauth-playlist",
+  "name": "know_thyself",
   "version": "1.0.0",
-  "description": "Whatever this is",
+  "description": "Know Thyself Backend",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "./node_modules/nodemon/bin/nodemon.js server"
+    "dev": "./node_modules/nodemon/bin/nodemon.js server",
+    "heroku-postbuild": "cd frontend/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "cors": "^2.8.4",
     "dateformat": "^3.0.3",
     "debug": "^4.1.0",
+    "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "express-server-utils": "^1.1.0",

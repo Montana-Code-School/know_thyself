@@ -37,15 +37,21 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const promptsFetch = fetch('http://localhost:4001/api/prompts')
-    const entriesFetch = fetch('http://localhost:4001/verify/entry', {
+    if (process.env.NODE_ENV === 'development') {
+      const promptsFetch = fetch('http://localhost:4001/api/prompts')
+      const entriesFetch = fetch('http://localhost:4001/verify/entry')
+    } else {
+      const promptsFetch = fetch('/api/prompts');
+      const entriesFetch = fetch('/verify/entry');
+    }
+   {
       method: 'GET',
       headers: {
         'Content-type' : 'application/json',
         'Authorization': `bearer ${Storage.getToken()}`
       }
     })
-    Promise.all([promptsFetch, entriesFetch])
+    Promise.all([promptsFetch , entriesFetch])
       .then((results) => {
         const promptsBlob = results[0].json()
         const entriesBlob = results[1].json()

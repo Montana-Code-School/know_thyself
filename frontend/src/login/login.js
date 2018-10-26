@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import {Typography, Card, Grid , CardContent, CardActions } from '@material-ui/core';
 import config from '../config.json';
 import Storage from '../storage';
-// import Navbar from '../navbar/Navbar'
 import './Login.css'
 import gridBackgroundImage from '../images/background.jpg';
 
