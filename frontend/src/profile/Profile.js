@@ -120,9 +120,11 @@ class Profile extends Component {
   }
 
   render() {
+    console.log(this.props
+    )
     return (
       <MuiThemeProvider theme={theme}>
-        <Navbar entries={this.state.entries} theme={theme} position="sticky"/>
+        <Navbar path={this.props.location.pathname} entries={this.state.entries} theme={theme} position="sticky"/>
         <Time />
         <Weather />
         <h3>{this.getRandomPrompt()}</h3>
