@@ -37,20 +37,28 @@ class Profile extends Component {
   }
 
   componentDidMount() {
+    let promptsFetch, entriesFetch
     if (process.env.NODE_ENV === 'development') {
-      const promptsFetch = fetch('http://localhost:4001/api/prompts')
-      const entriesFetch = fetch('http://localhost:4001/verify/entry')
+       promptsFetch = fetch('http://localhost:4001/api/prompts')
+       entriesFetch = fetch('http://localhost:4001/verify/entry',
+      {
+         method: 'GET',
+         headers: {
+           'Content-type' : 'application/json',
+           'Authorization': `bearer ${Storage.getToken()}`
+         }
+       })
     } else {
-      const promptsFetch = fetch('/api/prompts');
-      const entriesFetch = fetch('/verify/entry');
+       promptsFetch = fetch('/api/prompts');
+       entriesFetch = fetch('/verify/entry',
+      {
+        method: 'GET',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization': `bearer ${Storage.getToken()}`
+          }
+      })
     }
-   {
-      method: 'GET',
-      headers: {
-        'Content-type' : 'application/json',
-        'Authorization': `bearer ${Storage.getToken()}`
-      }
-    })
     Promise.all([promptsFetch , entriesFetch])
       .then((results) => {
         const promptsBlob = results[0].json()
@@ -96,7 +104,11 @@ class Profile extends Component {
         body: this.state.value,
         title: this.state.prompt
       }
-      fetch('http://localhost:4001/verify/entry', {
+      let pathname = '/verify/entry'
+      if (process.env.NODE_ENV === 'development') {
+        pathname=`http://localhost:4001${pathname}`
+      }
+      fetch( pathname, {
         method: 'POST',
         headers: {
           'Content-type' : 'application/json',
@@ -112,7 +124,11 @@ class Profile extends Component {
 
   getEntries() {
     if (Storage.getToken()) {
-      fetch('http://localhost:4001/verify/entry', {
+      let pathname = '/verify/entry'
+      if (process.env.NODE_ENV === 'development') {
+        pathname=`http://localhost:4001${pathname}`
+      }
+      fetch( pathname, {
         method: 'GET',
         headers: {
           'Content-type' : 'application/json',
