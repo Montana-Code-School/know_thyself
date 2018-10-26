@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { Paper, TextField, Button} from '@material-ui/core';
 import Navbar from '../navbar/Navbar';
 import Weather from '../weather/Weather';
 import Time from '../time/Time';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import Storage from '../storage'
+
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true
+  }
+})
 
 const styles = {
   paper:{
     height: '100%',
-    // width: 100,
-    // margin: 5,
-    // textAlign: 'center',
     display: 'flex',
     justifyContent: 'center'
   },
@@ -22,88 +25,116 @@ const styles = {
 };
 
 class Profile extends Component {
-// gets list of prompts from backend
-  // componentDidMount() {
-  //     fetch('http://localhost:4001/api/prompts')
-  //     .then(blob => blob.json())
-  //     .then(data => this.props.onDataLoad(data))
-  // }
-  //
-  // shouldComponentUpdate(nextProps) {
-  //   console.log("should component update")
-  //   if (this.props.data.length) {
-  //     return false
-  //   } else
-  //     return true
-  // }
-  //
-  // getRandomPrompt() {
-  //   console.log("get random prompt", this.props.data)
-  //   const {data} = this.props
-  //   if (!data.length) return "loading"
-  //   const randomIndex = Math.floor(Math.random() * data.length)
-  //   const randomName = data[randomIndex].body
-  //   const randomId = data[randomIndex]._id;
-  //   console.log(randomName)
-  //   return data[randomIndex].body
-  // }
 
-  // handleSubmit() {
-  //   console.log(this.randomName)
-  //   if (Storage.getToken()) {
-  //     console.log(this.props.data)
-  //     const input = {
-  //       body: this.props.value,
-  //       title: this.props.data.body
-  //     }
-  //     fetch('http://localhost:4001/verify/entry', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-type' : 'application/json',
-  //         'Authorization': `bearer ${Storage.getToken()}`
-  //       },
-  //       body: JSON.stringify(input),
-  //       title: JSON.stringify(input)
-  //     })
-  //     .then(res => res.json())
-  //     .then(data => console.log(data))
-  //   }
-  // }
+  state = {
+    prompts: [],
+    value: '',
+    entry: '',
+    prompt: '',
+    entries: []
+  }
 
+  componentDidMount() {
+    const promptsFetch = fetch('http://localhost:4001/api/prompts')
+    const entriesFetch = fetch('http://localhost:4001/verify/entry', {
+      method: 'GET',
+      headers: {
+        'Content-type' : 'application/json',
+        'Authorization': `bearer ${Storage.getToken()}`
+      }
+    })
+    Promise.all([promptsFetch, entriesFetch])
+      .then((results) => {
+        const promptsBlob = results[0].json()
+        const entriesBlob = results[1].json()
+        Promise.all([promptsBlob, entriesBlob])
+          .then((results) => {
+            this.setState({
+              prompts: results[0],
+              entries: results[1]
+            })
+          })
+      })
+      .catch((err) => console.log(err))
+  }
 
+  shouldComponentUpdate(nextProps) {
+    if (this.state.prompts.length) {
+      return false
+    } else
+      return true
+  }
 
-  // shouldComponentUpdate(nextProps) {
-  //   if (this.props.data.length) {
-  //     return false
-  //   } else
-  //     return true
-  // }
+  handleChange(event) {
+    this.setState({
+      value: event.target.value
+    })
+  }
 
-  // returns a random prompt in <paper> label on page load
-  // getRandomPrompt() {
-  //   const {data} = this.props
-  //   if (!data.length) return "loading"
-  //   const randomIndex = Math.floor(Math.random() * data.length)
-  //   return data[randomIndex].body
-  // }
+  getRandomPrompt() {
+    const {prompts} = this.state
+    if (!prompts.length) return "loading"
+    const randomIndex = Math.floor(Math.random() * prompts.length)
+    const randomName = prompts[randomIndex].body
+    this.setState({
+      prompt: randomName
+    })
+    return prompts[randomIndex].body
+  }
 
+  handleSubmit() {
+    if (Storage.getToken()) {
+      const input = {
+        body: this.state.value,
+        title: this.state.prompt
+      }
+      fetch('http://localhost:4001/verify/entry', {
+        method: 'POST',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization': `bearer ${Storage.getToken()}`
+        },
+        body: JSON.stringify(input),
+        title: JSON.stringify(input)
+      })
+      .then(res => res.json())
+      .then(data => console.log(data))
+    }
+  }
+
+  getEntries() {
+    if (Storage.getToken()) {
+      fetch('http://localhost:4001/verify/entry', {
+        method: 'GET',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization': `bearer ${Storage.getToken()}`
+        },
+      })
+      .then(res => res.json())
+      .then(data => this.setState({
+        entries: data
+      })
+    )
+    }
+  }
 
   render() {
     return (
-      <div>
-        <Navbar position="sticky"/>
+      <MuiThemeProvider theme={theme}>
+        <Navbar entries={this.state.entries} theme={theme} position="sticky"/>
         <Time />
         <Weather />
-        <h3>{this.props.prompt()}</h3>
+        <h3>{this.getRandomPrompt()}</h3>
         <Paper style={styles.paper}>
           <TextField
-            onChange={(e) => this.props.entryContent(e)}
+            fullWidth={false}
+            onChange={(e) => this.handleChange(e)}
             id="filled-full-width"
             multiline={true}
             rowsMax={30}
             style={styles.textfield}
             placeholder="Put your words in me..."
-            fullWidth
             margin="normal"
             variant="standard"
             InputLabelProps={{
@@ -112,12 +143,12 @@ class Profile extends Component {
           />
         </Paper>
         <Button
-          onClick={(e) => this.props.submitEntry(e)}
+          onClick={(e) => this.handleSubmit(e)}
           disabled={false}
-          color="black">
+          >
           Submit
         </Button>
-      </div>
+      </MuiThemeProvider>
     )
   }
 }

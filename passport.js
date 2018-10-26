@@ -13,11 +13,10 @@ module.exports = function () {
     clientSecret: process.env.CLIENT_SECRET || config.googleAuth.clientSecret
   }
 
-    passport.use(new GoogleTokenStrategy(googOpts,
-        function (accessToken, refreshToken, profile, done) {
-          console.log("---------Google Strategy Passport------------")
-            User.upsertGoogleUser(accessToken, refreshToken, profile, function(err, user) {
-                return done(err, user);
-            });
-        }));
+  passport.use(new GoogleTokenStrategy(googOpts,
+    function (accessToken, refreshToken, profile, done) {
+      User.upsertGoogleUser(accessToken, refreshToken, profile, function(err, user) {
+        return done(err, user);
+      });
+    }));
 };

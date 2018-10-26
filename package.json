@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "node_modules/bin/nodemon server.js"
+    "dev": "./node_modules/nodemon/bin/nodemon.js server"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
     "cors": "^2.8.4",
+    "dateformat": "^3.0.3",
     "debug": "^4.1.0",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
