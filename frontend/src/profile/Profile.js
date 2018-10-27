@@ -39,7 +39,7 @@ class Profile extends Component {
   componentDidMount() {
     let promptsFetch, entriesFetch
     if (process.env.NODE_ENV === 'development') {
-       promptsFetch = fetch('http://localhost:4001/api/prompts')
+       promptsFetch = fetch('https://dry-cove-74246.herokuapp.com/api/prompts')
        entriesFetch = fetch('http://localhost:4001/verify/entry',
       {
          method: 'GET',
@@ -61,6 +61,7 @@ class Profile extends Component {
     }
     Promise.all([promptsFetch , entriesFetch])
       .then((results) => {
+        console.log(results[0])
         const promptsBlob = results[0].json()
         const entriesBlob = results[1].json()
         Promise.all([promptsBlob, entriesBlob])
