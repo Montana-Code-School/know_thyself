@@ -59,9 +59,8 @@ class Profile extends Component {
           }
       })
     }
-    Promise.all([promptsFetch , entriesFetch])
+    Promise.all([promptsFetch, entriesFetch])
       .then((results) => {
-        console.log(results[0])
         const promptsBlob = results[0].json()
         const entriesBlob = results[1].json()
         Promise.all([promptsBlob, entriesBlob])
@@ -77,6 +76,7 @@ class Profile extends Component {
 
   shouldComponentUpdate(nextProps) {
     if (this.state.prompts.length) {
+      console.log(this.state.prompts)
       return false
     } else
       return true
@@ -93,6 +93,7 @@ class Profile extends Component {
     if (!prompts.length) return "loading"
     const randomIndex = Math.floor(Math.random() * prompts.length)
     const randomName = prompts[randomIndex].body
+    console.log(randomName)
     this.setState({
       prompt: randomName
     })

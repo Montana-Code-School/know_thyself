@@ -11,19 +11,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iamshaunjp/oauth-playlist.git"
+    "url": "git+https://github.com/Montana-Code-School/know_thyself"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/iamshaunjp/oauth-playlist/issues"
+    "url": "https://github.com/Montana-Code-School/know_thyself"
   },
-  "homepage": "https://github.com/iamshaunjp/oauth-playlist#readme",
+  "homepage": "https://github.com/Montana-Code-School/know_thyself",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "cookie-parser": "^1.4.3",
-    "cookie-session": "^2.0.0-beta.3",
     "cors": "^2.8.4",
     "dateformat": "^3.0.3",
     "debug": "^4.1.0",
@@ -31,7 +29,6 @@
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "express-server-utils": "^1.1.0",
-    "jade": "^1.11.0",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.3.4",
     "morgan": "^1.9.1",
