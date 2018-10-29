@@ -31,7 +31,6 @@ class Profile extends Component {
   state = {
     prompts: [],
     value: '',
-    entry: '',
     prompt: '',
     entries: []
   }
@@ -39,7 +38,7 @@ class Profile extends Component {
   componentDidMount() {
     let promptsFetch, entriesFetch
     if (process.env.NODE_ENV === 'development') {
-       promptsFetch = fetch('https://dry-cove-74246.herokuapp.com/api/prompts')
+       promptsFetch = fetch('http://localhost:4001/api/prompts')
        entriesFetch = fetch('http://localhost:4001/verify/entry',
       {
          method: 'GET',
@@ -74,17 +73,14 @@ class Profile extends Component {
       .catch((err) => console.log(err))
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (this.state.prompts.length) {
-      console.log(this.state.prompts)
-      return false
-    } else
-      return true
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.prompts.length) return false
+      else return true
   }
 
-  handleChange(event) {
+  handleChange(e) {
     this.setState({
-      value: event.target.value
+      value: e.target.value
     })
   }
 
@@ -93,7 +89,6 @@ class Profile extends Component {
     if (!prompts.length) return "loading"
     const randomIndex = Math.floor(Math.random() * prompts.length)
     const randomName = prompts[randomIndex].body
-    console.log(randomName)
     this.setState({
       prompt: randomName
     })
@@ -102,7 +97,7 @@ class Profile extends Component {
 
   handleSubmit() {
     if (Storage.getToken()) {
-      const input = {
+      let input = {
         body: this.state.value,
         title: this.state.prompt
       }
@@ -117,7 +112,7 @@ class Profile extends Component {
           'Authorization': `bearer ${Storage.getToken()}`
         },
         body: JSON.stringify(input),
-        title: JSON.stringify(input)
+        title: JSON.stringify(input),
       })
       .then(res => res.json())
       .then(data => console.log(data))
