@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Paper, TextField, Button} from '@material-ui/core';
 import Navbar from '../navbar/Navbar';
-import Weather from '../weather/Weather';
-import Time from '../time/Time';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Storage from '../storage'
 import './Profile.css'
