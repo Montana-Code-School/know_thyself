@@ -4,16 +4,8 @@ import { Redirect } from 'react-router-dom';
 import {Typography, Card, Grid , CardContent, CardActions } from '@material-ui/core';
 import config from '../config.json';
 import Storage from '../storage';
-import './Login.css'
-import gridBackgroundImage from '../images/background.jpg';
-
-const styles = {
-  grid: {
-    backgroundImage: `url(${gridBackgroundImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'bottom'
-  }
-}
+// import Navbar from '../navbar/Navbar'
+import './Login.css';
 
 class Login extends Component {
   constructor() {
@@ -59,47 +51,65 @@ class Login extends Component {
   render() {
     let content = !!this.state.isAuthenticated ?
       (
-        <Redirect to="/profile" />
+        <Redirect to='/profile' />
       ) : (
         <div>
           <Grid
             container
-              direction="row"
-              justify="space-around"
-              alignItems="flex-end"
-              className="grid"
-              style={styles.grid}>
-            <Card style={{width: '50%', height: 350, margin: 60}}>
+              direction='row'
+              justify='space-around'
+              alignItems='flex-end'
+              className='grid'>
+            <Card className='card' style={{width: '50%', height: 350, margin: 60, backgroundColor: '#F3ECE7', opacity: .81}}>
+              <CardContent>
+                <Typography style={{fontFamily: 'Satisfy, cursive', color: '#214365', fontSize: 80}} className='logo1' gutterBottom>
+                  Know Thyself
+                </Typography>
+                <Typography style={{fontFamily: 'Satisfy, cursive', color: '#214365', fontSize: 35}} className='logo2'>
+                  'Knowing yourself is the beginning of all wisdom.' -Aristotle
+                </Typography>
+              </CardContent>
             </Card>
-            <Card style={{minWidth: '25%', height: 350, margin: 60}}>
+            <Card className='signUp' style={{minWidth: '25%', height: 350, margin: 60}}>
+              <CardContent>
+                <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20, marginTop:'45%'}} gutterBottom>
+                  Sign-up or Login here with Google
+                </Typography>
+                <CardActions>
+                <GoogleLogin
+                  clientId={config.GOOGLE_CLIENT_ID}
+                  variant='outlined'
+                  buttonText='Click to Enter'
+                  onSuccess={this.googleResponse}
+                  onFailure={this.onFailure}
+                  className='login'
+                  style={{borderRadius:7, marginLeft:'20%', marginRight:'20%', fontFamily:'K2D'}}
+                />
+                </CardActions>
+            </CardContent>
+          </Card>
+          <Card className="card" style={{minWidth: '70%', height: 200, margin: 60, backgroundColor:'#F3ECE7', opacity: .81}}>
             <CardContent>
-              <Typography color="textSecondary" gutterBottom>
-                Welome to Know Thyself
-              </Typography>
-              <Typography variant="h6" component="h2">
-              </Typography>
-              <Typography color="textSecondary">
-              </Typography>
-              <Typography >
+              <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
+                "A place to write, to think, and learn about yourself" -A.Morgan
               </Typography>
             </CardContent>
-            <CardActions>
-              <GoogleLogin
-                clientId={config.GOOGLE_CLIENT_ID}
-                variant="outlined"
-                buttonText="Sign in with Google"
-                onSuccess={this.googleResponse}
-                onFailure={this.onFailure}
-                className="login"
-                style={{borderRadius:7}}
-              />
-            </CardActions>
-          </Card>
+            <CardContent>
+              <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
+                "I sleep better at night when I take the time to let my thoughts out first." -F.Flynn
+              </Typography>
+            </CardContent>
+            <CardContent>
+              <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
+                "A safe place to learn about myself." -E.Maize
+              </Typography>
+            </CardContent>
+        </Card>
         </Grid>
       </div>
     );
     return (
-      <div className="App">
+      <div className='App'>
         {content}
       </div>
     );
