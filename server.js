@@ -1,9 +1,10 @@
-const middleware = require('./middleware');
 const debug = require('debug')('backend:server');
 const http = require('http');
 const express = require('express');
+require('dotenv').config()
 
-let port = normalizePort(process.env.PORT || '4001');
+const middleware = require('./middleware');
+let port = normalizePort(process.env.PORT);
 middleware.set('port', port);
 if (process.env.NODE_ENV === "production") {
   middleware.use(express.static("frontend/build"));

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Paper, TextField, Button} from '@material-ui/core';
 import Navbar from '../navbar/Navbar';
-import Weather from '../weather/Weather';
-import Time from '../time/Time';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Storage from '../storage'
 import './Profile.css'
@@ -31,20 +29,33 @@ class Profile extends Component {
   state = {
     prompts: [],
     value: '',
-    entry: '',
     prompt: '',
     entries: []
   }
 
   componentDidMount() {
-    const promptsFetch = fetch('http://localhost:4001/api/prompts')
-    const entriesFetch = fetch('http://localhost:4001/verify/entry', {
-      method: 'GET',
-      headers: {
-        'Content-type' : 'application/json',
-        'Authorization': `bearer ${Storage.getToken()}`
-      }
-    })
+    let promptsFetch, entriesFetch
+    if (process.env.NODE_ENV === 'development') {
+       promptsFetch = fetch('http://localhost:4001/api/prompts')
+       entriesFetch = fetch('http://localhost:4001/verify/entry',
+      {
+         method: 'GET',
+         headers: {
+           'Content-type' : 'application/json',
+           'Authorization': `bearer ${Storage.getToken()}`
+         }
+       })
+    } else {
+       promptsFetch = fetch('/api/prompts');
+       entriesFetch = fetch('/verify/entry',
+      {
+        method: 'GET',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization': `bearer ${Storage.getToken()}`
+          }
+      })
+    }
     Promise.all([promptsFetch, entriesFetch])
       .then((results) => {
         const promptsBlob = results[0].json()
@@ -60,16 +71,14 @@ class Profile extends Component {
       .catch((err) => console.log(err))
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (this.state.prompts.length) {
-      return false
-    } else
-      return true
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.prompts.length) return false
+      else return true
   }
 
-  handleChange(event) {
+  handleChange(e) {
     this.setState({
-      value: event.target.value
+      value: e.target.value
     })
   }
 
@@ -86,18 +95,22 @@ class Profile extends Component {
 
   handleSubmit() {
     if (Storage.getToken()) {
-      const input = {
+      let input = {
         body: this.state.value,
         title: this.state.prompt
       }
-      fetch('http://localhost:4001/verify/entry', {
+      let pathname = '/verify/entry'
+      if (process.env.NODE_ENV === 'development') {
+        pathname=`http://localhost:4001${pathname}`
+      }
+      fetch( pathname, {
         method: 'POST',
         headers: {
           'Content-type' : 'application/json',
           'Authorization': `bearer ${Storage.getToken()}`
         },
         body: JSON.stringify(input),
-        title: JSON.stringify(input)
+        title: JSON.stringify(input),
       })
       .then(res => res.json())
       .then(data => console.log(data))
@@ -106,7 +119,11 @@ class Profile extends Component {
 
   getEntries() {
     if (Storage.getToken()) {
-      fetch('http://localhost:4001/verify/entry', {
+      let pathname = '/verify/entry'
+      if (process.env.NODE_ENV === 'development') {
+        pathname=`http://localhost:4001${pathname}`
+      }
+      fetch( pathname, {
         method: 'GET',
         headers: {
           'Content-type' : 'application/json',
@@ -122,11 +139,11 @@ class Profile extends Component {
   }
 
   render() {
+    console.log(this.props
+    )
     return (
       <MuiThemeProvider theme={theme}>
-        <Navbar entries={this.state.entries} theme={theme} position="sticky"/>
-        <Time />
-        <Weather />
+        <Navbar path={this.props.location.pathname} entries={this.state.entries} theme={theme} position="sticky"/>
         <h3>{this.getRandomPrompt()}</h3>
         <Paper style={styles.paper}>
           <TextField
