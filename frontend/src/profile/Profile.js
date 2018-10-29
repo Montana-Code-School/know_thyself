@@ -66,14 +66,10 @@ class Profile extends Component {
               prompts: results[0],
               entries: results[1]
             })
+            this.getRandomPrompt()
           })
       })
       .catch((err) => console.log(err))
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.prompts.length) return false
-      else return true
   }
 
   handleChange(e) {
@@ -84,13 +80,19 @@ class Profile extends Component {
 
   getRandomPrompt() {
     const {prompts} = this.state
-    if (!prompts.length) return "loading"
+    if (!prompts.length) {
+      console.log("prompts has no length")
+      this.setState({
+        prompt: 'loading'
+      })
+    } else {
     const randomIndex = Math.floor(Math.random() * prompts.length)
     const randomName = prompts[randomIndex].body
     this.setState({
       prompt: randomName
+
     })
-    return prompts[randomIndex].body
+    }
   }
 
   handleSubmit() {
@@ -110,10 +112,11 @@ class Profile extends Component {
           'Authorization': `bearer ${Storage.getToken()}`
         },
         body: JSON.stringify(input),
+        // don't need title attached to request
         title: JSON.stringify(input),
       })
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => this.setState({value:''}))
     }
   }
 
@@ -139,16 +142,15 @@ class Profile extends Component {
   }
 
   render() {
-    console.log(this.props
-    )
     return (
       <MuiThemeProvider theme={theme}>
         <Navbar path={this.props.location.pathname} entries={this.state.entries} theme={theme} position="sticky"/>
-        <h3>{this.getRandomPrompt()}</h3>
+        <h3>{this.state.prompt}</h3>
         <Paper style={styles.paper}>
           <TextField
             fullWidth={false}
             onChange={(e) => this.handleChange(e)}
+            value={this.state.value}
             id="filled-full-width"
             multiline={true}
             rowsMax={30}
