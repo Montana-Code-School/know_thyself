@@ -114,7 +114,7 @@ class NavBar extends React.Component {
   }
 
   render() {
-console.log(this.props.path)
+    console.log(this.props.path)
     const { classes, entries, location, path } = this.props;
     const { open } = this.state;
     if (path !== '/profile' && this.state.atprofile) {
