@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-const config = require('../config/config')
 const User = require('../models/user-model')
 
 module.exports = (req, res, next) => {
@@ -8,7 +7,7 @@ module.exports = (req, res, next) => {
     res.status(401).end()
   }
 
-  const { someOtherSecret } = config.googleAuth
+  const  someOtherSecret = process.env.SOME_OTHER_SECRET
   const token = req.headers.authorization.split(" ")[1]
 
   return jwt.verify(token, someOtherSecret, (err, decoded) => {

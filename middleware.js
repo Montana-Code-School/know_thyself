@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
 const app = express();
 const auth = require('./routes/auth-routes')
 const index = require('./routes/index');
-const config = require('./config/config');
 const Entry = require('./models/entry-model').entry
 const User = require('./models/user-model');
 
@@ -27,7 +26,7 @@ let corsOption = {
 };
 
 //connect to mongodb
-mongoose.connect(config.mongodb.dbURI, { useNewUrlParser: true, useCreateIndex: true })
+mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useCreateIndex: true })
 
 // middleware
 //add auth as a 2rd argument to routes that we want to send through verification

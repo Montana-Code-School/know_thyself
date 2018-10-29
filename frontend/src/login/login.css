@@ -1,18 +1,26 @@
 body {
-  background-color: #E7DFDD;
+  background-color: #F8F8FF;
 }
 
 .login {
-  position: relative;
-  background-color: #36384C;
+  background-color: #214365;
   color: white;
   height: 50px;
   width: 150px;
-  font: Courier;
-  font-family: monospace;
-  position: absolute;
-  left: 44%;
-  top: 46%;
+}
+
+.login2 {
+  text-align: center;
+  color: black;
+}
+
+.logo1 {
+
+  text-align: center;
+}
+
+.logo2 {
+  text-align: center;
 }
 
 .Navbar {
@@ -21,5 +29,16 @@ body {
 
 .grid {
   background-color: grey;
-  opacity: .81
+  opacity: .81;
+  background-image: url('../images/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-bottom: 15%;
+  background-position: center;
+}
+
+.signUp{
+  background-image: url('../images/writing.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }

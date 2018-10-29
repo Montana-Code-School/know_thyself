@@ -1,7 +1,8 @@
-const middleware = require('./middleware');
 const debug = require('debug')('backend:server');
 const http = require('http');
 const express = require('express');
+require('dotenv').config();
+const middleware = require('./middleware');
 
 let port = normalizePort(process.env.PORT || '4001');
 middleware.set('port', port);
