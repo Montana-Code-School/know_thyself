@@ -38,7 +38,13 @@ body {
 }
 
 .signUp{
-  background-image: url('../images/writing.jpg');
+  background-image: url('../images/Book.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
+  border: 1px solid #214365;
+}
+
+.card {
+  border: 1px solid #214365;
+  elevation: 15
 }

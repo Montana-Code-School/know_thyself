@@ -56,7 +56,7 @@ class Login extends Component {
               justify='space-around'
               alignItems='flex-end'
               className='grid'>
-            <Card style={{width: '50%', height: 350, margin: 60, backgroundColor: '#F3ECE7', opacity: .81}}>
+            <Card className='card' style={{width: '50%', height: 350, margin: 60, backgroundColor: '#F3ECE7', opacity: .81}}>
               <CardContent>
                 <Typography style={{fontFamily: 'Satisfy, cursive', color: '#214365', fontSize: 80}} className='logo1' gutterBottom>
                   Know Thyself
@@ -68,7 +68,7 @@ class Login extends Component {
             </Card>
             <Card className='signUp' style={{minWidth: '25%', height: 350, margin: 60}}>
               <CardContent>
-                <Typography color='textSecondary' className='login2' style={{color:'white', fontFamily:'K2D', fontSize:20, marginTop:'18%'}} gutterBottom>
+                <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20, marginTop:'45%'}} gutterBottom>
                   Sign-up or Login here with Google
                 </Typography>
                 <CardActions>
@@ -84,19 +84,19 @@ class Login extends Component {
                 </CardActions>
             </CardContent>
           </Card>
-          <Card style={{minWidth: '70%', height: 200, margin: 60, backgroundColor:'#F3ECE7', opacity: .81}}>
+          <Card className="card" style={{minWidth: '70%', height: 200, margin: 60, backgroundColor:'#F3ECE7', opacity: .81}}>
             <CardContent>
-              <Typography color='textSecondary' className='login2' style={{color:'black', fontFamily:'K2D', fontSize:20}} gutterBottom>
+              <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
                 "A place to write, to think, and learn about yourself" -A.Morgan
               </Typography>
             </CardContent>
             <CardContent>
-              <Typography color='textSecondary' className='login2' style={{color:'black', fontFamily:'K2D', fontSize:20}} gutterBottom>
+              <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
                 "I sleep better at night when I take the time to let my thoughts out first." -F.Flynn
               </Typography>
             </CardContent>
             <CardContent>
-              <Typography color='textSecondary' className='login2' style={{color:'black', fontFamily:'K2D', fontSize:20}} gutterBottom>
+              <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
                 "A safe place to learn about myself." -E.Maize
               </Typography>
             </CardContent>
