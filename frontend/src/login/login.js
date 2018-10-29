@@ -62,7 +62,7 @@ class Login extends Component {
                   Know Thyself
                 </Typography>
                 <Typography style={{fontFamily: 'Satisfy, cursive', color: '#214365', fontSize: 35}} className='logo2'>
-                  'Knowing yourself is the beginning of all wisdom.'''   -Aristotle
+                  'Knowing yourself is the beginning of all wisdom.' -Aristotle
                 </Typography>
               </CardContent>
             </Card>

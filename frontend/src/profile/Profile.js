@@ -125,8 +125,6 @@ class Profile extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <Navbar path={this.props.location.pathname} entries={this.state.entries} theme={theme} position="sticky"/>
-        <Time />
-        <Weather />
         <h3>{this.getRandomPrompt()}</h3>
         <Paper style={styles.paper}>
           <TextField
