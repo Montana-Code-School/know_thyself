@@ -49,6 +49,7 @@ class Login extends Component {
   }
 
   render() {
+    console.log(this.props)
     let content = !!this.state.isAuthenticated ?
       (
         <Redirect to='/profile' />
