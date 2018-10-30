@@ -83,28 +83,7 @@ class Profile extends Component {
         body: JSON.stringify(input),
       })
       .then(res => res.json())
-      .then(data => this.setState({value:''}))
-    }
-  }
-
-  getEntries() {
-    if (Storage.getToken()) {
-      let pathname = '/verify/entry'
-      if (process.env.NODE_ENV === 'development') {
-        pathname=`http://localhost:4001${pathname}`
-      }
-      fetch( pathname, {
-        method: 'GET',
-        headers: {
-          'Content-type' : 'application/json',
-          'Authorization': `bearer ${Storage.getToken()}`
-        },
-      })
-      .then(res => res.json())
-      .then(data => this.setState({
-        entries: data
-      })
-    )
+      .then(data => this.props.clear())
     }
   }
 
