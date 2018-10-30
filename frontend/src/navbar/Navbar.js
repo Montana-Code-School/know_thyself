@@ -99,23 +99,23 @@ class NavBar extends React.Component {
   };
 
   revealProfile = () => {
-
     this.setState({atprofile: true});
-  }
+  };
+
   revealEntry = () => {
-    // console.log(event.target)
     this.setState({atentries: true});
-  }
+  };
+
   revealHabits = () => {
     this.setState({athabits: true});
-  }
+  };
+
   revealTodo = () => {
     this.setState({attodo: true});
   }
 
   render() {
-    console.log(this.props.path)
-    const { classes, entries, location, path } = this.props;
+    const { classes, path } = this.props;
     const { open } = this.state;
     if (path !== '/profile' && this.state.atprofile) {
    return <Redirect push to="/profile" />;
@@ -183,14 +183,6 @@ class NavBar extends React.Component {
               <Button onClick={this.revealTodo} >Todo</Button>
             </ListItem>
           </List>
-
-              {/* <List>
-                {entries.map(entry => (
-                  <ListItem key={entry._id}>
-                    <ListItemText style={{maxWidth:200, textOverflow:'ellipsis', whiteSpace:'nowrap', overflow: 'hidden'}} key={entry._id} onClick={(e) => this.revealEntry(e)} >{entry.createdAt}</ListItemText>
-                  </ListItem>
-                ))}
-               </List> */}
         </Drawer>
       </div>
     );
