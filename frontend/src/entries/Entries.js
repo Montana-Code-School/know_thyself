@@ -55,7 +55,9 @@ class Entries extends React.Component {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>
-                {entry.body}
+                <div>
+                  {entry.body}
+                </div>
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>

@@ -4,6 +4,7 @@ import Navbar from '../navbar/Navbar';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Storage from '../storage'
 import './Profile.css'
+import TextEditor from '../editor/Editor'
 
 const theme = createMuiTheme({
   typography: {
@@ -92,7 +93,9 @@ class Profile extends Component {
       <MuiThemeProvider theme={theme}>
         <Navbar path={this.props.location.pathname} theme={theme} position="sticky"/>
         <h3>{this.props.prompt}</h3>
-        <Paper style={styles.paper}>
+        <TextEditor handleChange={this.props.handleChange}
+                    value={this.props.value}/>
+        {/* <Paper style={styles.paper}>
           <TextField
             fullWidth={false}
             onChange={(e) => this.props.inputValue(e)}
@@ -108,7 +111,7 @@ class Profile extends Component {
               shrink: true,
             }}
           />
-        </Paper>
+        </Paper> */}
         <Button
           className='submit'
           onClick={(e) => this.handleSubmit(e)}

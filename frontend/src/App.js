@@ -15,24 +15,18 @@ class App extends Component {
     prompt: ''
   }
 
-  clearInput(){
-    this.setState({
-      value: ''
-    })
-  }
-
   fetchedPromptsAndEntries(results) {
-    const entries = results[1].reverse()
     this.setState({
       prompts: results[0],
-      entries: entries
+      entries: results[1]
     })
   }
 
-  handleChange(e) {
+  handleChange(editorState) {
     this.setState({
-      value: e.target.value
+      value: editorState
     })
+    console.log(this.state.value)
   }
 
   getRandomPrompt() {
@@ -50,6 +44,12 @@ class App extends Component {
     }
   }
 
+  clear() {
+    this.setState({
+      value: ''
+    })
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -58,11 +58,11 @@ class App extends Component {
           <PrivateRoute path="/profile"
                         component={Profile}
                         fetched={this.fetchedPromptsAndEntries.bind(this)}
-                        inputValue={this.handleChange.bind(this)}
+                        handleChange={this.handleChange.bind(this)}
                         getRandomPrompt={this.getRandomPrompt.bind(this)}
                         prompt={this.state.prompt}
                         value={this.state.value}
-                        clear={this.clearInput.bind(this)}
+                        clear={this.clear.bind(this)}
                          />
 
           <PrivateRoute path='/entries'
