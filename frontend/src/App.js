@@ -12,13 +12,15 @@ class App extends Component {
     prompts: [],
     entries: [],
     value: '',
-    prompt: ''
+    prompt: '',
+    disabled: true
   }
 
   fetchedPromptsAndEntries(results) {
+    const entries = results[1].reverse()
     this.setState({
       prompts: results[0],
-      entries: results[1]
+      entries: entries
     })
   }
 
@@ -26,6 +28,16 @@ class App extends Component {
     this.setState({
       value: editorState
     })
+    let words = this.state.value.split('/\v/g')
+    if (words.length >= 5) {
+      this.setState({
+        disabled: false
+      })
+    } else {
+      this.setState({
+        disabled: true
+      })
+    }
     console.log(this.state.value)
   }
 
@@ -63,6 +75,7 @@ class App extends Component {
                         prompt={this.state.prompt}
                         value={this.state.value}
                         clear={this.clear.bind(this)}
+                        disabled={this.state.disabled}
                          />
 
           <PrivateRoute path='/entries'

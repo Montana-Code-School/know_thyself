@@ -21,7 +21,7 @@ const styles = {
   },
   textfield:{
     height: '100%',
-    width: '75%'
+    width: '100%'
   }
 };
 
@@ -63,8 +63,6 @@ class Profile extends Component {
       .catch((err) => console.log(err))
   }
 
-
-
   handleSubmit() {
     if (Storage.getToken()) {
       let input = {
@@ -94,28 +92,13 @@ class Profile extends Component {
         <Navbar path={this.props.location.pathname} theme={theme} position="sticky"/>
         <h3>{this.props.prompt}</h3>
         <TextEditor handleChange={this.props.handleChange}
-                    value={this.props.value}/>
-        {/* <Paper style={styles.paper}>
-          <TextField
-            fullWidth={false}
-            onChange={(e) => this.props.inputValue(e)}
-            value={this.props.value}
-            id="filled-full-width"
-            multiline={true}
-            rowsMax={30}
-            style={styles.textfield}
-            placeholder="Put your words in me..."
-            margin="normal"
-            variant="standard"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Paper> */}
+                    value={this.props.value}
+                    style={styles.paper}
+                    />
         <Button
           className='submit'
           onClick={(e) => this.handleSubmit(e)}
-          disabled={false}
+          disabled={this.props.disabled}
           >
           Submit
         </Button>

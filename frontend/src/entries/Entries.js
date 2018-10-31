@@ -8,6 +8,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import HtmlComponent from '../parser/HTMLparser'
 //entries get fetched within profile.js
 const theme = createMuiTheme({
   typography: {
@@ -16,7 +17,7 @@ const theme = createMuiTheme({
 })
 const styles = theme => ({
   root: {
-    width: '100%',
+    margin: '5% 12% 0 12%',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -40,6 +41,13 @@ class Entries extends React.Component {
     });
   };
 
+  parseHTML(str) {
+    let el = document.createElement( 'div' )
+    el.innterHTML = str
+    console.log(el)
+    return el
+  }
+
   render() {
     const { classes } = this.props;
     const { expanded } = this.state;
@@ -55,9 +63,7 @@ class Entries extends React.Component {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>
-                <div>
-                  {entry.body}
-                </div>
+                <HtmlComponent entry={entry.body}/>
               </Typography>
             </ExpansionPanelDetails>
           </ExpansionPanel>
