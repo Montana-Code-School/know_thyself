@@ -16,15 +16,36 @@ const styles = {
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
-    margin: '0 12% 0 12%'
+    margin: '0 12% 0 12%',
+    fontSize: '12px',
+    fontStyle: 'italic',
+    fontWeight: 'lighter',
+    color: 'grey'
   },
   textfield:{
     height: '100%',
-    width: '75%'
+    width: '75%',
   }
 };
 
 class Profile extends Component {
+  state = {
+    disabled: true
+  }
+
+  buttonEnabled() {
+    console.log(this.props.value)
+    let words = this.props.value.split(' ')
+    if (words.length >= 500) {
+      this.setState({
+        disabled: false
+      })
+    } else {
+      this.setState({
+        disabled: true
+      })
+    }
+  }
 
   componentDidMount() {
     let promptsFetch, entriesFetch
@@ -62,8 +83,6 @@ class Profile extends Component {
       .catch((err) => console.log(err))
   }
 
-
-
   handleSubmit() {
     if (Storage.getToken()) {
       let input = {
@@ -83,11 +102,14 @@ class Profile extends Component {
         body: JSON.stringify(input),
       })
       .then(res => res.json())
-      .then(data => this.props.clear())
+      .then(data =>
+        this.props.clear(),
+        console.log('heeeeeeeeeeey'))
     }
   }
 
   render() {
+    let words = this.props.value.split(' ')
     return (
       <MuiThemeProvider theme={theme}>
         <Navbar path={this.props.location.pathname} theme={theme} position="sticky"/>
@@ -95,7 +117,8 @@ class Profile extends Component {
         <Paper style={styles.paper}>
           <TextField
             fullWidth={false}
-            onChange={(e) => this.props.inputValue(e)}
+            onChange={(e) => {this.props.inputValue(e);
+                              this.buttonEnabled()}}
             value={this.props.value}
             id="filled-full-width"
             multiline={true}
@@ -108,11 +131,12 @@ class Profile extends Component {
               shrink: true,
             }}
           />
+          Word Count: {words.length - 1} of 500
         </Paper>
         <Button
           className='submit'
           onClick={(e) => this.handleSubmit(e)}
-          disabled={false}
+          disabled={this.state.disabled}
           >
           Submit
         </Button>
