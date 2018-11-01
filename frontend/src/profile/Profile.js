@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Paper, TextField, Button} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Navbar from '../navbar/Navbar';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Storage from '../storage'
 import './Profile.css'
+import TextEditor from '../editor/Editor'
 
 const theme = createMuiTheme({
   typography: {
@@ -16,15 +17,36 @@ const styles = {
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
-    margin: '0 12% 0 12%'
+    margin: '0 12% 0 12%',
+    fontSize: '12px',
+    fontStyle: 'italic',
+    fontWeight: 'lighter',
+    color: 'grey'
   },
   textfield:{
     height: '100%',
-    width: '75%'
+    width: '100%'
   }
 };
 
 class Profile extends Component {
+  state = {
+    disabled: true
+  }
+
+  buttonEnabled() {
+    console.log(this.props.value)
+    let words = this.props.value.split(' ')
+    if (words.length >= 500) {
+      this.setState({
+        disabled: false
+      })
+    } else {
+      this.setState({
+        disabled: true
+      })
+    }
+  }
 
   componentDidMount() {
     let promptsFetch, entriesFetch
@@ -62,12 +84,13 @@ class Profile extends Component {
       .catch((err) => console.log(err))
   }
 
-
-
   handleSubmit() {
     if (Storage.getToken()) {
+      let formatted = this.props.value.replace(/(<br>)/g, '')
+      formatted = formatted.replace(/(\s\s)/g, '&nbsp;&nbsp;&nbsp;&nbsp;')
+      console.log(formatted)
       let input = {
-        body: this.props.value,
+        body: formatted,
         title: this.props.prompt
       }
       let pathname = '/verify/entry'
@@ -88,31 +111,21 @@ class Profile extends Component {
   }
 
   render() {
+    let words = this.props.value.split(' ')
     return (
       <MuiThemeProvider theme={theme}>
         <Navbar path={this.props.location.pathname} theme={theme} position="sticky"/>
         <h3>{this.props.prompt}</h3>
-        <Paper style={styles.paper}>
-          <TextField
-            fullWidth={false}
-            onChange={(e) => this.props.inputValue(e)}
-            value={this.props.value}
-            id="filled-full-width"
-            multiline={true}
-            rowsMax={30}
-            style={styles.textfield}
-            placeholder="Put your words in me..."
-            margin="normal"
-            variant="standard"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Paper>
+        <TextEditor handleChange={this.props.handleChange}
+                    value={this.props.value}
+                    style={styles.paper}
+                    words={this.props.words}
+                    editorReference={this.props.editorReference}
+                    />
         <Button
           className='submit'
           onClick={(e) => this.handleSubmit(e)}
-          disabled={false}
+          disabled={this.props.disabled}
           >
           Submit
         </Button>

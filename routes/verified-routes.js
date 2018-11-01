@@ -21,6 +21,7 @@ const User = require('../models/user-model');
         })
     })
     .get((req, res) => {
+      console.log("in verified-routes")
       if (!req.user) console.log('you shall not pass!')
       User.findById(req.user, (err, user) => {
         if (err) res.send(err);

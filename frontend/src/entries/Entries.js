@@ -8,6 +8,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import HtmlComponent from '../parser/HTMLparser'
+
 //entries get fetched within profile.js
 const theme = createMuiTheme({
   typography: {
@@ -16,7 +18,7 @@ const theme = createMuiTheme({
 })
 const styles = theme => ({
   root: {
-    width: '100%',
+    margin: '5% 12% 0 12%',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -27,6 +29,23 @@ const styles = theme => ({
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
+  panel: {
+      justifyContent: 'center'
+  },
+  // body: {
+  //   height: '100%',
+  //   width: '50%',
+  // },
+  paper:{
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    margin: '0 12% 0 12%',
+    fontSize: '12px',
+    fontStyle: 'italic',
+    fontWeight: 'lighter',
+    color: 'grey'
+  }
 });
 
 class Entries extends React.Component {
@@ -40,6 +59,13 @@ class Entries extends React.Component {
     });
   };
 
+  parseHTML(str) {
+    let el = document.createElement( 'div' )
+    el.innterHTML = str
+    console.log(el)
+    return el
+  }
+
   render() {
     const { classes } = this.props;
     const { expanded } = this.state;
@@ -48,15 +74,13 @@ class Entries extends React.Component {
         <Navbar path={this.props.location.pathname} theme={theme}/>
       <div className={classes.root}>
         {this.props.entries.map(entry =>
-          <ExpansionPanel key={entry._id} expanded={expanded === entry._id} onChange={this.handleChange(entry._id)}>
+          <ExpansionPanel style={styles.panel} key={entry._id} expanded={expanded === entry._id} onChange={this.handleChange(entry._id)}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography className={classes.heading}>{entry.createdAt}</Typography>
               <Typography className={classes.secondaryHeading}>{entry.title}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <Typography>
-                {entry.body}
-              </Typography>
+              <HtmlComponent entry={entry.body}/>
             </ExpansionPanelDetails>
           </ExpansionPanel>
         )}
