@@ -9,9 +9,6 @@ class TextEditor extends Component {
       field: ''
     }
   }
-
-
-
   render() {
     return (
       <div>

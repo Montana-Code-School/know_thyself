@@ -17,7 +17,11 @@ const styles = {
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
-    margin: '0 12% 0 12%'
+    margin: '0 12% 0 12%',
+    fontSize: '12px',
+    fontStyle: 'italic',
+    fontWeight: 'lighter',
+    color: 'grey'
   },
   textfield:{
     height: '100%',
@@ -26,6 +30,23 @@ const styles = {
 };
 
 class Profile extends Component {
+  state = {
+    disabled: true
+  }
+
+  buttonEnabled() {
+    console.log(this.props.value)
+    let words = this.props.value.split(' ')
+    if (words.length >= 500) {
+      this.setState({
+        disabled: false
+      })
+    } else {
+      this.setState({
+        disabled: true
+      })
+    }
+  }
 
   componentDidMount() {
     let promptsFetch, entriesFetch
@@ -90,6 +111,7 @@ class Profile extends Component {
   }
 
   render() {
+    let words = this.props.value.split(' ')
     return (
       <MuiThemeProvider theme={theme}>
         <Navbar path={this.props.location.pathname} theme={theme} position="sticky"/>

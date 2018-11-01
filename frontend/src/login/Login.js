@@ -4,8 +4,9 @@ import { Redirect } from 'react-router-dom';
 import {Typography, Card, Grid , CardContent, CardActions } from '@material-ui/core';
 import config from '../config.json';
 import Storage from '../storage';
-// import Navbar from '../navbar/Navbar'
+import SignUp from '../locallogin/Local-signup'
 import './Login.css';
+
 
 class Login extends Component {
   constructor() {
@@ -72,20 +73,21 @@ class Login extends Component {
             </Card>
             <Card className='signUp' style={{minWidth: '25%', height: 350, margin: 60}}>
               <CardContent>
-                <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20, marginTop:'45%'}} gutterBottom>
-                  Sign-up or Login here with Google
+                <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:35}} gutterBottom>
+                  Sign-up or Login
                 </Typography>
                 <CardActions>
                 <GoogleLogin
                   clientId={config.GOOGLE_CLIENT_ID}
                   variant='outlined'
-                  buttonText='Click to Enter'
+                  buttonText='Sign-up or Login with Google'
                   onSuccess={this.googleResponse}
                   onFailure={this.onFailure}
                   className='login'
                   style={{borderRadius:7, marginLeft:'20%', marginRight:'20%', fontFamily:'K2D'}}
                 />
-                </CardActions>
+                <SignUp />
+              </CardActions>
             </CardContent>
           </Card>
           <Card className="card" style={{minWidth: '70%', height: 200, margin: 60, backgroundColor:'#F3ECE7', opacity: .81}}>
