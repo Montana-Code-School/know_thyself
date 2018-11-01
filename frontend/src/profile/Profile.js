@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Paper, TextField, Button} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Navbar from '../navbar/Navbar';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Storage from '../storage'
 import './Profile.css'
+import TextEditor from '../editor/Editor'
 
 const theme = createMuiTheme({
   typography: {
@@ -24,7 +25,7 @@ const styles = {
   },
   textfield:{
     height: '100%',
-    width: '75%',
+    width: '100%'
   }
 };
 
@@ -85,8 +86,11 @@ class Profile extends Component {
 
   handleSubmit() {
     if (Storage.getToken()) {
+      let formatted = this.props.value.replace(/(<br>)/g, '')
+      formatted = formatted.replace(/(\s\s)/g, '&nbsp;&nbsp;&nbsp;&nbsp;')
+      console.log(formatted)
       let input = {
-        body: this.props.value,
+        body: formatted,
         title: this.props.prompt
       }
       let pathname = '/verify/entry'
@@ -112,29 +116,16 @@ class Profile extends Component {
       <MuiThemeProvider theme={theme}>
         <Navbar path={this.props.location.pathname} theme={theme} position="sticky"/>
         <h3>{this.props.prompt}</h3>
-        <Paper style={styles.paper}>
-          <TextField
-            fullWidth={false}
-            onChange={(e) => {this.props.inputValue(e);
-                              this.buttonEnabled()}}
-            value={this.props.value}
-            id="filled-full-width"
-            multiline={true}
-            rowsMax={30}
-            style={styles.textfield}
-            placeholder="Put your words in me..."
-            margin="normal"
-            variant="standard"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          Word Count: {words.length - 1} of 500
-        </Paper>
+        <TextEditor handleChange={this.props.handleChange}
+                    value={this.props.value}
+                    style={styles.paper}
+                    words={this.props.words}
+                    editorReference={this.props.editorReference}
+                    />
         <Button
           className='submit'
           onClick={(e) => this.handleSubmit(e)}
-          disabled={this.state.disabled}
+          disabled={this.props.disabled}
           >
           Submit
         </Button>

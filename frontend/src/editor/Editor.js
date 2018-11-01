@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
-import { Editor, EditorState} from 'draft-js';
-import './Editor.css'
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'
 
-class Textfield extends Component {
-
-  state = {
-    editorState: EditorState.createEmpty()
-  };
-    onChange = (editorState) => this.setState({editorState});
-
+class TextEditor extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      field: ''
+    }
+  }
   render() {
     return (
-        <Editor style={{backgroundColor: 'red'}} editorState={this.state.editorState} onChange={this.onChange} />
-    );
+      <div>
+        Word Count: {this.props.words.length - 1 === -1 ? 0 : this.props.words.length - 1} of 500
+        <ReactQuill value={this.props.value}
+                    onChange={this.props.handleChange}
+                    placeholder='your words...'
+                    ref={this.props.editorReference}
+                  />
+      </div>
+    )
   }
 }
 
-
-
-export default Textfield;
+export default TextEditor

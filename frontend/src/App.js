@@ -8,18 +8,19 @@ import Habits from './habits/Habits';
 import Todo from './todo/Todo';
 
 class App extends Component {
-  state = {
-    prompts: [],
-    entries: [],
-    value: '',
-    prompt: ''
+  constructor(props) {
+    super(props);
+    this.state = {
+      prompts: [],
+      entries: [],
+      value: '',
+      prompt: '',
+      disabled: true,
+      words: ''
+    }
+    this.textInput = React.createRef()
   }
 
-  clearInput(){
-    this.setState({
-      value: ''
-    })
-  }
 
   fetchedPromptsAndEntries(results) {
     const entries = results[1].reverse()
@@ -29,10 +30,26 @@ class App extends Component {
     })
   }
 
-  handleChange(e) {
+  handleChange(editorState) {
     this.setState({
-      value: e.target.value
+      value: editorState
     })
+    console.log(this.state.value)
+    if (this.textInput.current) {
+      let field = this.textInput.current.getEditor().getText().split(/\s+/)
+      this.setState({
+        words: field
+      })
+    }
+    if (this.state.words.length - 1 >= 500) {
+      this.setState({
+        disabled: false
+      })
+    } else {
+      this.setState({
+        disabled: true
+      })
+    }
   }
 
   getRandomPrompt() {
@@ -50,6 +67,13 @@ class App extends Component {
     }
   }
 
+  clear() {
+    this.setState({
+      value: '',
+      words: ''
+    })
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -58,11 +82,14 @@ class App extends Component {
           <PrivateRoute path="/profile"
                         component={Profile}
                         fetched={this.fetchedPromptsAndEntries.bind(this)}
-                        inputValue={this.handleChange.bind(this)}
+                        handleChange={this.handleChange.bind(this)}
                         getRandomPrompt={this.getRandomPrompt.bind(this)}
                         prompt={this.state.prompt}
                         value={this.state.value}
-                        clear={this.clearInput.bind(this)}
+                        clear={this.clear.bind(this)}
+                        disabled={this.state.disabled}
+                        words={this.state.words}
+                        editorReference={this.textInput}
                          />
 
           <PrivateRoute path='/entries'
