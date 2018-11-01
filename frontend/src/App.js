@@ -8,13 +8,19 @@ import Habits from './habits/Habits';
 import Todo from './todo/Todo';
 
 class App extends Component {
-  state = {
-    prompts: [],
-    entries: [],
-    value: '',
-    prompt: '',
-    disabled: true
+  constructor(props) {
+    super(props);
+    this.state = {
+      prompts: [],
+      entries: [],
+      value: '',
+      prompt: '',
+      disabled: true,
+      words: ''
+    }
+    this.textInput = React.createRef()
   }
+
 
   fetchedPromptsAndEntries(results) {
     const entries = results[1].reverse()
@@ -28,8 +34,14 @@ class App extends Component {
     this.setState({
       value: editorState
     })
-    let words = this.state.value.split('/\v/g')
-    if (words.length >= 5) {
+    console.log(this.state.value)
+    if (this.textInput.current) {
+      let field = this.textInput.current.getEditor().getText().split(/\s+/)
+      this.setState({
+        words: field
+      })
+    }
+    if (this.state.words.length - 1 >= 500) {
       this.setState({
         disabled: false
       })
@@ -38,7 +50,6 @@ class App extends Component {
         disabled: true
       })
     }
-    console.log(this.state.value)
   }
 
   getRandomPrompt() {
@@ -58,7 +69,8 @@ class App extends Component {
 
   clear() {
     this.setState({
-      value: ''
+      value: '',
+      words: ''
     })
   }
 
@@ -76,6 +88,8 @@ class App extends Component {
                         value={this.state.value}
                         clear={this.clear.bind(this)}
                         disabled={this.state.disabled}
+                        words={this.state.words}
+                        editorReference={this.textInput}
                          />
 
           <PrivateRoute path='/entries'

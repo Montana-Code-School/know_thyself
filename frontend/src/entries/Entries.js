@@ -62,9 +62,7 @@ class Entries extends React.Component {
               <Typography className={classes.secondaryHeading}>{entry.title}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <Typography>
-                <HtmlComponent entry={entry.body}/>
-              </Typography>
+              <HtmlComponent entry={entry.body}/>
             </ExpansionPanelDetails>
           </ExpansionPanel>
         )}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Paper, TextField, Button} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Navbar from '../navbar/Navbar';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Storage from '../storage'
@@ -65,8 +65,11 @@ class Profile extends Component {
 
   handleSubmit() {
     if (Storage.getToken()) {
+      let formatted = this.props.value.replace(/(<br>)/g, '')
+      formatted = formatted.replace(/(\s\s)/g, '&nbsp;&nbsp;&nbsp;&nbsp;')
+      console.log(formatted)
       let input = {
-        body: this.props.value,
+        body: formatted,
         title: this.props.prompt
       }
       let pathname = '/verify/entry'
@@ -94,6 +97,8 @@ class Profile extends Component {
         <TextEditor handleChange={this.props.handleChange}
                     value={this.props.value}
                     style={styles.paper}
+                    words={this.props.words}
+                    editorReference={this.props.editorReference}
                     />
         <Button
           className='submit'
