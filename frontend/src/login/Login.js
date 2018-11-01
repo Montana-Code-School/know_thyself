@@ -50,6 +50,7 @@ class Login extends Component {
   }
 
   render() {
+    console.log(this.props)
     let content = !!this.state.isAuthenticated ?
       (
         <Redirect to='/profile' />
@@ -84,7 +85,7 @@ class Login extends Component {
                   onSuccess={this.googleResponse}
                   onFailure={this.onFailure}
                   className='login'
-                  style={{borderRadius:7, marginLeft:'20%', marginRight:'20%', fontFamily:'K2D'}}
+                  style={{height: '100px', width: '100px', borderRadius:7, marginLeft:'10%', marginRight:'10%', fontFamily:'K2D'}}
                 />
                 <SignUp />
               </CardActions>

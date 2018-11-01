@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import config from '../config.json';
 import Storage from '../storage';
 import { Redirect } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 class SignUp extends Component {
   constructor() {
@@ -94,20 +95,22 @@ class SignUp extends Component {
                 type="password"
                 onChange={event => this.handleChange(event)}
               />
-              <input
+              <br></br>
+              <Button
                 className="form-submit"
                 value="SUBMIT"
                 type="submit"
                 onClick={this.processSignup}
-                style={{height: '40px', width: '80px', font:'K2D', backgroundColor:'grey'}}
-              />
-              <button
+                style={{height: '40px', width: '80px', marginLeft: '30px', font:'K2D', backgroundColor:'grey'}}
+              > Submit </Button>
+
+              <Button
                 className="form-login"
                 value="Login"
                 type="login"
                 onClick={this.processLogin}
-                style={{height: '40px', width: '80px', font:'K2D', backgroundColor:'grey', color:'white'}}
-              >Login</button>
+                style={{height: '40px', width: '80px', marginLeft: '40px', font:'K2D', backgroundColor:'grey', color:'white'}}
+              >Login</Button>
             </form>
     );
     return (
