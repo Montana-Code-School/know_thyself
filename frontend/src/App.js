@@ -15,10 +15,17 @@ class App extends Component {
     prompt: ''
   }
 
+  clearInput(){
+    this.setState({
+      value: ''
+    })
+  }
+
   fetchedPromptsAndEntries(results) {
+    const entries = results[1].reverse()
     this.setState({
       prompts: results[0],
-      entries: results[1]
+      entries: entries
     })
   }
 
@@ -55,6 +62,7 @@ class App extends Component {
                         getRandomPrompt={this.getRandomPrompt.bind(this)}
                         prompt={this.state.prompt}
                         value={this.state.value}
+                        clear={this.clearInput.bind(this)}
                          />
 
           <PrivateRoute path='/entries'
