@@ -102,9 +102,7 @@ class Profile extends Component {
         body: JSON.stringify(input),
       })
       .then(res => res.json())
-      .then(data =>
-        this.props.clear(),
-        console.log('heeeeeeeeeeey'))
+      .then(data => this.props.clear())
     }
   }
 

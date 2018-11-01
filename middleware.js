@@ -9,7 +9,11 @@ const auth = require('./routes/auth-routes')
 const index = require('./routes/index');
 const Entry = require('./models/entry-model').entry
 const User = require('./models/user-model');
-
+const UserLocal = require('./models/user-local');
+const authLocal = require('./routes/auth-local');
+// const user = require('./routes/user');
+const passport = require('passport');
+require ('passport-local')
 // setting up routes
 const verifiedRoutes = require('./routes/verified-routes');
 const promptRoutes = require('./routes/prompt-routes')
@@ -34,6 +38,13 @@ app.use(cors(corsOption));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
+///local signup
+const localSignupStrategy = require('./passport-signup');
+passport.use('passport-signup', localSignupStrategy)
+const localLoginStrategy = require('./passport-login');
+passport.use('passport-login', localLoginStrategy)
+app.use('/auth', authLocal)
+/////
 // should happen only in production
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/v1/', index);
@@ -41,5 +52,6 @@ app.use('/api', nonVerifiedRouter)
 app.use('/verify', auth)
 app.use('/verify', router)
 app.use('/verify', verifiedRoutes)
+
 
 module.exports = app;
