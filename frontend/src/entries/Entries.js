@@ -71,7 +71,7 @@ class Entries extends React.Component {
     const { expanded } = this.state;
     return (
       <MuiThemeProvider theme={theme}>
-        <Navbar path={this.props.location.pathname} theme={theme}/>
+        <Navbar path={this.props.location.pathname} theme={theme} fetchedEntries={this.props.fetchedEntries}/>
       <div className={classes.root}>
         {this.props.entries.map(entry =>
           <ExpansionPanel style={styles.panel} key={entry._id} expanded={expanded === entry._id} onChange={this.handleChange(entry._id)}>

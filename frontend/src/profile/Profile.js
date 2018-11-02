@@ -49,46 +49,25 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    let promptsFetch, entriesFetch
+    let routeUrl;
     if (process.env.NODE_ENV === 'development') {
-       promptsFetch = fetch('http://localhost:4001/api/prompts')
-       entriesFetch = fetch('http://localhost:4001/verify/entry',
-      {
-         method: 'GET',
-         headers: {
-           'Content-type' : 'application/json',
-           'Authorization': `bearer ${Storage.getToken()}`
-         }
-       })
+      routeUrl = 'http://localhost:4001/api/prompts'
     } else {
-       promptsFetch = fetch('/api/prompts');
-       entriesFetch = fetch('/verify/entry',
-      {
-        method: 'GET',
-        headers: {
-          'Content-type' : 'application/json',
-          'Authorization': `bearer ${Storage.getToken()}`
-          }
-      })
+      routeUrl = '/api/prompts'
     }
-    Promise.all([promptsFetch, entriesFetch])
-      .then((results) => {
-        const promptsBlob = results[0].json()
-        const entriesBlob = results[1].json()
-        Promise.all([promptsBlob, entriesBlob])
-          .then((results) => {
-            this.props.fetched(results)
-            this.props.getRandomPrompt()
-          })
-      })
-      .catch((err) => console.log(err))
+     fetch(routeUrl)
+       .then((results) => results.json())
+       .then(data => {
+         this.props.fetchedPrompts(data)
+         this.props.getRandomPrompt()
+       })
+       .catch((err) => console.log(err))
   }
 
   handleSubmit() {
     if (Storage.getToken()) {
       let formatted = this.props.value.replace(/(<br>)/g, '')
       formatted = formatted.replace(/(>\s)/g, '>&nbsp;&nbsp;&nbsp;&nbsp;')
-      console.log(formatted)
       let input = {
         body: formatted,
         title: this.props.prompt
@@ -113,7 +92,9 @@ class Profile extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <Navbar path={this.props.location.pathname} theme={theme} position="sticky"/>
+        <Navbar path={this.props.location.pathname}
+                theme={theme}
+                position="sticky"/>
         <h3>{this.props.prompt}</h3>
         <TextEditor handleChange={this.props.handleChange}
                     value={this.props.value}

@@ -22,10 +22,15 @@ class App extends Component {
   }
 
 
-  fetchedPromptsAndEntries(results) {
-    const entries = results[1].reverse()
+  fetchedPrompts(results) {
     this.setState({
-      prompts: results[0],
+      prompts: results
+    })
+  }
+
+  fetchedEntries(results) {
+    const entries = results.reverse()
+    this.setState({
       entries: entries
     })
   }
@@ -80,7 +85,7 @@ class App extends Component {
           <Route exact path="/" component={Login}/>
           <PrivateRoute path="/profile"
                         component={Profile}
-                        fetched={this.fetchedPromptsAndEntries.bind(this)}
+                        fetchedPrompts={this.fetchedPrompts.bind(this)}
                         handleChange={this.handleChange.bind(this)}
                         getRandomPrompt={this.getRandomPrompt.bind(this)}
                         prompt={this.state.prompt}
@@ -89,11 +94,13 @@ class App extends Component {
                         disabled={this.state.disabled}
                         words={this.state.words}
                         editorReference={this.textInput}
-                         />
+                        />
 
           <PrivateRoute path='/entries'
                         component={Entries}
-                        entries={this.state.entries} />
+                        entries={this.state.entries}
+                        fetchedEntries={this.fetchedEntries.bind(this)}
+                        />
           <PrivateRoute path='/habits' component={Habits} />
           <PrivateRoute path='/todo' component={Todo} />
           <Route component={Error}/>
