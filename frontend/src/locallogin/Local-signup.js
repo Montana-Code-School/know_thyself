@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import config from '../config.json';
 import Storage from '../storage';
 import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
