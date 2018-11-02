@@ -110,15 +110,16 @@ class Login extends Component {
                 </CardActions>
               </CardContent>
             </Card>
-            <Card className="card" style={{minWidth: '70%', height: 200, margin: 60, backgroundColor:'#F3ECE7', opacity: .81}}>
+            <Card className="card" style={{minWidth: '70%', height: 'auto', margin: 60, backgroundColor:'#F3ECE7', opacity: .81}}>
               <CardContent>
-                <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
-                  "A place to write, to think, and learn about yourself" -A.Morgan
+                <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:18}} gutterBottom>
+                  "In the short term, writing about personal values makes people feel more powerful, in control, proud, and strong. It also makes them feel more loving, connected, and empathetic toward others. It increases pain tolerance, enhances self-control, and reduces unhelpful rumination after a stressful experience.
+In the long term, writing about values has been shown to boost GPAs, reduce doctor visits, improve mental health, and help with everything from weight loss to quitting smoking and reducing drinking." - Kelly McGonigal (Psychologist, Author of 'The Upside of Stress')
                 </Typography>
               </CardContent>
               <CardContent>
                 <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
-                  "I sleep better at night when I take the time to let my thoughts out first." -F.Flynn
+                  "Something about the process of checking off a habit each day and keeping a log of my progress really improves my motivation and ability to complete that habit each day." - Belle Beth Cooper, Lifehacker.com
                 </Typography>
               </CardContent>
               <CardContent>
