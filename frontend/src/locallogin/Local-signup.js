@@ -100,15 +100,15 @@ class SignUp extends Component {
                 value="SUBMIT"
                 type="submit"
                 onClick={this.processSignup}
-                style={{height: '40px', width: '80px', marginLeft: '30px', font:'K2D', backgroundColor:'grey'}}
-              > Submit </Button>
+                style={{height: '40px', width: '33%', font:'K2D', backgroundColor:'grey', color: 'white', marginBottom: '10px'}}
+              >Sign-up</Button>
 
               <Button
                 className="form-login"
                 value="Login"
                 type="login"
                 onClick={this.processLogin}
-                style={{height: '40px', width: '80px', marginLeft: '40px', font:'K2D', backgroundColor:'grey', color:'white'}}
+                style={{height: '40px', width: '80px', marginLeft: '10%', font:'K2D', backgroundColor:'grey', color:'white', marginBottom: '10px'}}
               >Login</Button>
             </form>
     );

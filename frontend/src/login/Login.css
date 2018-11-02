@@ -97,8 +97,8 @@ body {
     border: 1px solid grey;
 }
 
-.form-submit{
-    font-family: 'Raleway', sans-serif;
+.form-submit, .form-login {
+    font-family: 'K2D', sans-serif;
     height: 35px;
     color: #fff;
     background-color: #1abc9c;
@@ -107,6 +107,6 @@ body {
     transition: 0.3s opacity ease;
     cursor: pointer;
 }
-.form-submit:hover{
+.form-submit:hover, .form-login:hover {
    opacity: 0.6;
 }
