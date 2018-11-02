@@ -3,12 +3,6 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'
 
 class TextEditor extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      field: ''
-    }
-  }
   render() {
     return (
       <div>

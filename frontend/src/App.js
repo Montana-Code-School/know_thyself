@@ -34,7 +34,6 @@ class App extends Component {
     this.setState({
       value: editorState
     })
-    console.log(this.state.value)
     if (this.textInput.current) {
       let field = this.textInput.current.getEditor().getText().split(/\s+/)
       this.setState({

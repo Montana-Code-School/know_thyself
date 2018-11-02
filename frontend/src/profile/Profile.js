@@ -87,7 +87,7 @@ class Profile extends Component {
   handleSubmit() {
     if (Storage.getToken()) {
       let formatted = this.props.value.replace(/(<br>)/g, '')
-      formatted = formatted.replace(/(\s\s)/g, '&nbsp;&nbsp;&nbsp;&nbsp;')
+      formatted = formatted.replace(/(>\s)/g, '>&nbsp;&nbsp;&nbsp;&nbsp;')
       console.log(formatted)
       let input = {
         body: formatted,
@@ -111,7 +111,6 @@ class Profile extends Component {
   }
 
   render() {
-    let words = this.props.value.split(' ')
     return (
       <MuiThemeProvider theme={theme}>
         <Navbar path={this.props.location.pathname} theme={theme} position="sticky"/>
