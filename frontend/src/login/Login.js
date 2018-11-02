@@ -30,7 +30,13 @@ class Login extends Component {
   onFailure = (error) => {
     alert(error);
   }
+  //we get a response from google based i-frame login that contains the
+  //profile object, and googleID, and accessToken
+  //id token and tokenID contains info from profile object
+  //Blob is a mess of json
+  //pathname goes to index.js
   googleResponse = (response) => {
+    console.log(response)
     const tokenBlob = new Blob([JSON.stringify({access_token: response.accessToken}, null, 2)], {type : 'application/json'});
     const options = {
       method: 'POST',
@@ -44,7 +50,12 @@ class Login extends Component {
     }
     fetch(pathname, options).then(r => {
       const token = r.headers.get('x-auth-token');
+    //the token has been created sent up to here from index.js,
+    //the token is then sent to token-verification to be decoded, which
+    //then once decoded is used to find the requested user in the db, then the
+    //user is returned. we are now allowed to move profile.js a private route.
       r.json().then(user => {
+        console.log(user)
         if (token) {
           Storage.logIn(token)
           this.setState({isAuthenticated: true, user, token})

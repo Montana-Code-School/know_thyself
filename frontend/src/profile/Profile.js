@@ -5,29 +5,13 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Storage from '../storage'
 import './Profile.css'
 import TextEditor from '../editor/Editor'
+import styles from './styles'
 
 const theme = createMuiTheme({
   typography: {
     useNextVariants: true
   }
 })
-
-const styles = {
-  paper:{
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    margin: '0 12% 0 12%',
-    fontSize: '12px',
-    fontStyle: 'italic',
-    fontWeight: 'lighter',
-    color: 'grey'
-  },
-  textfield:{
-    height: '100%',
-    width: '100%'
-  }
-};
 
 class Profile extends Component {
   state = {
@@ -47,7 +31,8 @@ class Profile extends Component {
       })
     }
   }
-
+  //here we send our token back to token-verification to be decoded and if verified,
+  //have access to prompts and entries associated with that user.
   componentDidMount() {
     let routeUrl;
     if (process.env.NODE_ENV === 'development') {
