@@ -6,6 +6,7 @@ import Storage from '../storage'
 import './Profile.css'
 import TextEditor from '../editor/Editor'
 
+
 const theme = createMuiTheme({
   typography: {
     useNextVariants: true
@@ -117,7 +118,8 @@ class Profile extends Component {
         <h3>{this.props.prompt}</h3>
         <TextEditor handleChange={this.props.handleChange}
                     value={this.props.value}
-                    style={styles.paper}
+                    // style={styles.paper}
+                    classname={styles.paper}
                     words={this.props.words}
                     editorReference={this.props.editorReference}
                     />
