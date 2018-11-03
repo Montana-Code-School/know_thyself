@@ -14,7 +14,8 @@ class SignUp extends Component {
         email: '',
         password: ''
       },
-      isAuthenticated: false
+      isAuthenticated: false,
+      error: ''
      };
   this.processSignup = this.processSignup.bind(this);
   this.processLogin = this.processLogin.bind(this);
@@ -39,6 +40,10 @@ class SignUp extends Component {
         this.setState({
           isAuthenticated: true
         })
+      } else {
+        this.setState({
+          error: 'Email or password are incorrect.'
+        })
       }
     })
   }
@@ -60,6 +65,10 @@ class SignUp extends Component {
         Storage.logIn(data.token)
         this.setState({
           isAuthenticated: true
+        })
+      } else {
+        this.setState({
+          error: 'Please use a valid email address, and include a password 8 characters or more.'
         })
       }
     })
@@ -87,6 +96,9 @@ class SignUp extends Component {
                 type="text"
                 onChange={event => this.handleChange(event)}
               />
+              <br></br>
+              {this.state.error}
+              <br></br>
               <input
                 className="form-item"
                 placeholder="Password goes here..."

@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import {Typography, Card, Grid , CardContent, CardActions } from '@material-ui/core';
 import config from '../config.json';
 import Storage from '../storage';
-import SignUp from '../locallogin/Local-signup'
+import SignUp from '../locallogin/Local-signup';
 import './Login.css';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -89,7 +89,7 @@ class Login extends Component {
                   ))}
                 </List>
                 <List style={{display: 'inline-block', fontFamily:'K2D'}}>
-                  {['Some other feature', 'more stuff', 'you guessed it. things.'].map(value => (
+                  {['Writing Tips', 'Privacy', 'Things'].map(value => (
                     <ListItem key={value}>
                       <ListItemText primary={value} />
                     </ListItem>
@@ -100,14 +100,13 @@ class Login extends Component {
                 </Typography>
               </CardContent>
             </Card>
-            <Card className='signUp' style={{width: '30%', height: 'auto', margin: 60, textAlign: 'center'}}>
+            <Card className='signUp' style={{width: '30%', height: 'auto', margin: 60, textAlign: 'center', backgroundColor: '#F3ECE7', opacity: .81}}>
               <CardContent>
-
                 <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:35}} gutterBottom>
                   Sign-up or Login
                 </Typography>
                 <SignUp />
-                <Typography style={{color: '#214365', fontSize: 20}}>- Or -</Typography>
+                <Typography style={{color: '#214365', fontSize: 20}}>- or -</Typography>
                 <CardActions>
                   <GoogleLogin
                     clientId={config.GOOGLE_CLIENT_ID}
@@ -121,25 +120,29 @@ class Login extends Component {
                 </CardActions>
               </CardContent>
             </Card>
-            <Card className="card" style={{minWidth: '70%', height: 'auto', margin: 60, backgroundColor:'#F3ECE7', opacity: .81}}>
-              <CardContent>
-                <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:18}} gutterBottom>
-                  "In the short term, writing about personal values makes people feel more powerful, in control, proud, and strong. It also makes them feel more loving, connected, and empathetic toward others. It increases pain tolerance, enhances self-control, and reduces unhelpful rumination after a stressful experience.
-In the long term, writing about values has been shown to boost GPAs, reduce doctor visits, improve mental health, and help with everything from weight loss to quitting smoking and reducing drinking." - Kelly McGonigal (Psychologist, Author of 'The Upside of Stress')
-                </Typography>
-              </CardContent>
-              <CardContent>
-                <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
-                  "Something about the process of checking off a habit each day and keeping a log of my progress really improves my motivation and ability to complete that habit each day." - Belle Beth Cooper, Lifehacker.com
-                </Typography>
-              </CardContent>
-              <CardContent>
-                <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
-                  "A safe place to learn about myself." -E.Maize
-                </Typography>
-              </CardContent>
-          </Card>
         </Grid>
+        <Card className="card" style={{minWidth: '70%', height: 'auto', margin: 60, backgroundColor:'white', opacity: .75}}>
+          <CardContent>
+            <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:18}} gutterBottom>
+              "In the short term, writing about personal values makes people feel more powerful, in control, proud, and strong. It also makes them feel more loving, connected, and empathetic toward others. It increases pain tolerance, enhances self-control, and reduces unhelpful rumination after a stressful experience.
+In the long term, writing about values has been shown to boost GPAs, reduce doctor visits, improve mental health, and help with everything from weight loss to quitting smoking and reducing drinking." - Kelly McGonigal (Psychologist, Author of 'The Upside of Stress')
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card className="card" style={{minWidth: '70%', height: 'auto', margin: 60, backgroundColor:'white', opacity: .75}}>
+        <CardContent>
+          <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
+            "Something about the process of checking off a habit each day and keeping a log of my progress really improves my motivation and ability to complete that habit each day." - Belle Beth Cooper, Lifehacker.com
+          </Typography>
+        </CardContent>
+        </Card>
+        <Card className="card" style={{minWidth: '70%', height: 'auto', margin: 60, backgroundColor:'white', opacity: .75}}>
+          <CardContent>
+            <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
+              "A safe place to learn about myself." -E.Maize
+            </Typography>
+          </CardContent>
+        </Card>
       </div>
     );
     return (
