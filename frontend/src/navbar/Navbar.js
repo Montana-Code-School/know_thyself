@@ -8,73 +8,7 @@ import {AppBar, Toolbar, Typography, IconButton, Drawer, Divider, List, ListItem
 import MenuIcon from '@material-ui/icons/Menu';
 import Time from '../time/Time'
 import Weather from '../weather/Weather'
-import './Navbar.css'
-
-const drawerWidth = 200;
-
-const styles = theme => ({
-
-typography: {
-  useNextVariants: true
-},
-paper: { },
-root: {
-  display: 'flex',
-  flexGrow: 1
-},
-appBar: {
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-},
-appBarShift: {
-  width: `calc(100% - ${drawerWidth}px)`,
-  marginLeft: drawerWidth,
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.easeOut,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-},
-menuButton: {
-  marginLeft: 12,
-  marginRight: 20,
-},
-hide: {
-  display: 'none',
-},
-drawer: {
-  width: drawerWidth,
-  flexShrink: 0,
-  overflow: 'hidden'
-},
-drawerPaper: {
-  width: drawerWidth,
-},
-drawerHeader: {
-  display: 'flex',
-  alignItems: 'center',
-  padding: '0 8px',
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-},
-content: {
-  flexGrow: 1,
-  padding: theme.spacing.unit * 3,
-  transition: theme.transitions.create('margin', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  marginLeft: -drawerWidth,
-},
-contentShift: {
-  transition: theme.transitions.create('margin', {
-    easing: theme.transitions.easing.easeOut,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  marginLeft: 0,
-  },
-});
+import styles from './NavStyles'
 
 class NavBar extends React.Component {
   state = {
@@ -135,7 +69,7 @@ class NavBar extends React.Component {
           className={classNames(classes.appBar, {
               [classes.appBarShift]: open,
           })}>
-          <Toolbar className="toolbar" variant="dense" disableGutters={!open}>
+          <Toolbar className="toolbar" variant="dense" style={{backgroundColor: '#373737' }} isableGutters={!open}>
             <IconButton
               className={classNames(classes.menuButton, open && classes.hide)}
               color="inherit"
@@ -143,10 +77,10 @@ class NavBar extends React.Component {
               onClick={this.handleDrawerOpen}>
               <MenuIcon />
             </IconButton>
-            <Typography noWrap style={{fontFamily: "'Satisfy', cursive", color: "#E7DFDD"}} variant="h4">
+            <Typography noWrap className='' style={{fontFamily: "'Satisfy', cursive", color: "#E7DFDD"}} variant="h4">
               Know Thyself
             </Typography>
-            <div style={{flex: "1", alignItems: "flex-end", flexDirection: "column", display: "flex"}}>
+            <div className='timeweather' style={{flex: "1", alignItems: "flex-end", flexDirection: "column", display: "flex"}}>
               <Time />
               <Weather />
             </div>
