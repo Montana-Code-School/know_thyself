@@ -4,14 +4,15 @@ import 'react-quill/dist/quill.snow.css'
 
 const styles = {
   editor: {
-    width: '65%',
-    margin: '0 0 0 6%',
+    width: '93%',
+    margin: '0 2% 2% 2%',
     float: 'left',
-    display: 'inline-block'
+    display: 'inline-block',
+    border: 'solid 1px #373737'
   },
   wordCount: {
     marginBottom: 0,
-    marginLeft: '58%'
+    marginLeft: '79%'
   }
 };
 

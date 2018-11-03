@@ -59,7 +59,7 @@ class App extends Component {
     }
   }
 
-  getRandomPrompt() {
+  getRandomPromptAndTip() {
     const {prompts} = this.state
     const {tips} = this.state
     if (!prompts.length && !tips.length) {
@@ -95,7 +95,7 @@ class App extends Component {
                         component={Profile}
                         fetchedPrompts={this.fetchedPrompts.bind(this)}
                         handleChange={this.handleChange.bind(this)}
-                        getRandomPrompt={this.getRandomPrompt.bind(this)}
+                        getRandomPromptAndTip={this.getRandomPromptAndTip.bind(this)}
                         prompt={this.state.prompt}
                         tip={this.state.tip}
                         value={this.state.value}
@@ -104,7 +104,6 @@ class App extends Component {
                         words={this.state.words}
                         editorReference={this.textInput}
                         />
-
           <PrivateRoute path='/entries'
                         component={Entries}
                         entries={this.state.entries}

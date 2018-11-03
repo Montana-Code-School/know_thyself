@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, SvgIcon, Card, Grid , CardContent, CardActions, Typography  } from '@material-ui/core';
+import { Button, Card, CardContent, Typography  } from '@material-ui/core';
 import Create from '@material-ui/icons/Create'
 import Navbar from '../navbar/Navbar';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -20,8 +20,21 @@ const styles = {
     height: 300,
     display: 'inline-block',
     float: 'right',
-    margin: '0 3% 0 3%',
+    margin: '2% 3% 0 3%',
     padding: 0
+  },
+  editorCard: {
+    width: '66%',
+    margin: '2% 0 0 6%',
+    float: 'left',
+    display: 'inline-block'
+  },
+  promptCard: {
+    width: '66%',
+    height: '5%',
+    margin: '1% 0 0 2%',
+    padding: 0,
+    border: 'solid 1px #373737'
   },
   innerCard: {
     width: '95%',
@@ -32,17 +45,16 @@ const styles = {
     padding: 0
   },
   submit: {
-    marginLeft: '6%'
+    marginLeft: '6%',
+    marginRight: '60%',
+    display: 'inline-block'
   },
   advice: {
     display: 'inline-block',
     fontSize: 14,
     margin: '0 0 6% 10%'
   }
-
 }
-
-
 
 class Profile extends Component {
   state = {
@@ -79,27 +91,11 @@ class Profile extends Component {
         Promise.all([promptsBlob, tipsBlob])
           .then((results) => {
             this.props.fetchedPrompts(results)
-            this.props.getRandomPrompt()
+            this.props.getRandomPromptAndTip()
           })
       })
       .catch((err) => console.log(err))
   }
-
-  // componentDidMount() {
-  //   let routeUrl;
-  //   if (process.env.NODE_ENV === 'development') {
-  //     routeUrl = 'http://localhost:4001/api/prompts'
-  //   } else {
-  //     routeUrl = '/api/prompts'
-  //   }
-  //    fetch(routeUrl)
-  //      .then((results) => results.json())
-  //      .then(data => {
-  //        this.props.fetchedPrompts(data)
-  //        this.props.getRandomPrompt()
-  //      })
-  //      .catch((err) => console.log(err))
-  // }
 
   handleSubmit() {
     if (Storage.getToken()) {
@@ -132,12 +128,20 @@ class Profile extends Component {
         <Navbar path={this.props.location.pathname}
                 theme={theme}
                 position="sticky"/>
-        <h3>{this.props.prompt}</h3>
-        <TextEditor handleChange={this.props.handleChange}
+        <Card style={styles.editorCard}>
+          <Card style={styles.promptCard}>
+            <CardContent>
+              <Typography>
+                {this.props.prompt}
+              </Typography>
+            </CardContent>
+          </Card>
+          <TextEditor handleChange={this.props.handleChange}
                     value={this.props.value}
                     words={this.props.words}
                     editorReference={this.props.editorReference}
                     />
+        </Card>
         <Card style={styles.tipCard}>
           <Card style={styles.innerCard}>
             <CardContent>
