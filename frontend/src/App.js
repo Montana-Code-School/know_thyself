@@ -15,6 +15,8 @@ class App extends Component {
       entries: [],
       value: '',
       prompt: '',
+      tips: [],
+      tip: '',
       disabled: true,
       words: ''
     }
@@ -24,7 +26,8 @@ class App extends Component {
 
   fetchedPrompts(results) {
     this.setState({
-      prompts: results
+      prompts: results[0],
+      tips: results[1]
     })
   }
 
@@ -58,15 +61,20 @@ class App extends Component {
 
   getRandomPrompt() {
     const {prompts} = this.state
-    if (!prompts.length) {
+    const {tips} = this.state
+    if (!prompts.length && !tips.length) {
       this.setState({
-        prompt: 'loading'
+        prompt: 'loading',
+        tip: 'loading'
       })
     } else {
-    const randomIndex = Math.floor(Math.random() * prompts.length)
-    const randomName = prompts[randomIndex].body
+    const randomPrompt = Math.floor(Math.random() * prompts.length)
+    const randomTip = Math.floor(Math.random() * tips.length)
+    const randomPromptName = prompts[randomPrompt].body
+    const randomTipName = tips[randomTip].body
     this.setState({
-      prompt: randomName
+      prompt: randomPromptName,
+      tip: randomTipName
     })
     }
   }
@@ -89,6 +97,7 @@ class App extends Component {
                         handleChange={this.handleChange.bind(this)}
                         getRandomPrompt={this.getRandomPrompt.bind(this)}
                         prompt={this.state.prompt}
+                        tip={this.state.tip}
                         value={this.state.value}
                         clear={this.clear.bind(this)}
                         disabled={this.state.disabled}
