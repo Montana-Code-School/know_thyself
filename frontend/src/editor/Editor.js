@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'
+import { Typography  } from '@material-ui/core';
+
 
 const styles = {
   editor: {
@@ -11,19 +13,20 @@ const styles = {
     border: 'solid 1px #373737'
   },
   wordCount: {
+    fontSize: 12,
     marginBottom: 0,
-    marginLeft: '79%'
+    marginLeft: '76%',
+    fontStyle: 'italic'
   }
 };
 
 class TextEditor extends Component {
-
   render() {
     return (
       <div>
-        <h5 style={styles.wordCount}>
+        <Typography style={styles.wordCount}>
           Word Count: {this.props.words.length - 1 === -1 ? 0 : this.props.words.length - 1} of 500
-        </h5>
+        </Typography>
         <ReactQuill value={this.props.value}
                     onChange={this.props.handleChange}
                     placeholder='your words...'

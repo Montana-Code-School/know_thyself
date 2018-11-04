@@ -46,7 +46,7 @@ const styles = {
   },
   submit: {
     marginLeft: '6%',
-    marginRight: '60%',
+    marginRight: '40%',
     display: 'inline-block'
   },
   advice: {
