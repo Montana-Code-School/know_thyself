@@ -21,10 +21,16 @@ EntrySchema.pre('save', function(next) {
 })
 
 const PromptSchema = new Schema({
+  body: String,
+  date: Number
+})
+
+const TipSchema = new Schema({
   body: String
 })
 
 module.exports = {
    entry: mongoose.model('entry', EntrySchema),
-   prompt: mongoose.model('prompt', PromptSchema)
+   prompt: mongoose.model('prompt', PromptSchema),
+   tip: mongoose.model('tip', TipSchema) 
  }
