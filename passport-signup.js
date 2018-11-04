@@ -1,4 +1,4 @@
-const User = require ('./models/user-local')
+const User = require ('./models/user-model')
 const PassportLocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
@@ -15,13 +15,12 @@ module.exports = new PassportLocalStrategy({
     email: email.trim(),
     password: password.trim(),
   };
-
   const newUser = new User(userData);
   newUser.save((err, user) => {
     if (err) { return done(err); }
     const payload = {
-        sub: user._id
-      }
+      sub: user._id
+    }
     const token = jwt.sign(payload, process.env.SOME_OTHER_SECRET);
     return done(null, token);
   });

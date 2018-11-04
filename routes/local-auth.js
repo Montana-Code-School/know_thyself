@@ -48,8 +48,7 @@ router.post('/signup', function (req, res, next) {
   }
 
   return passport.authenticate('passport-signup', (err, token, userData) => {
-    console.log("in passport.auth", token)
-    // const token = jwt.sign(payload, process.env.SOME_SECRET);
+    console.log("in local-auth", token)
     if (err) {
       console.log("error",err)
       if (err.name === 'MongoError' && err.code === 11000) {
@@ -71,7 +70,7 @@ router.post('/signup', function (req, res, next) {
     }
     return res.json({
       success: true,
-      message: 'You have successfully signed up! Now you should be able to log in.',
+      message: 'You have successfully signed up!',
       token,
       user: userData
     });
@@ -112,6 +111,5 @@ router.post('/login', (req, res, next) => {
     });
   })(req, res, next);
 });
-
 
 module.exports = router;

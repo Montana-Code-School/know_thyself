@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Storage from '../storage';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
 class SignUp extends Component {
@@ -14,7 +14,8 @@ class SignUp extends Component {
         email: '',
         password: ''
       },
-      isAuthenticated: false
+      isAuthenticated: false,
+      error: ''
      };
   this.processSignup = this.processSignup.bind(this);
   this.processLogin = this.processLogin.bind(this);
@@ -24,7 +25,6 @@ class SignUp extends Component {
   processLogin(e) {
     e.preventDefault();
     const { user } = this.state
-    console.log(user, "here")
     fetch( 'http://localhost:4001/auth/login', {
       method: 'post',
       headers: {
@@ -38,6 +38,10 @@ class SignUp extends Component {
         Storage.logIn(data.token)
         this.setState({
           isAuthenticated: true
+        })
+      } else {
+        this.setState({
+          error: 'Email or password are incorrect. Forget your password?'
         })
       }
     })
@@ -60,6 +64,10 @@ class SignUp extends Component {
         Storage.logIn(data.token)
         this.setState({
           isAuthenticated: true
+        })
+      } else {
+        this.setState({
+          error: 'Please use a valid email address, and include a password 8 characters or more. Forget your password?'
         })
       }
     })
@@ -87,6 +95,9 @@ class SignUp extends Component {
                 type="text"
                 onChange={event => this.handleChange(event)}
               />
+              <br></br>
+              {this.state.error}
+              <br></br>
               <input
                 className="form-item"
                 placeholder="Password goes here..."
