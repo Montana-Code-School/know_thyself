@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Storage from '../storage';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
 class SignUp extends Component {
@@ -25,7 +25,6 @@ class SignUp extends Component {
   processLogin(e) {
     e.preventDefault();
     const { user } = this.state
-    console.log(user, "here")
     fetch( 'http://localhost:4001/auth/login', {
       method: 'post',
       headers: {
@@ -42,7 +41,7 @@ class SignUp extends Component {
         })
       } else {
         this.setState({
-          error: 'Email or password are incorrect.'
+          error: 'Email or password are incorrect. Forget your password?'
         })
       }
     })
@@ -68,7 +67,7 @@ class SignUp extends Component {
         })
       } else {
         this.setState({
-          error: 'Please use a valid email address, and include a password 8 characters or more.'
+          error: 'Please use a valid email address, and include a password 8 characters or more. Forget your password?'
         })
       }
     })

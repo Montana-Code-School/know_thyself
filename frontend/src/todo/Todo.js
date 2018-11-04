@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 });
 
-class Todo extends React.Component {
+class Todo extends Component {
   state = {
     checked: [0],
   };
