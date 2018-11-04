@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { Button } from '@material-ui/core';
+import { Button, Card, CardContent, Typography  } from '@material-ui/core';
+import Create from '@material-ui/icons/Create'
 import Navbar from '../navbar/Navbar';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Storage from '../storage'
 import './Profile.css'
 import TextEditor from '../editor/Editor'
+
+
 
 
 const theme = createMuiTheme({
@@ -14,21 +17,47 @@ const theme = createMuiTheme({
 })
 
 const styles = {
-  paper:{
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    margin: '0 12% 0 12%',
-    fontSize: '12px',
-    fontStyle: 'italic',
-    fontWeight: 'lighter',
-    color: 'grey'
+  tipCard: {
+    width: '20%',
+    height: 300,
+    display: 'inline-block',
+    float: 'right',
+    margin: '2% 3% 0 3%',
+    padding: 0
   },
-  textfield:{
-    height: '100%',
-    width: '100%'
+  editorCard: {
+    width: '66%',
+    margin: '2% 0 0 6%',
+    float: 'left',
+    display: 'inline-block'
+  },
+  promptCard: {
+    width: '66%',
+    height: '5%',
+    margin: '1% 0 0 2%',
+    padding: 0,
+    border: 'solid 1px #373737'
+  },
+  innerCard: {
+    width: '95%',
+    height: '96%',
+    display: 'inline-block',
+    margin: '2% 2% 2% 2%',
+    border: 'solid 1px #373737',
+    padding: 0
+  },
+  submit: {
+    marginLeft: '6%',
+    marginRight: '40%',
+    display: 'inline-block'
+  },
+  advice: {
+    display: 'inline-block',
+    fontSize: 14,
+    margin: '0 0 6% 10%'
   }
-};
+}
+
 
 class Profile extends Component {
   state = {
@@ -48,48 +77,35 @@ class Profile extends Component {
       })
     }
   }
-
+  //here we send our token back to token-verification to be decoded and if verified,
+  //have access to prompts and entries associated with that user.
   componentDidMount() {
-    let promptsFetch, entriesFetch
+    let promptsFetch, tipsFetch
     if (process.env.NODE_ENV === 'development') {
        promptsFetch = fetch('http://localhost:4001/api/prompts')
-       entriesFetch = fetch('http://localhost:4001/verify/entry',
-      {
-         method: 'GET',
-         headers: {
-           'Content-type' : 'application/json',
-           'Authorization': `bearer ${Storage.getToken()}`
-         }
-       })
+       tipsFetch = fetch('http://localhost:4001/api/tips')
     } else {
        promptsFetch = fetch('/api/prompts');
-       entriesFetch = fetch('/verify/entry',
-      {
-        method: 'GET',
-        headers: {
-          'Content-type' : 'application/json',
-          'Authorization': `bearer ${Storage.getToken()}`
-          }
-      })
+       tipsFetch = fetch('/api/tips')
     }
-    Promise.all([promptsFetch, entriesFetch])
+    Promise.all([promptsFetch, tipsFetch])
       .then((results) => {
         const promptsBlob = results[0].json()
-        const entriesBlob = results[1].json()
-        Promise.all([promptsBlob, entriesBlob])
+        const tipsBlob = results[1].json()
+        Promise.all([promptsBlob, tipsBlob])
           .then((results) => {
-            this.props.fetched(results)
-            this.props.getRandomPrompt()
+            this.props.fetchedPrompts(results)
+            this.props.getRandomPromptAndTip()
           })
       })
       .catch((err) => console.log(err))
   }
 
+
   handleSubmit() {
     if (Storage.getToken()) {
       let formatted = this.props.value.replace(/(<br>)/g, '')
       formatted = formatted.replace(/(>\s)/g, '>&nbsp;&nbsp;&nbsp;&nbsp;')
-      console.log(formatted)
       let input = {
         body: formatted,
         title: this.props.prompt
@@ -114,16 +130,38 @@ class Profile extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <Navbar path={this.props.location.pathname} theme={theme} position="sticky"/>
-        <h3>{this.props.prompt}</h3>
-        <TextEditor handleChange={this.props.handleChange}
+        <Navbar path={this.props.location.pathname}
+                theme={theme}
+                position="sticky"/>
+        <Card style={styles.editorCard}>
+          <Card style={styles.promptCard}>
+            <CardContent>
+              <Typography>
+                {this.props.prompt}
+              </Typography>
+            </CardContent>
+          </Card>
+          <TextEditor handleChange={this.props.handleChange}
                     value={this.props.value}
-                    // style={styles.paper}
-                    classname={styles.paper}
                     words={this.props.words}
                     editorReference={this.props.editorReference}
                     />
+        </Card>
+        <Card style={styles.tipCard}>
+          <Card style={styles.innerCard}>
+            <CardContent>
+              <Create/>
+              <Typography style={styles.advice}>
+                Advice:
+              </Typography>
+              <Typography>
+                {this.props.tip}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Card>
         <Button
+          style={styles.submit}
           className='submit'
           onClick={(e) => this.handleSubmit(e)}
           disabled={this.props.disabled}

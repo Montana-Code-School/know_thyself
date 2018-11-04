@@ -9,7 +9,7 @@ const HabitSchema = new Schema({
   finished: false,
   user: {type: Schema.Types.ObjectId, ref: 'user'}
 })
-s
+
 module.exports = {
-   habits: mongoose.model('entry', HabitSchema)
+   habit: mongoose.model('habit', HabitSchema)
  }

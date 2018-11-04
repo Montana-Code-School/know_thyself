@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React, {Component} from 'react';
 import Clock from 'react-live-clock';
 import './Time.css'
 

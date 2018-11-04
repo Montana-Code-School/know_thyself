@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Time from '../time/Time'
 import Weather from '../weather/Weather'
 import styles from './NavStyles'
+import Storage from '../storage'
 
 class NavBar extends React.Component {
   state = {
@@ -32,15 +33,91 @@ class NavBar extends React.Component {
     this.setState({ open: false });
   };
 
+
   revealProfile = () => {
     this.setState({atprofile: true});
   };
 
   revealEntry = () => {
+    let routeUrl;
+    if (process.env.NODE_ENV === 'development') {
+      routeUrl = 'http://localhost:4001/verify/entry'
+    } else {
+      routeUrl = '/verify/entry'
+    }
+    fetch(routeUrl,
+     {
+        method: 'GET',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization': `bearer ${Storage.getToken()}`
+        }
+      })
+      .then((results) => results.json())
+      .then(data => {
+        this.props.fetchedEntries(data)
+      })
+      .catch((err) => console.log(err))
     this.setState({atentries: true});
   };
 
   revealHabits = () => {
+    this.setState({athabits: true});
+  };
+
+  revealTodo = () => {
+    this.setState({attodo: true});
+  }
+
+
+
+  revealProfile = () => {
+    this.setState({atprofile: true});
+  };
+
+  revealEntry = () => {
+    let routeUrl;
+    if (process.env.NODE_ENV === 'development') {
+      routeUrl = 'http://localhost:4001/verify/entry'
+    } else {
+      routeUrl = '/verify/entry'
+    }
+    fetch(routeUrl,
+     {
+        method: 'GET',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization' : `bearer ${Storage.getToken()}`
+        }
+      })
+      .then((results) => results.json())
+      .then(data => {
+        this.props.fetchedEntries(data)
+      })
+      .catch((err) => console.log(err))
+    this.setState({atentries: true});
+  };
+
+  revealHabits = () => {
+    let routeUrl;
+    if (process.env.NODE_ENV === 'development') {
+      routeUrl = 'http://localhost:4001/verify/habit'
+    } else {
+      routeUrl = 'verify/habit'
+    }
+    fetch(routeUrl,
+    {
+      method: 'GET',
+      headers: {
+        'Content-type' : 'application/json',
+        'Authorization': `bearer ${Storage.getToken()}`
+      }
+    })
+    .then((results) => results.json())
+    .then(data => {
+      this.props.fetchedHabits(data)
+    })
+    .catch((err) => console.log(err))
     this.setState({athabits: true});
   };
 
@@ -69,7 +146,7 @@ class NavBar extends React.Component {
           className={classNames(classes.appBar, {
               [classes.appBarShift]: open,
           })}>
-          <Toolbar className="toolbar" variant="dense" style={{backgroundColor: '#373737' }} isableGutters={!open}>
+          <Toolbar className="toolbar" variant="dense" style={{backgroundColor: '#373737' }} disableGutters={!open}>
             <IconButton
               className={classNames(classes.menuButton, open && classes.hide)}
               color="inherit"
@@ -124,8 +201,7 @@ class NavBar extends React.Component {
 }
 
 NavBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(NavBar);

@@ -15,18 +15,39 @@ class App extends Component {
       entries: [],
       value: '',
       prompt: '',
+      tips: [],
+      tip: '',
       disabled: true,
-      words: ''
+      words: '',
+      habits: [],
+      title: '',
+      reps: '',
+      initial: 0,
+      complete: 0,
+      finished: false
     }
     this.textInput = React.createRef()
   }
 
 
-  fetchedPromptsAndEntries(results) {
-    const entries = results[1].reverse()
+  fetchedPrompts(results) {
     this.setState({
       prompts: results[0],
-      entries: entries
+      tips: results[1]
+    })
+  }
+
+  fetchedEntries(results) {
+  const entries = results.reverse()
+  this.setState({
+    entries: entries
+  })
+}
+
+  fetchedHabits(results) {
+    const habits = results.reverse()
+    this.setState({
+      habits: habits
     })
   }
 
@@ -51,20 +72,52 @@ class App extends Component {
     }
   }
 
-  getRandomPrompt() {
+  getRandomPromptAndTip() {
     const {prompts} = this.state
-    if (!prompts.length) {
+    const {tips} = this.state
+    if (!prompts.length && !tips.length) {
       this.setState({
-        prompt: 'loading'
+        prompt: 'loading',
+        tip: 'loading'
       })
     } else {
-    const randomIndex = Math.floor(Math.random() * prompts.length)
-    const randomName = prompts[randomIndex].body
+    const randomPrompt = Math.floor(Math.random() * prompts.length)
+    const randomTip = Math.floor(Math.random() * tips.length)
+    const randomPromptName = prompts[randomPrompt].body
+    const randomTipName = tips[randomTip].body
     this.setState({
-      prompt: randomName
-    })
+      prompt: randomPromptName,
+      tip: randomTipName
+      })
     }
   }
+    handleHabitTitle(e) {
+      this.setState({
+        title: e.target.value
+      })
+    }
+    handleHabitReps(e) {
+      this.setState({
+        reps: e.target.value
+      })
+    }
+
+  completeReps () {
+    this.setState({
+      reps: 1
+    });
+    this.setState({
+      complete: 1
+    });
+    this.setState({
+      finished: true
+    });
+  }
+
+  // removeHabit () {
+  //   this.props.habits.$remove(habit);
+  //   console.log(this.props.habits);
+  // }
 
   clear() {
     this.setState({
@@ -80,21 +133,35 @@ class App extends Component {
           <Route exact path="/" component={Login}/>
           <PrivateRoute path="/profile"
                         component={Profile}
-                        fetched={this.fetchedPromptsAndEntries.bind(this)}
+                        fetchedPrompts={this.fetchedPrompts.bind(this)}
                         handleChange={this.handleChange.bind(this)}
-                        getRandomPrompt={this.getRandomPrompt.bind(this)}
+                        getRandomPromptAndTip={this.getRandomPromptAndTip.bind(this)}
                         prompt={this.state.prompt}
+                        tip={this.state.tip}
                         value={this.state.value}
                         clear={this.clear.bind(this)}
                         disabled={this.state.disabled}
                         words={this.state.words}
                         editorReference={this.textInput}
-                         />
-
+                        />
           <PrivateRoute path='/entries'
                         component={Entries}
-                        entries={this.state.entries} />
-          <PrivateRoute path='/habits' component={Habits} />
+                        entries={this.state.entries}
+                        fetchedEntries={this.fetchedEntries.bind(this)}
+                        />
+          <PrivateRoute path='/habits'
+                        component={Habits}
+                        handleHabitTitle={this.handleHabitTitle.bind(this)}
+                        fetchedHabits={this.fetchedHabits.bind(this)}
+                        handleHabitReps={this.handleHabitReps.bind(this)}
+                        habits={this.state.habits}
+                        title={this.state.title}
+                        reps={this.state.reps}
+                        // addHabit={this.addHabit.bind(this)}
+                        completeReps={this.completeReps.bind(this)}
+                        // removeHabit={this.removeHabit.bind(this)}
+
+                        />
           <PrivateRoute path='/todo' component={Todo} />
           <Route component={Error}/>
         </Switch>

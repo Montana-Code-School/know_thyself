@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Storage from '../storage';
-import { Redirect } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import { Redirect, Link } from 'react-router-dom';
+import {Button, Input } from '@material-ui/core';
 
 class SignUp extends Component {
   constructor() {
@@ -14,7 +14,8 @@ class SignUp extends Component {
         email: '',
         password: ''
       },
-      isAuthenticated: false
+      isAuthenticated: false,
+      error: ''
      };
   this.processSignup = this.processSignup.bind(this);
   this.processLogin = this.processLogin.bind(this);
@@ -24,7 +25,6 @@ class SignUp extends Component {
   processLogin(e) {
     e.preventDefault();
     const { user } = this.state
-    console.log(user, "here")
     fetch( 'http://localhost:4001/auth/login', {
       method: 'post',
       headers: {
@@ -38,6 +38,10 @@ class SignUp extends Component {
         Storage.logIn(data.token)
         this.setState({
           isAuthenticated: true
+        })
+      } else {
+        this.setState({
+          error: 'Email or password are incorrect. Forget your password?'
         })
       }
     })
@@ -61,6 +65,10 @@ class SignUp extends Component {
         this.setState({
           isAuthenticated: true
         })
+      } else {
+        this.setState({
+          error: 'Please use a valid email address, and include a password 8 characters or more. Forget your password?'
+        })
       }
     })
   }
@@ -80,16 +88,19 @@ class SignUp extends Component {
         <Redirect to='/profile' />
       ) : (
             <form>
-              <input
+              <Input
                 className="form-item"
-                placeholder="Username goes here..."
+                placeholder="Username"
                 name="email"
-                type="text"
+                type="email"
                 onChange={event => this.handleChange(event)}
               />
-              <input
+              <br></br>
+              {this.state.error}
+              <br></br>
+              <Input
                 className="form-item"
-                placeholder="Password goes here..."
+                placeholder="Password"
                 name="password"
                 type="password"
                 onChange={event => this.handleChange(event)}
@@ -100,15 +111,15 @@ class SignUp extends Component {
                 value="SUBMIT"
                 type="submit"
                 onClick={this.processSignup}
-                style={{height: '40px', width: '80px', marginLeft: '30px', font:'K2D', backgroundColor:'grey'}}
-              > Submit </Button>
+                style={{height: '40px', width: '33%', font:'K2D', backgroundColor:'grey', color: 'white', marginBottom: '10px', fontSize: '12px'}}
+              >Sign Up</Button>
 
               <Button
                 className="form-login"
                 value="Login"
                 type="login"
                 onClick={this.processLogin}
-                style={{height: '40px', width: '80px', marginLeft: '40px', font:'K2D', backgroundColor:'grey', color:'white'}}
+                style={{height: '40px', width: '80px', marginLeft: '10%', font:'K2D', backgroundColor:'grey', color:'white', marginBottom: '10px', fontSize: '12px'}}
               >Login</Button>
             </form>
     );
