@@ -1,18 +1,50 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { Button, Card, CardContent, Typography  } from '@material-ui/core';
 import './Habits.css'
 import Navbar from '../navbar/Navbar'
 import Storage from '../storage'
 
 
 
-const styles = theme => ({
+const theme = theme => ({
   root: {
     width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
 });
+
+const styles = {
+  head: {
+    fontSize: 24,
+    marginLeft: '4%'
+  },
+  inputs: {
+    border: 'solid 1px black',
+    marginRight: '2%'
+  },
+  addButton: {
+    height: '1%'
+  },
+  addCard: {
+    margin: '1% 0 2% 3%',
+    width: '33%'
+  },
+  habitCard: {
+    margin: '1% 0 2% 3%',
+    width: '25%',
+    display: 'inline-block'
+  },
+  progressBar: {
+    border: 'solid 1px black',
+    borderRadius: '20%',
+    margin: '13px 0 0 0',
+    height: '12px',
+    padding: '0 14px',
+    cursor: 'pointer'
+  }
+}
 
 class Habits extends Component {
 
@@ -67,7 +99,6 @@ addHabit() {
   }
 }
 
-
   render() {
     console.log(this.props.habits)
     return (
@@ -75,17 +106,31 @@ addHabit() {
         <Navbar path={this.props.location.pathname} fetchedHabits={this.props.fetchedHabits}/>
         <div className="container">
           <div id="app">
-            <h1>Habit Tracker</h1>
-            <div>
-              <input onChange={this.props.handleHabitTitle} type="text" id='habitTitle' placeholder="Habit Title" value={this.props.title} /><br />
-              <input onChange={this.props.handleHabitReps} type="number" placeholder="Repetitions" value={this.props.reps} /><br />
-              <button id="creator" onClick={(e) => this.addHabit(e)}>Add</button>
-            </div>
+            <Card style={styles.addCard}>
+              <Typography style={styles.head}>Habit Tracker</Typography>
+              <CardContent>
+                <input onChange={this.props.handleHabitTitle}
+                       type="text"
+                       id='habitTitle'
+                       placeholder="Habit"
+                       value={this.props.title}
+                       style={styles.inputs} />
+                <input onChange={this.props.handleHabitReps}
+                       type="number"
+                       placeholder="Repetitions"
+                       value={this.props.reps}
+                       style={styles.inputs} />
+                <Button id="creator"
+                        onClick={(e) => this.addHabit(e)}
+                        style={styles.addButton}>Add
+                </Button>
+              </CardContent>
+            </Card>
             {this.props.habits.map(habit =>
-              <div key={habit._id} className="row habit" >
-                <div className="four columns" transition="slide" style={{borderBottom: '5px solid'}}>
-                  <h4>{habit.title}</h4>
-                  <div className="shell">
+              <Card key={habit._id} className="row habit" style={styles.habitCard}>
+                <CardContent className="four columns" transition="slide">
+                  <Typography>{habit.title}</Typography>
+                  <div className="shell" style={styles.progressBar}>
                     <div className="bar" style={{ width: 100 - habit.complete * (100 / habit.initial) + '%' }}></div>
                   </div>
                   {/* <div className="lower">
@@ -102,8 +147,8 @@ addHabit() {
                     <div v-show="!habit.finished">{{ habit.complete }}/{{ habit.initial }} times</div>
                     <div v-show="habit.finished" transition="slide">Complete!</div>
                   </div> */}
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             )}
           </div>
         </div>

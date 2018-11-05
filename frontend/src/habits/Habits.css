@@ -1,13 +1,13 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:300,100);
+/* @import url(https://fonts.googleapis.com/css?family=Lato:300,100);
 
 /* body {
   background: #333;
   font-family: 'Lato', sans-serif;
 } */
-
+/*
 #app {
   margin-top: 50px;
-  /* color: #fff; */
+  color: #fff;
 }
 
 input[type="text"], input[type="number"]{
@@ -15,7 +15,7 @@ input[type="text"], input[type="number"]{
   border: 0;
   border-radius: 0;
   border-bottom: 1px solid #fff;
-  /* color: #fff; */
+  color: #fff;
   font-family: 'Lato', sans-serif;
   font-size: 1.2em;
   font-weight: 300;
@@ -32,7 +32,7 @@ input[type="number"] {
   border-radius: 0;
   background: #00897b;
   outline: none;
-  /* color: #fff; */
+  color: #fff;
   transition: background .15s ease;
   &:hover {
     background: darken(#00897b, 5%);
@@ -119,5 +119,5 @@ input[type="number"] {
     .shell {
       margin: 0 auto;
     }
-  }
-}
+  } */
+/* } */ 
