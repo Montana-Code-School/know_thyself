@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import HtmlComponent from '../parser/HTMLparser'
+import Storage from '../storage'
 
 //entries get fetched within profile.js
 const theme = createMuiTheme({
@@ -48,6 +49,28 @@ class Entries extends React.Component {
   state = {
     expanded: null,
   };
+
+  componentDidMount() {
+    let routeUrl;
+    if (process.env.NODE_ENV === 'development') {
+      routeUrl = 'http://localhost:4001/verify/entry'
+    } else {
+      routeUrl = '/verify/entry'
+    }
+    fetch(routeUrl,
+     {
+        method: 'GET',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization' : `bearer ${Storage.getToken()}`
+        }
+      })
+      .then((results) => results.json())
+      .then(data => {
+        this.props.fetchedEntries(data)
+      })
+      .catch((err) => console.log(err))
+  }
 
   handleChange = panel => (event, expanded) => {
     this.setState({

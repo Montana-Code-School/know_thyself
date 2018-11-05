@@ -16,51 +16,56 @@ const styles = theme => ({
 
 class Habits extends Component {
 
-  // componentDidMount() {
-  //   let habitsFetch
-  //   if (process.env.NODE_ENV === 'development') {
-  //     habitsFetch = fetch('http://localhost:4001/api/habits')
-  //   }else {
-  //     habitsFetch = fetch('/api/habits')
-  //   }
-  //   Promise.all([habitsFetch])
-  //     .then((results) => {
-  //       const habitsBlob = results[0].json()
-  //       Promise.all([habitsBlob])
-  //         .then((results) => {
-  //           this.props.habitsFetch(results)
-  //         })
-  //     })
-  //     .catch((err) => console.log(err))
-  // }
-
-
-
-  addHabit() {
-    if (Storage.getToken()) {
-      let input = {
-        title: this.props.title,
-        reps: this.props.reps,
-        initial: this.props.reps,
-        complete: 0,
-        finished: false
-      }
-      let pathname = '/verify/habit'
-      if (process.env.NODE_ENV === 'development') {
-        pathname=`http://localhost:4001${pathname}`
-      }
-      fetch( pathname, {
-        method: 'POST',
-        headers: {
-          'Content-type' : 'application/json',
-          'Authorization': `bearer ${Storage.getToken()}`
-        },
-        body: JSON.stringify(input),
-      })
-      .then(res => res.json())
-      .then(data => console.log(data))
-    }
+componentDidMount() {
+  let routeUrl;
+  if (process.env.NODE_ENV === 'development') {
+    routeUrl = 'http://localhost:4001/verify/habit'
+  } else {
+    routeUrl = 'verify/habit'
   }
+  fetch(routeUrl,
+  {
+    method: 'GET',
+    headers: {
+      'Content-type' : 'application/json',
+      'Authorization': `bearer ${Storage.getToken()}`
+    }
+  })
+  .then((results) => results.json())
+  .then(data => {
+    this.props.fetchedHabits(data)
+  })
+  .catch((err) => console.log(err))
+}
+
+addHabit() {
+  if (Storage.getToken()) {
+    console.log('addHabit')
+    let input = {
+      title: this.props.title,
+      reps: this.props.reps,
+      initial: this.props.reps,
+      complete: 0,
+      finished: false
+    }
+    let pathname = '/verify/habit'
+    if (process.env.NODE_ENV === 'development') {
+      pathname=`http://localhost:4001${pathname}`
+    }
+    fetch( pathname, {
+      method: 'POST',
+      headers: {
+        'Content-type' : 'application/json',
+        'Authorization': `bearer ${Storage.getToken()}`
+      },
+      body: JSON.stringify(input),
+    })
+    .then(res => {
+      console.log('near the end')
+      res.json()})
+    .then(data => console.log(data))
+  }
+}
 
 
   render() {

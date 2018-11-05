@@ -78,7 +78,7 @@ class Login extends Component {
               className='grid'>
             <Card className='card' style={{width: '50%', height: 'auto', margin: 60, backgroundColor: '#F3ECE7', opacity: .81}}>
               <CardContent style={{textAlign: 'center', color: '#214365'}}>
-                <Typography style={{fontFamily: 'Satisfy, cursive', color: '#214365', fontSize: 75, opacity: 1}} className='logo1' gutterBottom>
+                <Typography style={{fontFamily: 'Satisfy, cursive', color: '#214365', fontSize: 75}} className='logo1' gutterBottom>
                   Know Thyself
                 </Typography>
                 <List style={{fontFamily:'K2D', display: 'inline-block'}}>

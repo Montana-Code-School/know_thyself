@@ -40,6 +40,7 @@ UserSchema.statics.upsertGoogleUser = function(accessToken, refreshToken, profil
       let newUser = new that({
         fullName: profile.displayName,
         email: profile.emails[0].value,
+        password: Math.floor(Math.random() * 99999999).toString(),
         googleProvider: {
           id: profile.id,
           token: accessToken

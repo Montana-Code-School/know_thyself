@@ -40,8 +40,7 @@ const Habit = require('../models/habit-model').habit
   router.route('/habit')
     .post((req, res) => {
       if (!req.user) console.log('you shall not pass!')
-      console.log(req)
-      const { body } = req 
+      const { body } = req
       let habit = new Habit()
       habit.title = body.title
       habit.reps = body.reps

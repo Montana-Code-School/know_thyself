@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Storage from '../storage';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import {Button, Input } from '@material-ui/core';
 
 class SignUp extends Component {
