@@ -2,87 +2,13 @@ body {
   background-color: #F3ECE7;
 }
 
-.login {
-  background-color: #214365;
-  color: white;
-  height: 50px;
-  width: 150px;
-}
-
-.login2 {
-  text-align: center;
-  color: black;
-  text-shadow: .5px .5px .5px black;
-}
-
-.logo1 {
-  text-shadow: 2px 2px 4px black;
-  text-align: center;
-}
-
-.logo2 {
-  text-align: center;
-}
-
-.Navbar {
-  position: sticky;
-}
-
 .grid {
   background-color: grey;
   opacity: .81;
   background-image: url('../images/background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  /* margin-bottom: 30%; */
   background-position: center;
-}
-
-.signUp{
-  background-size: cover;
-  background-repeat: no-repeat;
-  border: 1px solid #214365;
-}
-
-.card {
-  border: 1px solid #214365;
-  elevation: 15
-}
-.center-Login{
-    font-family: 'K2D', sans-serif;
-    position: absolute;
-    height: 50%;
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.center-SignUp{
-  font-family: 'K2D', sans-serif;
-  position: absolute;
-  height: 60%;
-  width: 60%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.card{
-    background-color: #fff;
-    border-radius: 15px;
-    padding: 0.8rem;
-}
-
-.card > form{
-    display: flex;
-    flex-direction: column;
-}
-
-.card h1{
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 10px;
 }
 
 .form-item{
@@ -94,16 +20,6 @@ body {
     border: 1px solid grey;
 }
 
-.form-submit, .form-login {
-    font-family: 'K2D', sans-serif;
-    height: 35px;
-    color: #fff;
-    background-color: #1abc9c;
-    border: none;
-    letter-spacing: 0.2rem;
-    transition: 0.3s opacity ease;
-    cursor: pointer;
-}
 .form-submit:hover, .form-login:hover {
    opacity: 0.6;
 }
