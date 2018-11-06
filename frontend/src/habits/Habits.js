@@ -4,6 +4,8 @@ import { Button, Card, CardContent, Typography  } from '@material-ui/core';
 import './Habits.css'
 import Navbar from '../navbar/Navbar'
 import Storage from '../storage'
+import Create from '@material-ui/icons/Create'
+
 
 
 
@@ -43,32 +45,68 @@ const styles = {
     height: '12px',
     padding: '0 14px',
     cursor: 'pointer'
+  },
+  tipCard: {
+    width: '20%',
+    height: 300,
+    display: 'inline-block',
+    float: 'right',
+    margin: '2% 3% 0 3%',
+    padding: 0
+  },
+  innerCard: {
+    width: '95%',
+    height: '96%',
+    display: 'inline-block',
+    margin: '2% 2% 2% 2%',
+    border: 'solid 1px #373737',
+    padding: 0
+  },
+  advice: {
+    display: 'inline-block',
+    fontSize: 14,
+    margin: '0 0 6% 10%'
   }
 }
 
 class Habits extends Component {
 
-componentDidMount() {
-  let routeUrl;
-  if (process.env.NODE_ENV === 'development') {
-    routeUrl = 'http://localhost:4001/verify/habit'
-  } else {
-    routeUrl = 'verify/habit'
-  }
-  fetch(routeUrl,
-  {
-    method: 'GET',
-    headers: {
-      'Content-type' : 'application/json',
-      'Authorization': `bearer ${Storage.getToken()}`
+  componentDidMount() {
+    let habitsFetch, tipsFetch
+    if (process.env.NODE_ENV === 'development') {
+       habitsFetch = fetch('http://localhost:4001/verify/habit',
+       {
+         method: 'GET',
+         headers: {
+           'Content-type' : 'application/json',
+           'Authorization': `bearer ${Storage.getToken()}`
+         }
+       })
+       tipsFetch = fetch('http://localhost:4001/api/tips')
+    } else {
+      habitsFetch = fetch('http://localhost:4001/verify/habit',
+      {
+        method: 'GET',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization': `bearer ${Storage.getToken()}`
+        }
+      })
+      tipsFetch = fetch('/api/tips')
     }
-  })
-  .then((results) => results.json())
-  .then(data => {
-    this.props.fetchedHabits(data)
-  })
-  .catch((err) => console.log(err))
-}
+    Promise.all([habitsFetch, tipsFetch])
+      .then((results) => {
+        const habitsBlob = results[0].json()
+        const tipsBlob = results[1].json()
+        Promise.all([habitsBlob, tipsBlob])
+          .then((results) => {
+            this.props.fetchedHabits(results)
+            this.props.fetchedTips(results)
+            this.props.getRandomTip()
+          })
+      })
+      .catch((err) => console.log(err))
+  }
 
 addHabit() {
   if (Storage.getToken()) {
@@ -100,12 +138,24 @@ addHabit() {
 }
 
   render() {
-    console.log(this.props.habits)
     return (
       <div>
         <Navbar path={this.props.location.pathname} fetchedHabits={this.props.fetchedHabits}/>
         <div className="container">
           <div id="app">
+            <Card style={styles.tipCard}>
+              <Card style={styles.innerCard}>
+                <CardContent>
+                  <Create/>
+                  <Typography style={styles.advice}>
+                    Advice:
+                  </Typography>
+                  <Typography>
+                    {this.props.tip}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Card>
             <Card style={styles.addCard}>
               <Typography style={styles.head}>Habit Tracker</Typography>
               <CardContent>

@@ -7,9 +7,6 @@ import Storage from '../storage'
 import './Profile.css'
 import TextEditor from '../editor/Editor'
 
-
-
-
 const theme = createMuiTheme({
   typography: {
     useNextVariants: true
@@ -95,7 +92,9 @@ class Profile extends Component {
         Promise.all([promptsBlob, tipsBlob])
           .then((results) => {
             this.props.fetchedPrompts(results)
-            this.props.getRandomPromptAndTip()
+            this.props.fetchedTips(results)
+            this.props.getRandomPrompt()
+            this.props.getRandomTip()
           })
       })
       .catch((err) => console.log(err))

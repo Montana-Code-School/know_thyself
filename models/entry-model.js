@@ -29,8 +29,13 @@ const TipSchema = new Schema({
   body: String
 })
 
+const HabitTipSchema = new Schema({
+  body: String
+})
+
 module.exports = {
    entry: mongoose.model('entry', EntrySchema),
    prompt: mongoose.model('prompt', PromptSchema),
-   tip: mongoose.model('tip', TipSchema) 
+   tip: mongoose.model('tip', TipSchema),
+   habitTip: mongoose.model('habitTip', HabitTipSchema)
  }

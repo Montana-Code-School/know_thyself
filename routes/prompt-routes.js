@@ -1,5 +1,6 @@
 const Prompt = require('../models/entry-model').prompt
 const Tip = require('../models/entry-model').tip
+const HabitTip = require('../models/entry-model').habitTip
 
 // post and view writing prompt entries
 module.exports = (router) => {
@@ -35,4 +36,20 @@ module.exports = (router) => {
           res.json(tip)
         });
       });
+
+      router.route('/habit_tips')
+        .post((req, res) => {
+          let tip = new HabitTip();
+          tip.body = req.body.body;
+          tip.save((err) => {
+            if (err) res.send(err)
+            res.json({msg: 'u did it'})
+          })
+        })
+        .get((req, res) => {
+          Tip.find((err, tip) => {
+            if (err) res.send(err)
+            res.json(tip)
+          });
+        });
 }
