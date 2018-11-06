@@ -2,15 +2,12 @@ import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { Redirect } from 'react-router-dom';
 import {Typography, Card, Grid , CardContent, CardActions } from '@material-ui/core';
+import {List, ListItem, ListItemText} from '@material-ui/core';
 import config from '../config.json';
 import Storage from '../storage';
 import SignUp from '../locallogin/Local-signup';
-import './Login.css';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-
-
+import styles from './Login-styles';
+import './Login.css'
 
 class Login extends Component {
   constructor() {
@@ -22,6 +19,7 @@ class Login extends Component {
       token: ''
      };
   }
+
   logout = () => {
     Storage.logOut()
     this.setState({isAuthenticated: false, token: '', user: null})
@@ -37,7 +35,9 @@ class Login extends Component {
   //pathname goes to index.js
   googleResponse = (response) => {
     console.log(response)
-    const tokenBlob = new Blob([JSON.stringify({access_token: response.accessToken}, null, 2)], {type : 'application/json'});
+    const tokenBlob =
+      new Blob([JSON.stringify({access_token: response.accessToken}, null, 2)],
+      {type : 'application/json'});
     const options = {
       method: 'POST',
       body: tokenBlob,
@@ -72,43 +72,52 @@ class Login extends Component {
       ) : (
         <div>
           <Grid
+            className='grid'
+            style={styles.grid}
             container
-              direction='row'
-              justify='space-around'
-              alignItems='flex-end'
-              className='grid'>
-            <Card className='card' style={{width: '50%', height: 'auto', margin: 60, backgroundColor: '#F3ECE7', opacity: .81}}>
-              <CardContent style={{textAlign: 'center', color: '#214365'}}>
-                <Typography style={{fontFamily: 'Satisfy, cursive', color: '#214365', fontSize: 75}} className='logo1' gutterBottom>
+            direction='row'
+            justify='space-around'
+            alignItems='flex-end'
+            >
+            <Card className='card1' style={styles.card1}>
+              <CardContent className='cc1' style={styles.cc1}>
+                <Typography className='ct1' style={styles.ct1} gutterBottom>
                   Know Thyself
                 </Typography>
-                <List style={{fontFamily:'K2D', display: 'inline-block'}}>
-                  {['Writing Prompts', 'Habit Tracker', 'Track your progress'].map(value => (
+                <List className='list1' style={styles.list1}>
+                  {['Writing Prompts',
+                  'Habit Tracker',
+                  'Track your progress']
+                  .map(value => (
                     <ListItem key={value}>
                       <ListItemText primary={value} />
                     </ListItem>
                   ))}
                 </List>
-                <List style={{display: 'inline-block', fontFamily:'K2D'}}>
+                <List className='list2' style={styles.list2}>
                   {['Writing Tips', 'Privacy', 'Things'].map(value => (
                     <ListItem key={value}>
                       <ListItemText primary={value} />
                     </ListItem>
                   ))}
                 </List>
-                <Typography style={{fontFamily: 'Satisfy, cursive', color: '#214365', fontSize: 23}} className='logo2'>
+                <Typography style={styles.ct2} className='ct2'>
                   'Knowing yourself is the beginning of all wisdom.' -Aristotle
                 </Typography>
               </CardContent>
             </Card>
-            <Card className='signUp' style={{width: '30%', height: 'auto', margin: 60, textAlign: 'center', backgroundColor: '#F3ECE7', opacity: .81}}>
+            <Card className='card2' style={styles.card2}>
               <CardContent>
-
-                <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:35}} gutterBottom>
+                <Typography
+                  color='textSecondary'
+                  className='ct3'
+                  style={styles.ct3}
+                  gutterBottom
+                  >
                   Sign-up or Login
                 </Typography>
                 <SignUp />
-                <Typography style={{color: '#214365', fontSize: 20}}>- or -</Typography>
+                <Typography className='ct4' style={styles.ct4}>- or -</Typography>
                 <CardActions>
                   <GoogleLogin
                     clientId={config.GOOGLE_CLIENT_ID}
@@ -117,30 +126,56 @@ class Login extends Component {
                     onSuccess={this.googleResponse}
                     onFailure={this.onFailure}
                     className='login'
-                    style={{fontSize: 16, margin: 'auto', height: '5%', width: '180px', borderRadius:7, fontFamily:'K2D'}}
+                    style={styles.login}
                   />
                 </CardActions>
               </CardContent>
             </Card>
         </Grid>
-        <Card className="card" style={{minWidth: '70%', height: 'auto', margin: 60, backgroundColor:'white', opacity: .75}}>
+        <Card className="card3" style={styles.card3}>
           <CardContent>
-            <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:18}} gutterBottom>
-              "In the short term, writing about personal values makes people feel more powerful, in control, proud, and strong. It also makes them feel more loving, connected, and empathetic toward others. It increases pain tolerance, enhances self-control, and reduces unhelpful rumination after a stressful experience.
-In the long term, writing about values has been shown to boost GPAs, reduce doctor visits, improve mental health, and help with everything from weight loss to quitting smoking and reducing drinking." - Kelly McGonigal (Psychologist, Author of 'The Upside of Stress')
+            <Typography
+              color='textSecondary'
+              className='ct5'
+              style={styles.ct5}
+              gutterBottom
+              >
+              "In the short term, writing about personal values makes people
+              feel more powerful, in control, proud, and strong. It also makes
+              them feel more loving, connected, and empathetic toward others.
+              It increases pain tolerance, enhances self-control, and reduces
+              unhelpful rumination after a stressful experience.
+              In the long term, writing about values has been shown to boost
+              GPAs, reduce doctor visits, improve mental health, and help with
+              everything from weight loss to quitting smoking and reducing
+              drinking."
+              - Kelly McGonigal (Psychologist, Author of 'The Upside of Stress')
             </Typography>
           </CardContent>
         </Card>
-        <Card className="card" style={{minWidth: '70%', height: 'auto', margin: 60, backgroundColor:'white', opacity: .75}}>
+        <Card className="card4" style={styles.card4}>
         <CardContent>
-          <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
-            "Something about the process of checking off a habit each day and keeping a log of my progress really improves my motivation and ability to complete that habit each day." - Belle Beth Cooper, Lifehacker.com
+          <Typography
+            color='textSecondary'
+            className='ct6'
+            style={styles.ct6}
+            gutterBottom
+            >
+            "Something about the process of checking off a habit each day and
+             keeping a log of my progress really improves my motivation and
+             ability to complete that habit each day."
+             - Belle Beth Cooper, Lifehacker.com
           </Typography>
         </CardContent>
         </Card>
-        <Card className="card" style={{minWidth: '70%', height: 'auto', margin: 60, backgroundColor:'white', opacity: .75}}>
+        <Card className="card5" style={styles.card5}>
           <CardContent>
-            <Typography color='textSecondary' className='login2' style={{color:'#214365', fontFamily:'K2D', fontSize:20}} gutterBottom>
+            <Typography
+              color='textSecondary'
+              className='ct7'
+              style={styles.ct7}
+              gutterBottom
+              >
               "A safe place to learn about myself." -E.Maize
             </Typography>
           </CardContent>

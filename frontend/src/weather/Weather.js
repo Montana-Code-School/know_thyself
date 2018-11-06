@@ -44,7 +44,10 @@ class Weather extends Component {
 
   render() {
     return (
-      <p className="weather">{this.state.location} - {this.state.weather.main} - {(this.state.temp * (9/5) + 32).toFixed(0)} &#176;</p>
+      <p className="weather">
+        {this.state.location} -
+        {this.state.weather.main} -
+        {(this.state.temp * (9/5) + 32).toFixed(0)} &#176;</p>
     );
   }
 }
