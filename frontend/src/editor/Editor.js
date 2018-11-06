@@ -9,6 +9,7 @@ const styles = {
     width: '93%',
     margin: '0 2% 2% 2%',
     float: 'left',
+    height: '280px',
     display: 'inline-block',
     border: 'solid 1px #373737'
   },

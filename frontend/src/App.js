@@ -12,14 +12,14 @@ class App extends Component {
     super(props);
     this.state = {
       prompts: [],
-      entries: [],
-      value: '',
       prompt: '',
+      entries: [],
       tips: [],
       tip: '',
-      disabled: true,
-      words: '',
       habits: [],
+      value: '',
+      words: '',
+      disabled: true,
       title: '',
       reps: '',
       initial: 0,
