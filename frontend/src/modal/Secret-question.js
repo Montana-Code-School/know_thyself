@@ -25,6 +25,15 @@ class SecretModal extends Component{
           />
           <br></br>
           <br></br>
+          <Typography variant="h6"
+            id="modal-title"
+            className="ct1"
+            style={styles.ct1}>
+            The answer to this question is your secret passphrase.
+            Please keep a record of it, in case you need to reset your password.
+          </Typography>
+          <br></br>
+          <br></br>
           <Button
             className="secretSubmit"
             value="Login"
@@ -32,10 +41,6 @@ class SecretModal extends Component{
             style={styles.secretSubmit}
             onClick={this.props.signup}
           >Submit</Button>
-          <Typography variant="h6" id="modal-title" style={{color:'white', font:'K2D', textAlign:'center'}}>
-            The answer to this question is your secret passphrase.
-            Please keep a record of it, in case you need to reset your password.
-          </Typography>
         </div>
       </Modal>
     );

@@ -142,21 +142,23 @@ class SignUp extends Component {
       ) : (
         <form>
           <Input
-            className="form-item"
-            placeholder="Username"
+            className="formItem"
+            placeholder="Email"
             name="email"
             type="email"
             onChange={event => this.handleChange(event)}
+            style={styles.formItem}
           />
-          <br></br>
-          {this.state.error}
+          <h4 className='error' style={styles.error}>{this.state.error}</h4>
           <Input
-            className="form-item"
+            className="formItem"
             placeholder="Password"
             name="password"
             type="password"
             onChange={event => this.handleChange(event)}
+            style={styles.formItem}
           />
+          <br></br>
           <Button
             className="formSubmit"
             value="SUBMIT"
@@ -173,6 +175,8 @@ class SignUp extends Component {
           >Login</Button>
           <Button
             onClick={this.triggerPasswordModal.bind(this)}
+            style={styles.forgotPassword}
+            className="forgotPassword"
           >
           Forgot Your Password?
         </Button>

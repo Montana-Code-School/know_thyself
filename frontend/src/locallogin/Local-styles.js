@@ -17,6 +17,22 @@ const styles = {
     color:'white',
     marginBottom: '10px',
     fontSize: '12px'
+  },
+  error:{
+    color:'red'
+  },
+  formItem:{
+    fontFamily: 'K2D sans-serif',
+    padding: '5px',
+    marginBottom: '2rem',
+    height: '30px',
+    width: '16rem',
+    border: '1px solid grey',
+    color: 'black',
+    backgroundColor: 'white'
+  },
+  forgotPassword:{
+    color: 'black'
   }
 }
 export default styles;
