@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Button, Card, CardContent, Typography  } from '@material-ui/core';
+import { Button, Card, CardContent, Typography, Input  } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import './Habits.css'
 import Navbar from '../navbar/Navbar'
 import Storage from '../storage'
@@ -9,13 +10,14 @@ import Create from '@material-ui/icons/Create'
 
 
 
-const theme = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-});
+// const theme = theme => ({
+//   root: {
+//     width: '100%',
+//     maxWidth: 360,
+//     backgroundColor: theme.palette.background.paper,
+//   },
+// });
+
 
 const styles = {
   head: {
@@ -23,7 +25,6 @@ const styles = {
     marginLeft: '4%'
   },
   inputs: {
-    border: 'solid 1px black',
     marginRight: '2%'
   },
   addButton: {
@@ -38,12 +39,15 @@ const styles = {
     width: '25%',
     display: 'inline-block'
   },
+  habitTitle: {
+    fontSize: '20pt'
+  },
   progressBar: {
     border: 'solid 1px black',
-    borderRadius: '20%',
+    borderRadius: '15px',
     margin: '13px 0 0 0',
-    height: '12px',
-    padding: '0 14px',
+    height: '18px',
+    // padding: '0 14px',
     cursor: 'pointer'
   },
   tipCard: {
@@ -66,6 +70,15 @@ const styles = {
     display: 'inline-block',
     fontSize: 14,
     margin: '0 0 6% 10%'
+  },
+  bar: {
+    color: 'green',
+  },
+  lower: {
+    marginTop: '5%'
+  },
+  plus: {
+    marginRight: '30%'
   }
 }
 
@@ -137,6 +150,23 @@ addHabit() {
   }
 }
 
+removeHabit(e) {
+  if (Storage.getToken()) {
+    let pathname = `/verify/habit/${e.target.id}`
+    if (process.env.NODE_ENV === 'development') {
+      pathname=`http://localhost:4001${pathname}`
+    }
+    fetch( pathname, {
+      method: 'DELETE',
+      headers: {
+        'Content-type' : 'application/json',
+        'Authorization': `bearer ${Storage.getToken()}`
+      }
+    })
+  }
+  console.log('made it though removeHabit in habits.')
+}
+
   render() {
     return (
       <div>
@@ -159,13 +189,13 @@ addHabit() {
             <Card style={styles.addCard}>
               <Typography style={styles.head}>Habit Tracker</Typography>
               <CardContent>
-                <input onChange={this.props.handleHabitTitle}
+                <Input onChange={this.props.handleHabitTitle}
                        type="text"
                        id='habitTitle'
                        placeholder="Habit"
                        value={this.props.title}
                        style={styles.inputs} />
-                <input onChange={this.props.handleHabitReps}
+                <Input onChange={this.props.handleHabitReps}
                        type="number"
                        placeholder="Repetitions"
                        value={this.props.reps}
@@ -179,57 +209,40 @@ addHabit() {
             {this.props.habits.map(habit =>
               <Card key={habit._id} className="row habit" style={styles.habitCard}>
                 <CardContent className="four columns" transition="slide">
-                  <Typography>{habit.title}</Typography>
-                  <div className="shell" style={styles.progressBar}>
-                    <div className="bar" style={{ width: 100 - habit.complete * (100 / habit.initial) + '%' }}></div>
+                  <Typography className='habitTitle' style={styles.habitTitle} >{habit.title}</Typography>
+                  <Typography className='habitReps' style={styles.habitReps} >{habit.reps} till complete</Typography>
+                  <div style={styles.progressBar}>
+                    <div className="bar" style={{ backgroundColor: 'green', width: '100%', height: '100%', borderRadius: '15px'}}></div>
                   </div>
-                  {/* <div className="lower">
-                    <span onClick={this.removeHabit(this.props.habit)}>
-                      <i class="fa fa-times"></i>
-                    </span>
-                    <button id="progress"
-                            onClick={this.completeReps(habit)}
+                  <div className="lower" style={styles.lower}>
+                    <Button className='plus'
+                            style={styles.plus}
+                            varient='fab'
+                            color='primary'
+                            aria-label='Add'
+                            id="progress"
+                            // onClick={this.completeReps(habit)}
                             v-show="!habit.finished"
-                            style="{ background: habit.random }"
+                            // style="{ background: habit.random }"
                      >
-                      <i className="fa fa-plus"></i>
+                       <AddIcon />
+                    </Button>
+                    <button
+                      onClick={this.removeHabit.bind(habit._id)}
+                      id={habit._id}
+                      >
+                      Delete
                     </button>
-                    <div v-show="!habit.finished">{{ habit.complete }}/{{ habit.initial }} times</div>
-                    <div v-show="habit.finished" transition="slide">Complete!</div>
-                  </div> */}
+
+                    {/* <div v-show="!habit.finished">{{ habit.complete }}/{{ habit.initial }} times</div>
+                    <div v-show="habit.finished" transition="slide">Complete!</div> */}
+                  </div>
                 </CardContent>
               </Card>
             )}
           </div>
         </div>
       </div>
-
-
-
-
-
-      // <div>
-      //   <Navbar path={this.props.location.pathname}/>
-      // <div className={classes.root}>
-      //   <List>
-      //     {[0, 1, 2, 3].map(value => (
-      //       <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(value)}>
-      //         <Checkbox
-      //           checked={this.state.checked.indexOf(value) !== -1}
-      //           tabIndex={-1}
-      //           disableRipple
-      //         />
-      //         <ListItemText primary={`Line item ${value + 1}`} />
-      //         <ListItemSecondaryAction>
-      //           <IconButton aria-label="Comments">
-      //             <CommentIcon />
-      //           </IconButton>
-      //         </ListItemSecondaryAction>
-      //       </ListItem>
-      //     ))}
-      //   </List>
-      //   </div>
-      // </div>
     );
   }
 }

@@ -53,12 +53,7 @@ const Habit = require('../models/habit-model').habit
       habit.finished = body.finished
       habit.user = req.user._id
       habit.save((err) => {
-        if (err) res.send(err)
-        req.user.habits.push(habit)
-        req.user.save((err) => {
-          if (err) res.seng(err)
-          res.json({msg: 'habit saved'})
-        })
+
       })
     })
     .get((req, res) => {
@@ -74,5 +69,35 @@ const Habit = require('../models/habit-model').habit
       })
     })
 
+  router.route('/habit/:habit_id')
+    .delete(function(req, res) {
+      if (!req.user) console.log('thou shall not go on!')
+      Habit.deleteOne({
+        _id: req.params.habit_id
+      }, function(err, habit) {
+        if (err)
+          res.send(err);
+      });
+      User.findById(req.user._id, function(err, user) {
+        if (err)
+          res.send(err)
+        for (var i = 0; i < user.habits.length; i++) {
+          console.log( user.habits.length)
+          if (user.habits[i]._id == req.params.habit_id) {
+            user.habits.splice(i, 1)
+          }
+          console.log(user.habits.length, 'im in the for loop')
 
+        }
+        user.save((err) => {
+          console.log('user save before if err statement')
+          console.log(user.habits.length)
+          if (err) res.send(err)
+          console.log(user.habits)
+        })
+        console.log('made it past loop')
+      })
+    })
+    // well post is being stupid now. break to fix the ladies computer
+    // no worries. just push up on some new branch when you get a shot
 module.exports = router

@@ -137,10 +137,6 @@ class App extends Component {
     })
   }
 
-  // removeHabit () {
-  //   this.props.habits.$remove(habit);
-  //   console.log(this.props.habits);
-  // }
 
   render() {
     return (
