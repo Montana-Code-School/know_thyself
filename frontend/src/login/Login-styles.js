@@ -34,7 +34,6 @@ const styles = {
     height: '500px',
     margin: 60,
     textAlign: 'center',
-    backgroundColor: '#F3ECE7',
     backgroundColor: 'rgba(243,236,231,0.7)'
   },
   ct3:{

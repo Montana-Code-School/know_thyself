@@ -62,9 +62,6 @@ class NavBar extends React.Component {
     this.setState({athabits: true});
   };
 
-  revealTodo = () => {
-    this.setState({attodo: true});
-  }
 
   render() {
     const { classes, path } = this.props;
@@ -77,9 +74,6 @@ class NavBar extends React.Component {
     }
     if (path !== '/habits' && this.state.athabits) {
      return <Redirect push to="/habits" />;
-    }
-    if (path !== '/todo' &&this.state.attodo) {
-      return <Redirect push to="/todo" />;
     }
     return (
       <div >
@@ -122,7 +116,7 @@ class NavBar extends React.Component {
           <div className={classes.drawerHeader}>
             <List>
               <ListItem>
-                <ListItemText>Stuff</ListItemText>
+                <ListItemText>Know Thy Options</ListItemText>
                 <IconButton onClick={this.handleDrawerClose}>
                   <ChevronLeftIcon />
                 </IconButton>
@@ -139,9 +133,6 @@ class NavBar extends React.Component {
             </ListItem>
             <ListItem>
               <Button onClick={this.revealHabits} >Habits</Button>
-            </ListItem>
-            <ListItem>
-              <Button onClick={this.revealTodo} >Todo</Button>
             </ListItem>
           </List>
         </Drawer>

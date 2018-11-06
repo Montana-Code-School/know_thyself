@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Card, CardContent, Typography, Input  } from '@material-ui/core';
-import { AddIcon, Create} from '@material-ui/icons';
+import { Create } from '@material-ui/icons';
 import Navbar from '../navbar/Navbar';
 import Storage from '../storage';
 import HabitMap from '../habitMap/HabitMap';

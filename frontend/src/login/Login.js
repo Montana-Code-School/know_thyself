@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { Redirect } from 'react-router-dom';
 import {Typography, Card, Grid , CardContent, CardActions } from '@material-ui/core';
-import {List, ListItem, ListItemText} from '@material-ui/core';
 import config from '../config.json';
 import Storage from '../storage';
 import SignUp from '../locallogin/Local-signup';

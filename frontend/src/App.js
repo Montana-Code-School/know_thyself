@@ -5,7 +5,6 @@ import Login from './login/Login';
 import Profile from './profile/Profile';
 import Entries from './entries/Entries';
 import Habits from './habits/Habits';
-import Todo from './todo/Todo';
 
 class App extends Component {
   constructor(props) {
@@ -197,7 +196,6 @@ class App extends Component {
                         // addHabit={this.addHabit.bind(this)}
                         // removeHabit={this.removeHabit.bind(this)}
                         />
-          <PrivateRoute path='/todo' component={Todo} />
           <Route component={Error}/>
         </Switch>
       </BrowserRouter>
