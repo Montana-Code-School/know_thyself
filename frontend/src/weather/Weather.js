@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './Weather.css'
 import axios from 'axios'
 
@@ -12,7 +12,7 @@ function getWeather(location) {
   return axios.get("https://api.openweathermap.org/data/2.5/weather?q=" + location + units + appid);
 }
 
-class Weather extends React.Component {
+class Weather extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +44,8 @@ class Weather extends React.Component {
 
   render() {
     return (
-      <p className="weather">{this.state.location} - {this.state.weather.main} - {(this.state.temp * (9/5) + 32).toFixed(0)} &#176;</p>
+      <p className="weather">
+        {this.state.location} - {this.state.weather.main} - {(this.state.temp * (9/5) + 32).toFixed(0)} &#176;</p>
     );
   }
 }

@@ -4,7 +4,6 @@ import ReactHtmlParser from 'react-html-parser';
 class HtmlComponent extends Component {
   render() {
     return <div>{ ReactHtmlParser(this.props.entry) }</div>
-
   }
 }
 

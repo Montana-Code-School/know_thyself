@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import HtmlComponent from '../parser/HTMLparser'
+import Storage from '../storage'
+import styles from './Entry-styles'
 
 //entries get fetched within profile.js
 const theme = createMuiTheme({
@@ -16,42 +18,33 @@ const theme = createMuiTheme({
     useNextVariants: true
   }
 })
-const styles = theme => ({
-  root: {
-    margin: '5% 12% 0 12%',
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
-    flexShrink: 0,
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-  panel: {
-      justifyContent: 'center'
-  },
-  // body: {
-  //   height: '100%',
-  //   width: '50%',
-  // },
-  paper:{
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    margin: '0 12% 0 12%',
-    fontSize: '12px',
-    fontStyle: 'italic',
-    fontWeight: 'lighter',
-    color: 'grey'
-  }
-});
 
 class Entries extends React.Component {
   state = {
     expanded: null,
   };
+
+  componentDidMount() {
+    let routeUrl;
+    if (process.env.NODE_ENV === 'development') {
+      routeUrl = 'http://localhost:4001/verify/entry'
+    } else {
+      routeUrl = '/verify/entry'
+    }
+    fetch(routeUrl,
+     {
+        method: 'GET',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization' : `bearer ${Storage.getToken()}`
+        }
+      })
+      .then((results) => results.json())
+      .then(data => {
+        this.props.fetchedEntries(data)
+      })
+      .catch((err) => console.log(err))
+  }
 
   handleChange = panel => (event, expanded) => {
     this.setState({
@@ -71,13 +64,21 @@ class Entries extends React.Component {
     const { expanded } = this.state;
     return (
       <MuiThemeProvider theme={theme}>
-        <Navbar path={this.props.location.pathname} theme={theme}/>
+        <Navbar path={this.props.location.pathname}
+                theme={theme}
+                fetchedEntries={this.props.fetchedEntries}/>
       <div className={classes.root}>
         {this.props.entries.map(entry =>
-          <ExpansionPanel style={styles.panel} key={entry._id} expanded={expanded === entry._id} onChange={this.handleChange(entry._id)}>
+          <ExpansionPanel
+            style={styles.panel}
+            key={entry._id}
+            expanded={expanded === entry._id}
+            onChange={this.handleChange(entry._id)}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.heading}>{entry.createdAt}</Typography>
-              <Typography className={classes.secondaryHeading}>{entry.title}</Typography>
+              <Typography className={classes.heading}>{entry.createdAt}
+              </Typography>
+              <Typography className={classes.secondaryHeading}>{entry.title}
+              </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <HtmlComponent entry={entry.body}/>

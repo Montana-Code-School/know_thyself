@@ -1,76 +1,187 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
+import { Button, Card, CardContent, Typography  } from '@material-ui/core';
+import Create from '@material-ui/icons/Create'
 import Navbar from '../navbar/Navbar'
+import Storage from '../storage'
+import styles from './Habit-styles'
 
-const styles = theme => ({
+const theme = theme => ({
   root: {
     width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
-  },
+    typography: {
+      useNextVariants: true
+    }
+  }
 });
 
-class Todo extends React.Component {
-  state = {
-    checked: [0],
-  };
+class Habits extends Component {
 
-  handleToggle = value => () => {
-    const { checked } = this.state;
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
+  componentDidMount() {
+    let habitsFetch, tipsFetch
+    if (process.env.NODE_ENV === 'development') {
+       habitsFetch = fetch('http://localhost:4001/verify/habit',
+       {
+         method: 'GET',
+         headers: {
+           'Content-type' : 'application/json',
+           'Authorization': `bearer ${Storage.getToken()}`
+         }
+       })
+       tipsFetch = fetch('http://localhost:4001/api/tips')
     } else {
-      newChecked.splice(currentIndex, 1);
+      habitsFetch = fetch('http://localhost:4001/verify/habit',
+      {
+        method: 'GET',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization': `bearer ${Storage.getToken()}`
+        }
+      })
+      tipsFetch = fetch('/api/tips')
     }
+    Promise.all([habitsFetch, tipsFetch])
+      .then((results) => {
+        const habitsBlob = results[0].json()
+        const tipsBlob = results[1].json()
+        Promise.all([habitsBlob, tipsBlob])
+          .then((results) => {
+            this.props.fetchedHabits(results)
+            this.props.fetchedTips(results)
+            this.props.getRandomTip()
+          })
+      })
+      .catch((err) => console.log(err))
+  }
 
-    this.setState({
-      checked: newChecked,
-    });
-  };
+addHabit() {
+  if (Storage.getToken()) {
+    console.log('addHabit')
+    let input = {
+      title: this.props.title,
+      reps: this.props.reps,
+      initial: this.props.reps,
+      complete: 0,
+      finished: false
+    }
+    let pathname = '/verify/habit'
+    if (process.env.NODE_ENV === 'development') {
+      pathname=`http://localhost:4001${pathname}`
+    }
+    fetch( pathname, {
+      method: 'POST',
+      headers: {
+        'Content-type' : 'application/json',
+        'Authorization': `bearer ${Storage.getToken()}`
+      },
+      body: JSON.stringify(input),
+    })
+    .then(res => {
+      console.log('near the end')
+      res.json()})
+    .then(data => console.log(data))
+  }
+}
 
   render() {
-    const { classes } = this.props;
-
     return (
       <div>
-        <Navbar path={this.props.location.pathname}/>
-      <div className={classes.root}>
-        <List>
-          {[0, 1, 2, 3].map(value => (
-            <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(value)}>
-              <Checkbox
-                checked={this.state.checked.indexOf(value) !== -1}
-                tabIndex={-1}
-                disableRipple
-              />
-              <ListItemText primary={`Line item ${value + 1}`} />
-              <ListItemSecondaryAction>
-                <IconButton aria-label="Comments">
-                  <CommentIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </List>
+        <Navbar path={this.props.location.pathname} fetchedHabits={this.props.fetchedHabits}/>
+        <div className="container">
+          <div id="app">
+            <Card style={styles.tipCard}>
+              <Card style={styles.innerCard}>
+                <CardContent>
+                  <Create/>
+                  <Typography style={styles.advice}>
+                    Advice:
+                  </Typography>
+                  <Typography>
+                    {this.props.tip}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Card>
+            <Card style={styles.addCard}>
+              <Typography style={styles.head}>Habit Tracker</Typography>
+              <CardContent>
+                <input onChange={this.props.handleHabitTitle}
+                       type="text"
+                       id='habitTitle'
+                       placeholder="Habit"
+                       value={this.props.title}
+                       style={styles.inputs} />
+                <input onChange={this.props.handleHabitReps}
+                       type="number"
+                       placeholder="Repetitions"
+                       value={this.props.reps}
+                       style={styles.inputs} />
+                <Button id="creator"
+                        onClick={(e) => this.addHabit(e)}
+                        style={styles.addButton}>Add
+                </Button>
+              </CardContent>
+            </Card>
+            {this.props.habits.map(habit =>
+              <Card key={habit._id} className="row habit" style={styles.habitCard}>
+                <CardContent className="four columns" transition="slide">
+                  <Typography>{habit.title}</Typography>
+                  <div className="shell" style={styles.progressBar}>
+                    <div className="bar" style={{ width: 100 - habit.complete * (100 / habit.initial) + '%' }}></div>
+                  </div>
+                  {/* <div className="lower">
+                    <span onClick={this.removeHabit(this.props.habit)}>
+                      <i class="fa fa-times"></i>
+                    </span>
+                    <button id="progress"
+                            onClick={this.completeReps(habit)}
+                            v-show="!habit.finished"
+                            style="{ background: habit.random }"
+                     >
+                      <i className="fa fa-plus"></i>
+                    </button>
+                    <div v-show="!habit.finished">{{ habit.complete }}/{{ habit.initial }} times</div>
+                    <div v-show="habit.finished" transition="slide">Complete!</div>
+                  </div> */}
+                </CardContent>
+              </Card>
+            )}
+          </div>
         </div>
       </div>
+
+
+
+
+
+      // <div>
+      //   <Navbar path={this.props.location.pathname}/>
+      // <div className={classes.root}>
+      //   <List>
+      //     {[0, 1, 2, 3].map(value => (
+      //       <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(value)}>
+      //         <Checkbox
+      //           checked={this.state.checked.indexOf(value) !== -1}
+      //           tabIndex={-1}
+      //           disableRipple
+      //         />
+      //         <ListItemText primary={`Line item ${value + 1}`} />
+      //         <ListItemSecondaryAction>
+      //           <IconButton aria-label="Comments">
+      //             <CommentIcon />
+      //           </IconButton>
+      //         </ListItemSecondaryAction>
+      //       </ListItem>
+      //     ))}
+      //   </List>
+      //   </div>
+      // </div>
     );
   }
 }
 
-Todo.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(Todo);
+
+export default withStyles(styles)(Habits);

@@ -1,30 +1,5 @@
 body {
-  background-color: #F8F8FF;
-}
-
-.login {
-  background-color: #214365;
-  color: white;
-  height: 50px;
-  width: 150px;
-}
-
-.login2 {
-  text-align: center;
-  color: black;
-}
-
-.logo1 {
-
-  text-align: center;
-}
-
-.logo2 {
-  text-align: center;
-}
-
-.Navbar {
-  position: sticky;
+  background-color: #F3ECE7;
 }
 
 .grid {
@@ -33,80 +8,9 @@ body {
   background-image: url('../images/background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  padding-bottom: 15%;
   background-position: center;
 }
 
-.signUp{
-  background-image: url('../images/Book.jpeg');
-  background-color: grey;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border: 1px solid #214365;
-}
-
-.card {
-  border: 1px solid #214365;
-  elevation: 15
-}
-.center-Login{
-    font-family: 'K2D', sans-serif;
-    background-color: #1abc9c;
-    position: absolute;
-    height: 50%;
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.center-SignUp{
-  font-family: 'K2D', sans-serif;
-  background-color: #1abc9c;
-  position: absolute;
-  height: 60%;
-  width: 60%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.card{
-    background-color: #fff;
-    border-radius: 15px;
-    padding: 0.8rem;
-}
-
-.card > form{
-    display: flex;
-    flex-direction: column;
-}
-
-.card h1{
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 10px;
-}
-
-.form-item{
-    font-family: 'Raleway', sans-serif;
-    padding: 5px;
-    margin-bottom: 2rem;
-    height: 30px;
-    width: 16rem;
-    border: 1px solid grey;
-}
-
-.form-submit{
-    font-family: 'Raleway', sans-serif;
-    height: 35px;
-    color: #fff;
-    background-color: #1abc9c;
-    border: none;
-    letter-spacing: 0.2rem;
-    transition: 0.3s opacity ease;
-    cursor: pointer;
-}
-.form-submit:hover{
+.form-submit:hover, .form-login:hover {
    opacity: 0.6;
 }
