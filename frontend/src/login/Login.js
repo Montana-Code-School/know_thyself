@@ -56,6 +56,7 @@ class Login extends Component {
     //user is returned. we are now allowed to move profile.js a private route.
       r.json().then(user => {
         console.log(user)
+        console.log(user.token)
         if (token) {
           Storage.logIn(token)
           this.setState({isAuthenticated: true, user, token})

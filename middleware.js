@@ -15,6 +15,7 @@ const localAuth = require('./routes/local-auth');
 const passport = require('passport');
 require ('passport-local')
 // setting up routes
+const password = require('./routes/password-reset')
 const verifiedRoutes = require('./routes/verified-routes');
 const promptRoutes = require('./routes/prompt-routes')
 const router = express.Router();
@@ -46,6 +47,7 @@ app.use('/auth', localAuth)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/v1/', index);
 app.use('/api', router)
+app.use('/api', password)
 app.use('/verify', auth)
 app.use('/verify', router)
 app.use('/verify', verifiedRoutes)
