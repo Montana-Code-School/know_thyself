@@ -39,8 +39,12 @@ class App extends Component {
   }
   // sets tips state from componentDidMount in Profile.js and Habits.js
   fetchedTips(results) {
+    let tips = results
+    if(results[1].length ) {
+      tips = results[1]
+    }
     this.setState({
-      tips: results[1]
+      tips: tips
     })
   }
   // sets entries state from componentDidMount in Entries.js
@@ -52,7 +56,8 @@ class App extends Component {
   }
   // sets tips state from componentDidMount in Habits.js
   fetchedHabits(results) {
-    const habits = results[0].reverse()
+    console.log('not infinite')
+    const habits = results.reverse()
     this.setState({
       habits: habits,
     })
@@ -84,6 +89,12 @@ class App extends Component {
     this.setState({
       value: '',
       words: ''
+    })
+  }
+  clearHabitForm() {
+    this.setState({
+      title: '',
+      reps: ''
     })
   }
   // chooses a random index from prompts state upon profile render.
@@ -182,6 +193,7 @@ class App extends Component {
                         habits={this.state.habits}
                         title={this.state.title}
                         reps={this.state.reps}
+                        clearHabitForm={this.clearHabitForm.bind(this)}
                         // addHabit={this.addHabit.bind(this)}
                         // removeHabit={this.removeHabit.bind(this)}
                         />

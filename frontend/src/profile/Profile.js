@@ -16,7 +16,7 @@ const theme = createMuiTheme({
 const styles = {
   tipCard: {
     width: '20%',
-    height: 300,
+    height: '40%',
     display: 'inline-block',
     float: 'right',
     margin: '2% 3% 0 3%',

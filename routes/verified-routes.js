@@ -53,9 +53,16 @@ const Habit = require('../models/habit-model').habit
       habit.finished = body.finished
       habit.user = req.user._id
       habit.save((err) => {
+        if (err) res.send(err)
+        req.user.habits.push(habit)
+        req.user.save((err) => {
+          if (err) res.send(err)
+          res.json({msg: 'habit saved'})
+          })
+        })
 
       })
-    })
+
     .get((req, res) => {
       console.log('in verified-routes')
       if (!req.user) console.log('you shall not pass!')
@@ -93,7 +100,7 @@ const Habit = require('../models/habit-model').habit
           console.log('user save before if err statement')
           console.log(user.habits.length)
           if (err) res.send(err)
-          console.log(user.habits)
+          res.json({msg: 'deleted habit'})
         })
         console.log('made it past loop')
       })

@@ -6,6 +6,7 @@ import './Habits.css'
 import Navbar from '../navbar/Navbar'
 import Storage from '../storage'
 import Create from '@material-ui/icons/Create'
+import HabitMap from '../habitMap/HabitMap'
 
 
 
@@ -83,47 +84,26 @@ const styles = {
 }
 
 class Habits extends Component {
-
+  state = {
+    shouldRefetch: false
+  }
   componentDidMount() {
-    let habitsFetch, tipsFetch
+    let routeUrl = '/api/tips'
     if (process.env.NODE_ENV === 'development') {
-       habitsFetch = fetch('http://localhost:4001/verify/habit',
-       {
-         method: 'GET',
-         headers: {
-           'Content-type' : 'application/json',
-           'Authorization': `bearer ${Storage.getToken()}`
-         }
-       })
-       tipsFetch = fetch('http://localhost:4001/api/tips')
-    } else {
-      habitsFetch = fetch('http://localhost:4001/verify/habit',
-      {
-        method: 'GET',
-        headers: {
-          'Content-type' : 'application/json',
-          'Authorization': `bearer ${Storage.getToken()}`
-        }
-      })
-      tipsFetch = fetch('/api/tips')
+      routeUrl = 'http://localhost:4001/api/tips'
     }
-    Promise.all([habitsFetch, tipsFetch])
+    fetch(routeUrl)
+      .then((results) => results.json())
       .then((results) => {
-        const habitsBlob = results[0].json()
-        const tipsBlob = results[1].json()
-        Promise.all([habitsBlob, tipsBlob])
-          .then((results) => {
-            this.props.fetchedHabits(results)
-            this.props.fetchedTips(results)
-            this.props.getRandomTip()
-          })
+
+        this.props.fetchedTips(results)
+        this.props.getRandomTip()
       })
       .catch((err) => console.log(err))
   }
 
 addHabit() {
   if (Storage.getToken()) {
-    console.log('addHabit')
     let input = {
       title: this.props.title,
       reps: this.props.reps,
@@ -144,27 +124,16 @@ addHabit() {
       body: JSON.stringify(input),
     })
     .then(res => {
-      console.log('near the end')
-      res.json()})
-    .then(data => console.log(data))
+      this.refetchHabitTrigger()
+      this.props.clearHabitForm()
+    })
   }
 }
 
-removeHabit(e) {
-  if (Storage.getToken()) {
-    let pathname = `/verify/habit/${e.target.id}`
-    if (process.env.NODE_ENV === 'development') {
-      pathname=`http://localhost:4001${pathname}`
-    }
-    fetch( pathname, {
-      method: 'DELETE',
-      headers: {
-        'Content-type' : 'application/json',
-        'Authorization': `bearer ${Storage.getToken()}`
-      }
-    })
-  }
-  console.log('made it though removeHabit in habits.')
+refetchHabitTrigger() {
+  this.setState({
+    shouldRefetch: !this.state.shouldRefetch
+  })
 }
 
   render() {
@@ -206,40 +175,13 @@ removeHabit(e) {
                 </Button>
               </CardContent>
             </Card>
-            {this.props.habits.map(habit =>
-              <Card key={habit._id} className="row habit" style={styles.habitCard}>
-                <CardContent className="four columns" transition="slide">
-                  <Typography className='habitTitle' style={styles.habitTitle} >{habit.title}</Typography>
-                  <Typography className='habitReps' style={styles.habitReps} >{habit.reps} till complete</Typography>
-                  <div style={styles.progressBar}>
-                    <div className="bar" style={{ backgroundColor: 'green', width: '100%', height: '100%', borderRadius: '15px'}}></div>
-                  </div>
-                  <div className="lower" style={styles.lower}>
-                    <Button className='plus'
-                            style={styles.plus}
-                            varient='fab'
-                            color='primary'
-                            aria-label='Add'
-                            id="progress"
-                            // onClick={this.completeReps(habit)}
-                            v-show="!habit.finished"
-                            // style="{ background: habit.random }"
-                     >
-                       <AddIcon />
-                    </Button>
-                    <button
-                      onClick={this.removeHabit.bind(habit._id)}
-                      id={habit._id}
-                      >
-                      Delete
-                    </button>
-
-                    {/* <div v-show="!habit.finished">{{ habit.complete }}/{{ habit.initial }} times</div>
-                    <div v-show="habit.finished" transition="slide">Complete!</div> */}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+            <HabitMap fetchedHabits={this.props.fetchedHabits}
+                      habits={this.props.habits}
+                      title={this.props.title}
+                      reps={this.props.reps}
+                      shouldRefetch={this.state.shouldRefetch}
+                      refetchHabitTrigger={this.refetchHabitTrigger.bind(this)}
+                      />
           </div>
         </div>
       </div>
