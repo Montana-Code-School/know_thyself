@@ -7,13 +7,16 @@ const jwt = require('jsonwebtoken')
 module.exports = new PassportLocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
+  secretField: 'secret',
   session: false,
   passReqToCallback: true
 }, (req, email, password, done) => {
+  console.log(req.body.secret, email, "in passport")
   const userData = {
     _id: mongoose.Types.ObjectId(),
     email: email.trim(),
     password: password.trim(),
+    secret: req.body.secret.trim()
   };
   const newUser = new User(userData);
   newUser.save((err, user) => {

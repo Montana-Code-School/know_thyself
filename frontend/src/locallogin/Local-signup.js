@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Storage from '../storage';
 import { Redirect } from 'react-router-dom';
-import {Button, Input } from '@material-ui/core';
+import {Button, Input, Modal } from '@material-ui/core';
+import SecretModal from '../modal/Secret-question';
+import PasswordModal from '../modal/Password-reset';
 
 class SignUp extends Component {
   constructor() {
@@ -12,14 +14,17 @@ class SignUp extends Component {
       classes: {},
       user:{
         email: '',
-        password: ''
+        password: '',
+        secret: '',
+        newpassword: '',
       },
       isAuthenticated: false,
-      error: ''
+      error: '',
+      secretModal: false,
+      passwordModal: false
      };
   this.processSignup = this.processSignup.bind(this);
   this.processLogin = this.processLogin.bind(this);
-
   }
 
   processLogin(e) {
@@ -47,8 +52,8 @@ class SignUp extends Component {
     })
   }
 
-  processSignup(e) {
-    e.preventDefault();
+  processSignup(event){
+    event.preventDefault();
     const { user } = this.state
     console.log(user)
     fetch( 'http://localhost:4001/auth/signup', {
@@ -60,6 +65,7 @@ class SignUp extends Component {
     })
     .then(res => res.json())
     .then(data => {
+      console.log(data)
       if (data.token) {
         Storage.logIn(data.token)
         this.setState({
@@ -67,16 +73,57 @@ class SignUp extends Component {
         })
       } else {
         this.setState({
-          error: 'Please use a valid email address, and include a password 8 characters or more. Forget your password?'
+          error: 'Please use a valid email address, and include a password 8 characters or more.'
         })
       }
     })
   }
 
+  changePassword(event){
+    event.preventDefault();
+    fetch( 'http://localhost:4001/api/passwordreset', {
+      method: 'post',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(this.state.user),
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      if (data.token) {
+        Storage.logIn(data.token)
+        this.setState({
+          isAuthenticated: true
+        })
+      } else {
+        this.setState({
+          error: 'Please use a valid email address, and secret answer.'
+        })
+      }
+    })
+  }
+
+  triggerSecretModal(event){
+    event.preventDefault();
+    this.setState({
+      secretModal: true
+    })
+  }
+
+  triggerPasswordModal(event){
+    event.preventDefault();
+    this.setState({
+      passwordModal: true
+    })
+  }
+
+
   handleChange = (event) => {
     const { name, value } = event.target
     const { user } = this.state
     user[name] = value
+    console.log(value)
     this.setState({
       user
     })
@@ -95,9 +142,7 @@ class SignUp extends Component {
                 type="email"
                 onChange={event => this.handleChange(event)}
               />
-              <br></br>
               {this.state.error}
-              <br></br>
               <Input
                 className="form-item"
                 placeholder="Password"
@@ -105,15 +150,13 @@ class SignUp extends Component {
                 type="password"
                 onChange={event => this.handleChange(event)}
               />
-              <br></br>
               <Button
                 className="form-submit"
                 value="SUBMIT"
                 type="submit"
-                onClick={this.processSignup}
+                onClick={this.triggerSecretModal.bind(this)}
                 style={{height: '40px', width: '33%', font:'K2D', backgroundColor:'grey', color: 'white', marginBottom: '10px', fontSize: '12px'}}
               >Sign Up</Button>
-
               <Button
                 className="form-login"
                 value="Login"
@@ -121,6 +164,13 @@ class SignUp extends Component {
                 onClick={this.processLogin}
                 style={{height: '40px', width: '80px', marginLeft: '10%', font:'K2D', backgroundColor:'grey', color:'white', marginBottom: '10px', fontSize: '12px'}}
               >Login</Button>
+              <Button
+                onClick={this.triggerPasswordModal.bind(this)}
+              >
+              Forgot Your Password?
+            </Button>
+              <SecretModal open={this.state.secretModal} change={event => this.handleChange(event)} signup={event => this.processSignup(event)}/>
+              <PasswordModal open={this.state.passwordModal} change={event => this.handleChange(event)} changepassword={event => this.changePassword(event)}/>
             </form>
     );
     return (
