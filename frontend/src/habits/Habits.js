@@ -8,9 +8,6 @@ import Storage from '../storage'
 import Create from '@material-ui/icons/Create'
 import HabitMap from '../habitMap/HabitMap'
 
-
-
-
 // const theme = theme => ({
 //   root: {
 //     width: '100%',
@@ -81,7 +78,7 @@ const styles = {
   plus: {
     marginRight: '30%'
   }
-}
+});
 
 class Habits extends Component {
   state = {

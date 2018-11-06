@@ -61,8 +61,7 @@ const styles = theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
-    },
-
+    }
 });
 
 export default styles

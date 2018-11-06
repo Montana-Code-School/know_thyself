@@ -4,7 +4,6 @@ import Create from '@material-ui/icons/Create'
 import Navbar from '../navbar/Navbar';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Storage from '../storage'
-import './Profile.css'
 import TextEditor from '../editor/Editor'
 
 const theme = createMuiTheme({
@@ -55,7 +54,6 @@ const styles = {
   }
 }
 
-
 class Profile extends Component {
   state = {
     disabled: true
@@ -79,11 +77,11 @@ class Profile extends Component {
   componentDidMount() {
     let promptsFetch, tipsFetch
     if (process.env.NODE_ENV === 'development') {
-       promptsFetch = fetch('http://localhost:4001/api/prompts')
-       tipsFetch = fetch('http://localhost:4001/api/tips')
+      promptsFetch = fetch('http://localhost:4001/api/prompts')
+      tipsFetch = fetch('http://localhost:4001/api/tips')
     } else {
-       promptsFetch = fetch('/api/prompts');
-       tipsFetch = fetch('/api/tips')
+      promptsFetch = fetch('/api/prompts');
+      tipsFetch = fetch('/api/tips')
     }
     Promise.all([promptsFetch, tipsFetch])
       .then((results) => {
@@ -99,7 +97,6 @@ class Profile extends Component {
       })
       .catch((err) => console.log(err))
   }
-
 
   handleSubmit() {
     if (Storage.getToken()) {
@@ -122,7 +119,7 @@ class Profile extends Component {
         body: JSON.stringify(input),
       })
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => this.props.clear())
     }
   }
 
@@ -141,10 +138,10 @@ class Profile extends Component {
             </CardContent>
           </Card>
           <TextEditor handleChange={this.props.handleChange}
-                    value={this.props.value}
-                    words={this.props.words}
-                    editorReference={this.props.editorReference}
-                    />
+                      value={this.props.value}
+                      words={this.props.words}
+                      editorReference={this.props.editorReference}
+          />
         </Card>
         <Card style={styles.tipCard}>
           <Card style={styles.innerCard}>

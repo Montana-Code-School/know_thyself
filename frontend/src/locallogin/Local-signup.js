@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Storage from '../storage';
 import { Redirect } from 'react-router-dom';
-import {Button, Input, Modal } from '@material-ui/core';
+import {Button, Input} from '@material-ui/core';
 import SecretModal from '../modal/Secret-question';
 import PasswordModal from '../modal/Password-reset';
+import styles from './Local-styles'
 
 class SignUp extends Component {
   constructor() {
@@ -129,49 +130,65 @@ class SignUp extends Component {
     })
   }
 
+  handleClose = (event) => {
+    this.setState({ secretModal: false });
+    this.setState({ passwordModal: false});
+  };
+
   render() {
     let content = !!this.state.isAuthenticated ?
       (
         <Redirect to='/profile' />
       ) : (
-            <form>
-              <Input
-                className="form-item"
-                placeholder="Username"
-                name="email"
-                type="email"
-                onChange={event => this.handleChange(event)}
-              />
-              {this.state.error}
-              <Input
-                className="form-item"
-                placeholder="Password"
-                name="password"
-                type="password"
-                onChange={event => this.handleChange(event)}
-              />
-              <Button
-                className="form-submit"
-                value="SUBMIT"
-                type="submit"
-                onClick={this.triggerSecretModal.bind(this)}
-                style={{height: '40px', width: '33%', font:'K2D', backgroundColor:'grey', color: 'white', marginBottom: '10px', fontSize: '12px'}}
-              >Sign Up</Button>
-              <Button
-                className="form-login"
-                value="Login"
-                type="login"
-                onClick={this.processLogin}
-                style={{height: '40px', width: '80px', marginLeft: '10%', font:'K2D', backgroundColor:'grey', color:'white', marginBottom: '10px', fontSize: '12px'}}
-              >Login</Button>
-              <Button
-                onClick={this.triggerPasswordModal.bind(this)}
-              >
-              Forgot Your Password?
-            </Button>
-              <SecretModal open={this.state.secretModal} change={event => this.handleChange(event)} signup={event => this.processSignup(event)}/>
-              <PasswordModal open={this.state.passwordModal} change={event => this.handleChange(event)} changepassword={event => this.changePassword(event)}/>
-            </form>
+        <form>
+          <Input
+            className="formItem"
+            placeholder="Email"
+            name="email"
+            type="email"
+            onChange={event => this.handleChange(event)}
+            style={styles.formItem}
+          />
+          <h4 className='error' style={styles.error}>{this.state.error}</h4>
+          <Input
+            className="formItem"
+            placeholder="Password"
+            name="password"
+            type="password"
+            onChange={event => this.handleChange(event)}
+            style={styles.formItem}
+          />
+          <br></br>
+          <Button
+            className="formSubmit"
+            value="SUBMIT"
+            type="submit"
+            onClick={this.triggerSecretModal.bind(this)}
+            style={styles.formSubmit}
+          >Sign Up</Button>
+          <Button
+            className="formLogin"
+            value="Login"
+            type="login"
+            onClick={this.processLogin}
+            style={styles.formLogin}
+          >Login</Button>
+          <Button
+            onClick={this.triggerPasswordModal.bind(this)}
+            style={styles.forgotPassword}
+            className="forgotPassword"
+          >
+          Forgot Your Password?
+        </Button>
+          <SecretModal open={this.state.secretModal}
+            change={event => this.handleChange(event)}
+            signup={event => this.processSignup(event)}
+            close={event => this.handleClose(event)}/>
+          <PasswordModal open={this.state.passwordModal}
+            change={event => this.handleChange(event)}
+            changepassword={event => this.changePassword(event)}
+            close={event => this.handleClose(event)}/>
+        </form>
     );
     return (
       <div className='App'>

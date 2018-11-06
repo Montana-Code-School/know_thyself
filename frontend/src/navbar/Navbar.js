@@ -22,7 +22,6 @@ class NavBar extends React.Component {
 
   static propTypes = {
       location: PropTypes.object.isRequired
-
     }
 
   handleDrawerOpen = () => {
@@ -32,7 +31,6 @@ class NavBar extends React.Component {
   handleDrawerClose = () => {
     this.setState({ open: false });
   };
-
 
   revealProfile = () => {
     this.setState({atprofile: true});
@@ -49,8 +47,6 @@ class NavBar extends React.Component {
   revealTodo = () => {
     this.setState({attodo: true});
   }
-
-
 
   revealProfile = () => {
     this.setState({atprofile: true});
@@ -74,24 +70,27 @@ class NavBar extends React.Component {
     const { classes, path } = this.props;
     const { open } = this.state;
     if (path !== '/profile' && this.state.atprofile) {
-   return <Redirect push to="/profile" />;
- }
+      return <Redirect push to="/profile" />;
+    }
     if (path !== '/entries' && this.state.atentries) {
-   return <Redirect push to="/entries" />;
- }
-   if (path !== '/habits' && this.state.athabits) {
-  return <Redirect push to="/habits" />;
-  }
-  if (path !== '/todo' &&this.state.attodo) {
-  return <Redirect push to="/todo" />;
-  }
+      return <Redirect push to="/entries" />;
+    }
+    if (path !== '/habits' && this.state.athabits) {
+     return <Redirect push to="/habits" />;
+    }
+    if (path !== '/todo' &&this.state.attodo) {
+      return <Redirect push to="/todo" />;
+    }
     return (
       <div >
         <AppBar position="static"
           className={classNames(classes.appBar, {
               [classes.appBarShift]: open,
           })}>
-          <Toolbar className="toolbar" variant="dense" style={{backgroundColor: '#373737' }} disableGutters={!open}>
+          <Toolbar className="toolbar"
+                    variant="dense"
+                    style={{backgroundColor: '#373737' }}
+                    disableGutters={!open}>
             <IconButton
               className={classNames(classes.menuButton, open && classes.hide)}
               color="inherit"
@@ -99,10 +98,16 @@ class NavBar extends React.Component {
               onClick={this.handleDrawerOpen}>
               <MenuIcon />
             </IconButton>
-            <Typography noWrap className='' style={{fontFamily: "'Satisfy', cursive", color: "#E7DFDD"}} variant="h4">
+            <Typography noWrap className='ct1' style={{fontFamily:
+                                                      "Satisfy, cursive",
+                                                      color: "#E7DFDD"}}
+                                                      variant="h4">
               Know Thyself
             </Typography>
-            <div className='timeweather' style={{flex: "1", alignItems: "flex-end", flexDirection: "column", display: "flex"}}>
+            <div className='timeweather' style={{flex: "1",
+                                                alignItems: "flex-end",
+                                                flexDirection: "column",
+                                                display: "flex"}}>
               <Time />
               <Weather />
             </div>
