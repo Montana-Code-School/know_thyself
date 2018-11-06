@@ -13,10 +13,13 @@ const Habit = require('../models/habit-model').habit
       entry.title = body.title
       entry.user = req.user._id
       entry.save((err) => {
+        console.log("in entry save")
         if (err) res.send(err)
         req.user.entries.push(entry)
         req.user.save((err) => {
+          console.log("in user save before error")
           if (err) res.send(err)
+          console.log("is not error")
           res.json({msg: 'entry saved'})
           })
         })
@@ -30,6 +33,7 @@ const Habit = require('../models/habit-model').habit
       })
       .populate('entries')
       .exec((err, user) => {
+        console.log("in exec")
         if (err) res.send(err)
         res.json(user.entries)
       })

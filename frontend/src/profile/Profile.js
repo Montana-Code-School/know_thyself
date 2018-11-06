@@ -114,7 +114,7 @@ class Profile extends Component {
         pathname=`http://localhost:4001${pathname}`
       }
       fetch( pathname, {
-        method: 'POST',
+        method: 'post',
         headers: {
           'Content-type' : 'application/json',
           'Authorization': `bearer ${Storage.getToken()}`
@@ -122,7 +122,7 @@ class Profile extends Component {
         body: JSON.stringify(input),
       })
       .then(res => res.json())
-      .then(data => this.props.clear())
+      .then(data => console.log(data))
     }
   }
 

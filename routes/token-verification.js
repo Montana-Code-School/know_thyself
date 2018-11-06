@@ -3,7 +3,7 @@ const User = require('../models/user-model')
 
 // here we grab the token from the headers, and verify it, once decoded, we can
 // see that it contains a user_id, we then search the db for that id, and return
-// the user attached to the request.  We are then move back to login.js
+// the user attached to the request.  We then move back to login.js
 
 module.exports = (req, res, next) => {
   console.log("authorization")
@@ -30,6 +30,7 @@ module.exports = (req, res, next) => {
         console.log("found user by id")
         if (err) res.status(401).end()
         req.user = user
+
         return next()
       })
     }

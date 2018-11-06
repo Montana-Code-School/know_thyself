@@ -10,8 +10,11 @@ const UserSchema = new Schema({
     match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   },
   password: {
-    type: String, required: true
+    type: String, required: true,
   },
+  secret: {
+    type: String,
+  } ,
   googleProvider: {
     type: {
       id: String,
