@@ -61,17 +61,7 @@ const styles = theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
-    },
-  ct1: {
-    fontFamily: "'Satisfy', cursive",
-    color: "#E7DFDD"
-  },
-  timeweather: {
-    flex: "1",
-    alignItems: "flex-end",
-    flexDirection: "column",
-    display: "flex"
-  }
+    }
 });
 
 export default styles

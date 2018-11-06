@@ -98,10 +98,16 @@ class NavBar extends React.Component {
               onClick={this.handleDrawerOpen}>
               <MenuIcon />
             </IconButton>
-            <Typography noWrap className='ct1' style={styles.ct1} variant="h4">
+            <Typography noWrap className='ct1' style={{fontFamily:
+                                                      "Satisfy, cursive",
+                                                      color: "#E7DFDD"}}
+                                                      variant="h4">
               Know Thyself
             </Typography>
-            <div className='timeweather' style={styles.timeweather}>
+            <div className='timeweather' style={{flex: "1",
+                                                alignItems: "flex-end",
+                                                flexDirection: "column",
+                                                display: "flex"}}>
               <Time />
               <Weather />
             </div>
