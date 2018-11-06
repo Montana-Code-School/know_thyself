@@ -4,7 +4,6 @@ const styles = {
     marginLeft: '4%'
   },
   inputs: {
-    border: 'solid 1px black',
     marginRight: '2%'
   },
   addButton: {
@@ -19,12 +18,15 @@ const styles = {
     width: '25%',
     display: 'inline-block'
   },
+  habitTitle: {
+    fontSize: '20pt'
+  },
   progressBar: {
     border: 'solid 1px black',
-    borderRadius: '20%',
+    borderRadius: '15px',
     margin: '13px 0 0 0',
-    height: '12px',
-    padding: '0 14px',
+    height: '18px',
+    // padding: '0 14px',
     cursor: 'pointer'
   },
   tipCard: {
@@ -47,6 +49,15 @@ const styles = {
     display: 'inline-block',
     fontSize: 14,
     margin: '0 0 6% 10%'
+  },
+  bar: {
+    color: 'green',
+  },
+  lower: {
+    marginTop: '5%'
+  },
+  plus: {
+    marginRight: '30%'
   }
 }
 export default styles
