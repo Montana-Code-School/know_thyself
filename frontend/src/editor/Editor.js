@@ -3,7 +3,9 @@ import ReactQuill from 'react-quill';
 // import 'react-quill/dist/quill.snow.css'
 import { Typography  } from '@material-ui/core';
 import styles from './Editor-styles';
+
 import './Editor.css'
+
 
 class TextEditor extends Component {
 

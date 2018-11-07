@@ -5,7 +5,12 @@ import AddIcon from '@material-ui/icons/Add';
 import Storage from '../storage'
 import styles from './HabitMap-styles'
 
+
 class HabitMap extends Component {
+  state = {
+    distance: 0
+  }
+
 
   habitFetch() {
     let routeUrl = '/verify/habit'
@@ -20,7 +25,8 @@ class HabitMap extends Component {
           'Authorization': `bearer ${Storage.getToken()}`
         }
       })
-      .then((res) => res.json())
+
+      .then((results) => results.json())
       .then((results) => {
         this.props.fetchedHabits(results)
       })
@@ -53,12 +59,29 @@ upReps(e) {
     })
     .then(data => data.json())
     .then(res => {
-      this.props.addReps(res)
       this.props.refetchHabitTrigger()
+      this.props.addReps(res)
+
     })
   }
 }
 
+createBoxes(habit) {
+  let reps = [...Array(41).keys()]
+  let elements = []
+  for (var i = 0; i < reps.length; i++) {
+    if (habit.checked.indexOf(reps[i]) > -1) {
+      elements.push(<div key={i-1}
+                         style={styles.boxesYes}>
+                    </div>)
+    } else {
+      elements.push(<div key={i-1}
+                         style={styles.boxes}>
+                    </div>)
+    }
+  }
+  return elements
+}
 
 removeHabit(e) {
   if (Storage.getToken()) {
@@ -80,44 +103,48 @@ removeHabit(e) {
 
   render() {
     return (
-          <div>
-            {this.props.habits.map(habit =>
-
-              <Card key={habit._id} className="row habit" style={styles.habitCard}>
-                <CardContent className="four columns" transition="slide">
-                  <Typography className='habitTitle' style={styles.habitTitle} >{habit.title}</Typography>
-                  <Typography className='habitReps' style={styles.habitReps} >{habit.initial} completed of {habit.reps}</Typography>
-                  <div style={styles.progressBar}>
-                    <div className="bar" style={{ backgroundColor: 'red', width: 100 - habit.initial * (100 / habit.reps) + '%' , height: '100%', borderRadius: '15px'}}></div>
-                  </div>
-                  <div className="lower" style={styles.lower}>
-                    <Button className='plus'
-                            style={styles.plus}
-                            varient='fab'
-                            color='primary'
-                            aria-label='Add'
-                            id="progress"
-                            // onClick={this.completeReps(habit)}
-                            v-show="!habit.finished"
-                            // style="{ background: habit.random }"
-                     >
-                       <AddIcon id={habit._id} onClick={e => this.upReps(e)}/>
-                    </Button>
-                    <button>Reset</button>
-                    <button
-                      onClick={this.removeHabit.bind(this)}
-                      id={habit._id}
-                      >
-                      Delete
-                    </button>
-
-                    {/* <div v-show="!habit.finished">{{ habit.complete }}/{{ habit.initial }} times</div>
-                    <div v-show="habit.finished" transition="slide">Complete!</div> */}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-          </div>
+      <div>
+        {this.props.habits.map(habit =>
+          <Card key={habit._id}
+                className="row habit"
+                style={habit.difference >= 41 ? styles.habitCardComplete : styles.habitCard}>
+            <CardContent className="four columns" transition="slide">
+              <Typography className='habitTitle'
+                          style={styles.habitTitle} >
+                          {habit.title}
+              </Typography>
+              <Typography className='dayCount' style={styles.dayCount} >day {!habit.difference ? 1 : habit.difference}</Typography>
+              {this.createBoxes(habit)}
+              <Typography className='habitReps' style={styles.habitReps} >{habit.checked.length} out of 42 days completed</Typography>
+              <div style={styles.progressBar}>
+                <div className="bar"
+                     style={{ backgroundColor: 'green',
+                              maxWidth: '100%',
+                              width: (!habit.checked.length ? '0%' : habit.checked.length/habit.difference * 100 + '%'),
+                              height: '100%',
+                              borderRadius: '13px'}}>
+                </div>
+              </div>
+              <div className="lower" style={styles.lower}>
+                <Button className='plus'
+                        style={styles.plus}
+                        varient='fab'
+                        color='primary'
+                        aria-label='Add'
+                        id="progress">
+                   <AddIcon id={habit._id} onClick={e => this.upReps(e)}/>
+                </Button>
+                <button
+                  onClick={this.removeHabit.bind(this)}
+                  id={habit._id}
+                  >
+                  Delete
+                </button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+      </div>
     );
   }
 }
