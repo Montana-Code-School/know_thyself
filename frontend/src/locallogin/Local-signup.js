@@ -83,7 +83,7 @@ class SignUp extends Component {
   changePassword(event){
     event.preventDefault();
     fetch( 'http://localhost:4001/api/passwordreset', {
-      method: 'post',
+      method: 'put',
       headers: {
         'Content-type': 'application/json'
       },
@@ -118,7 +118,6 @@ class SignUp extends Component {
       passwordModal: true
     })
   }
-
 
   handleChange = (event) => {
     const { name, value } = event.target

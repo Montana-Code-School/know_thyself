@@ -53,18 +53,12 @@ class NavBar extends React.Component {
   };
 
   revealEntry = () => {
-
     this.setState({atentries: true});
   };
 
   revealHabits = () => {
-
     this.setState({athabits: true});
   };
-
-  revealTodo = () => {
-    this.setState({attodo: true});
-  }
 
   render() {
     const { classes, path } = this.props;
@@ -78,19 +72,18 @@ class NavBar extends React.Component {
     if (path !== '/habits' && this.state.athabits) {
      return <Redirect push to="/habits" />;
     }
-    if (path !== '/todo' &&this.state.attodo) {
-      return <Redirect push to="/todo" />;
-    }
     return (
       <div >
-        <AppBar position="static"
+        <AppBar
+          position="static"
           className={classNames(classes.appBar, {
-              [classes.appBarShift]: open,
+          [classes.appBarShift]: open,
           })}>
-          <Toolbar className="toolbar"
-                    variant="dense"
-                    style={{backgroundColor: '#373737' }}
-                    disableGutters={!open}>
+          <Toolbar
+            className="toolbar"
+            variant="dense"
+            style={{backgroundColor: '#373737' }}
+            disableGutters={!open}>
             <IconButton
               className={classNames(classes.menuButton, open && classes.hide)}
               color="inherit"
@@ -98,16 +91,14 @@ class NavBar extends React.Component {
               onClick={this.handleDrawerOpen}>
               <MenuIcon />
             </IconButton>
-            <Typography noWrap className='ct1' style={{fontFamily:
-                                                      "Satisfy, cursive",
-                                                      color: "#E7DFDD"}}
-                                                      variant="h4">
+            <Typography
+              noWrap className='ct1'
+              style={{fontFamily:"Satisfy, cursive", color: "#E7DFDD"}}
+              variant="h4">
               Know Thyself
             </Typography>
-            <div className='timeweather' style={{flex: "1",
-                                                alignItems: "flex-end",
-                                                flexDirection: "column",
-                                                display: "flex"}}>
+            <div className='timeweather'
+              style={{flex: "1", alignItems: "flex-end", flexDirection: "column", display: "flex"}}>
               <Time />
               <Weather />
             </div>
@@ -122,7 +113,7 @@ class NavBar extends React.Component {
           <div className={classes.drawerHeader}>
             <List>
               <ListItem>
-                <ListItemText>Stuff</ListItemText>
+                <ListItemText>Know Thy Options</ListItemText>
                 <IconButton onClick={this.handleDrawerClose}>
                   <ChevronLeftIcon />
                 </IconButton>
@@ -132,16 +123,13 @@ class NavBar extends React.Component {
           <Divider />
           <List>
             <ListItem>
-              <Button onClick={this.revealProfile} >Profile</Button>
+              <Button onClick={this.revealProfile}>Profile</Button>
             </ListItem>
             <ListItem>
-              <Button onClick={this.revealEntry} >Entries</Button>
+              <Button onClick={this.revealEntry}>Entries</Button>
             </ListItem>
             <ListItem>
-              <Button onClick={this.revealHabits} >Habits</Button>
-            </ListItem>
-            <ListItem>
-              <Button onClick={this.revealTodo} >Todo</Button>
+              <Button onClick={this.revealHabits}>Habits</Button>
             </ListItem>
           </List>
         </Drawer>

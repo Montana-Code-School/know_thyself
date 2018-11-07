@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const HabitSchema = new Schema({
   title: String,
-  reps: String,
+  reps: Number,
   initial: 0,
   complete: 0,
   finished: false,

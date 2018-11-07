@@ -22,6 +22,7 @@ const styles = {
     fontSize: '20pt'
   },
   progressBar: {
+    backgroundColor: 'rgb(46, 200, 89)',
     border: 'solid 1px black',
     borderRadius: '15px',
     margin: '13px 0 0 0',
@@ -48,9 +49,6 @@ const styles = {
     display: 'inline-block',
     fontSize: 14,
     margin: '0 0 6% 10%'
-  },
-  bar: {
-    color: 'green',
   },
   lower: {
     marginTop: '5%'

@@ -39,8 +39,6 @@ const Habit = require('../models/habit-model').habit
       })
     });
 
-
-
   router.route('/habit')
     .post((req, res) => {
       if (!req.user) console.log('you shall not pass!')
@@ -56,23 +54,70 @@ const Habit = require('../models/habit-model').habit
         if (err) res.send(err)
         req.user.habits.push(habit)
         req.user.save((err) => {
-          if (err) res.seng(err)
+          if (err) res.send(err)
           res.json({msg: 'habit saved'})
+          })
         })
       })
-    })
+
     .get((req, res) => {
-      console.log('in verified-routes')
+      console.log(req,'this is the req')
       if (!req.user) console.log('you shall not pass!')
       User.findById(req.user, (err, user) => {
+        console.log("finding user by id")
         if (err) res.send(err);
       })
       .populate('habits')
       .exec((err, user) => {
+        console.log("in exec")
         if (err) res.send(err)
         res.json(user.habits)
       })
     })
 
+  router.route('/habit/:habit_id')
+    .put((req, res) => {
+      if (!req.user) console.log('thou shall not go on!')
+      Habit.findById(req.params.habit_id, (err, habit) => {
+        if (err) res.send(err)
+        habit.initial += 1
+        console.log('req params habit', req.user, 'habit', habit)
+        habit.save((err, user) => {
+          if (err) res.send(err)
+          user.save((err, user) => {
+            console.log("in the else", habit)
+            if (err) res.send(err)
+            res.json(habit)
+          })
+        })
+      })
+    })
+
+    .delete(function(req, res) {
+      if (!req.user) console.log('thou shall not go on!')
+      Habit.deleteOne({
+        _id: req.params.habit_id
+      }, function(err, habit) {
+        if (err)
+          res.send(err);
+      });
+      User.findById(req.user._id, function(err, user) {
+        if (err)
+          res.send(err)
+        for (var i = 0; i < user.habits.length; i++) {
+          console.log( user.habits.length)
+          if (user.habits[i]._id == req.params.habit_id) {
+            user.habits.splice(i, 1)
+          }
+          console.log(user.habits.length, 'im in the for loop')
+        }
+        user.save((err) => {
+          console.log('user save before if err statement')
+          console.log(user.habits.length)
+          if (err) res.send(err)
+          res.json({msg: 'deleted habit'})
+        })
+      })
+    })
 
 module.exports = router

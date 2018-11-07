@@ -22,8 +22,8 @@ Know Thyself if a web journaling app to help build self knowledge through the pr
   - Habit Tracker (add, track and remove habits)
 
 ## Getting Started / Installing
-#### [Use our App on Heroku](https://dry-cove-74246.herokuapp.com)
-           ----------or-------------
+#### [-Use our App on Heroku-](https://dry-cove-74246.herokuapp.com)
+
 #### Install locally following these steps
 - Clone or fork the repo
 - In the root folder... ```npm install```.
@@ -37,55 +37,30 @@ To run locally you need to...
 - The other, in knowthyself/frontend... ```npm start```
 
 
-## Running the tests
+<!-- ## Running the tests
 
-``mocha tesing/test.js``
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
+``mocha tesing/test.js`` -->
 
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Express](https://expressjs.com/) - Web Framework
+* [MongoDB](https://www.mongodb.com/) - Local Database Management
+* [MLAB](https://rometools.github.io/rome/) - Online Database Management
+* [React](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [ Material UI](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
 
 ## Authors
 
-* **Jake** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-* **Alison** - *Initial work* -
-* **Kyle** - *Initial work* -
+* **[Jake Marsh](https://github.com/JMarsh2201)** - *Initial work* 
+* **[Alison Morgan](https://github.com/alison-morgan)** - *Initial work*  
+* **[Kyle Gillett](https://github.com/kegillett)** - *Initial work*
 
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* Ed
+* [Montana Code School](https://montanacodeschool.com/)
+* [750words.com](750words.com) - For Inspiration
+* [Ed Weymouth](https://github.com/ed42311)
+* [Jack Peterson](https://github.com/jack829)

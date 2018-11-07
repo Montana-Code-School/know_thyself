@@ -1,89 +1,62 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Button, Card, CardContent, Typography  } from '@material-ui/core';
-import Create from '@material-ui/icons/Create'
-import Navbar from '../navbar/Navbar'
-import Storage from '../storage'
-import styles from './Habit-styles'
-
-const theme = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-    typography: {
-      useNextVariants: true
-    }
-  }
-});
+import { Button, Card, CardContent, Typography, Input  } from '@material-ui/core';
+import { Create } from '@material-ui/icons';
+import Navbar from '../navbar/Navbar';
+import Storage from '../storage';
+import HabitMap from '../habitMap/HabitMap';
+import styles from './Habit-styles';
 
 class Habits extends Component {
-
+  state = {
+    shouldRefetch: false
+  }
   componentDidMount() {
-    let habitsFetch, tipsFetch
+    let routeUrl = '/api/tips'
     if (process.env.NODE_ENV === 'development') {
-       habitsFetch = fetch('http://localhost:4001/verify/habit',
-       {
-         method: 'GET',
-         headers: {
-           'Content-type' : 'application/json',
-           'Authorization': `bearer ${Storage.getToken()}`
-         }
-       })
-       tipsFetch = fetch('http://localhost:4001/api/tips')
-    } else {
-      habitsFetch = fetch('http://localhost:4001/verify/habit',
-      {
-        method: 'GET',
-        headers: {
-          'Content-type' : 'application/json',
-          'Authorization': `bearer ${Storage.getToken()}`
-        }
-      })
-      tipsFetch = fetch('/api/tips')
+      routeUrl = 'http://localhost:4001/api/tips'
     }
-    Promise.all([habitsFetch, tipsFetch])
+    fetch(routeUrl)
+      .then((results) => results.json())
       .then((results) => {
-        const habitsBlob = results[0].json()
-        const tipsBlob = results[1].json()
-        Promise.all([habitsBlob, tipsBlob])
-          .then((results) => {
-            this.props.fetchedHabits(results)
-            this.props.fetchedTips(results)
-            this.props.getRandomTip()
-          })
+        this.props.fetchedTips(results)
+        this.props.getRandomTip()
       })
       .catch((err) => console.log(err))
   }
 
-addHabit() {
-  if (Storage.getToken()) {
-    console.log('addHabit')
-    let input = {
-      title: this.props.title,
-      reps: this.props.reps,
-      initial: this.props.reps,
-      complete: 0,
-      finished: false
+  addHabit() {
+    if (Storage.getToken()) {
+      let input = {
+        title: this.props.title,
+        reps: this.props.reps,
+        initial: 0,
+        finished: false
+      }
+      let pathname = '/verify/habit'
+      if (process.env.NODE_ENV === 'development') {
+        pathname=`http://localhost:4001${pathname}`
+      }
+      fetch( pathname, {
+        method: 'POST',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization': `bearer ${Storage.getToken()}`
+        },
+        body: JSON.stringify(input),
+      })
+      .then(res => {
+        this.refetchHabitTrigger()
+        this.props.clearHabitForm()
+      })
     }
-    let pathname = '/verify/habit'
-    if (process.env.NODE_ENV === 'development') {
-      pathname=`http://localhost:4001${pathname}`
-    }
-    fetch( pathname, {
-      method: 'POST',
-      headers: {
-        'Content-type' : 'application/json',
-        'Authorization': `bearer ${Storage.getToken()}`
-      },
-      body: JSON.stringify(input),
-    })
-    .then(res => {
-      console.log('near the end')
-      res.json()})
-    .then(data => console.log(data))
   }
-}
+
+  refetchHabitTrigger() {
+    this.setState({
+      shouldRefetch: !this.state.shouldRefetch
+    })
+  }
 
   render() {
     return (
@@ -107,13 +80,13 @@ addHabit() {
             <Card style={styles.addCard}>
               <Typography style={styles.head}>Habit Tracker</Typography>
               <CardContent>
-                <input onChange={this.props.handleHabitTitle}
+                <Input onChange={this.props.handleHabitTitle}
                        type="text"
                        id='habitTitle'
                        placeholder="Habit"
                        value={this.props.title}
                        style={styles.inputs} />
-                <input onChange={this.props.handleHabitReps}
+                <Input onChange={this.props.handleHabitReps}
                        type="number"
                        placeholder="Repetitions"
                        value={this.props.reps}
@@ -124,64 +97,20 @@ addHabit() {
                 </Button>
               </CardContent>
             </Card>
-            {this.props.habits.map(habit =>
-              <Card key={habit._id} className="row habit" style={styles.habitCard}>
-                <CardContent className="four columns" transition="slide">
-                  <Typography>{habit.title}</Typography>
-                  <div className="shell" style={styles.progressBar}>
-                    <div className="bar" style={{ width: 100 - habit.complete * (100 / habit.initial) + '%' }}></div>
-                  </div>
-                  {/* <div className="lower">
-                    <span onClick={this.removeHabit(this.props.habit)}>
-                      <i class="fa fa-times"></i>
-                    </span>
-                    <button id="progress"
-                            onClick={this.completeReps(habit)}
-                            v-show="!habit.finished"
-                            style="{ background: habit.random }"
-                     >
-                      <i className="fa fa-plus"></i>
-                    </button>
-                    <div v-show="!habit.finished">{{ habit.complete }}/{{ habit.initial }} times</div>
-                    <div v-show="habit.finished" transition="slide">Complete!</div>
-                  </div> */}
-                </CardContent>
-              </Card>
-            )}
+            <HabitMap fetchedHabits={this.props.fetchedHabits}
+                      habits={this.props.habits}
+                      title={this.props.title}
+                      reps={this.props.reps}
+                      initial={this.props.initial}
+                      shouldRefetch={this.state.shouldRefetch}
+                      addReps={this.props.addReps}
+                      refetchHabitTrigger={this.refetchHabitTrigger.bind(this)}
+                      />
           </div>
         </div>
       </div>
-
-
-
-
-
-      // <div>
-      //   <Navbar path={this.props.location.pathname}/>
-      // <div className={classes.root}>
-      //   <List>
-      //     {[0, 1, 2, 3].map(value => (
-      //       <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(value)}>
-      //         <Checkbox
-      //           checked={this.state.checked.indexOf(value) !== -1}
-      //           tabIndex={-1}
-      //           disableRipple
-      //         />
-      //         <ListItemText primary={`Line item ${value + 1}`} />
-      //         <ListItemSecondaryAction>
-      //           <IconButton aria-label="Comments">
-      //             <CommentIcon />
-      //           </IconButton>
-      //         </ListItemSecondaryAction>
-      //       </ListItem>
-      //     ))}
-      //   </List>
-      //   </div>
-      // </div>
     );
   }
 }
-
-
 
 export default withStyles(styles)(Habits);

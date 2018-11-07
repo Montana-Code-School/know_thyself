@@ -3,8 +3,8 @@ import { Button, Card, CardContent, Typography  } from '@material-ui/core';
 import Create from '@material-ui/icons/Create'
 import Navbar from '../navbar/Navbar';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import Storage from '../storage'
-import TextEditor from '../editor/Editor'
+import Storage from '../storage';
+import TextEditor from '../editor/Editor';
 import styles from './Profile-styles'
 
 const theme = createMuiTheme({
@@ -85,21 +85,23 @@ class Profile extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <Navbar path={this.props.location.pathname}
-                theme={theme}
-                position="sticky"/>
+        <Navbar
+          path={this.props.location.pathname}
+          theme={theme}
+          position="sticky"/>
         <Card style={styles.editorCard}>
           <Card style={styles.promptCard}>
             <CardContent>
-              <Typography>
+              <Typography style={{fontSize: 18}}>
                 {this.props.prompt}
               </Typography>
             </CardContent>
           </Card>
-          <TextEditor handleChange={this.props.handleChange}
-                      value={this.props.value}
-                      words={this.props.words}
-                      editorReference={this.props.editorReference}
+          <TextEditor
+            handleChange={this.props.handleChange}
+            value={this.props.value}
+            words={this.props.words}
+            editorReference={this.props.editorReference}
           />
         </Card>
         <Card style={styles.tipCard}>
@@ -109,7 +111,7 @@ class Profile extends Component {
               <Typography style={styles.advice}>
                 Advice:
               </Typography>
-              <Typography>
+              <Typography style={{fontSize: 18}}>
                 {this.props.tip}
               </Typography>
             </CardContent>
@@ -117,6 +119,7 @@ class Profile extends Component {
         </Card>
         <Button
           style={styles.submit}
+          variant="contained"
           className='submit'
           onClick={(e) => this.handleSubmit(e)}
           disabled={this.props.disabled}
