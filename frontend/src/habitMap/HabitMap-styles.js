@@ -15,6 +15,7 @@ const styles = {
   },
   habitCard: {
     margin: '1% 0 2% 3%',
+
     width: '65%',
     display: 'inline-block'
   },
@@ -62,6 +63,7 @@ const styles = {
     fontSize: 14,
     margin: '0 0 6% 10%'
   },
+
   bar: {
     color: 'green',
   },
@@ -94,6 +96,7 @@ const styles = {
     margin: '1px',
     display: 'inline-block',
     backgroundColor: 'red'
+
   }
 }
 export default styles

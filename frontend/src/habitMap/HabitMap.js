@@ -11,6 +11,7 @@ class HabitMap extends Component {
     distance: 0
   }
 
+
   habitFetch() {
     let routeUrl = '/verify/habit'
     if (process.env.NODE_ENV === 'development') {
@@ -24,6 +25,7 @@ class HabitMap extends Component {
           'Authorization': `bearer ${Storage.getToken()}`
         }
       })
+
       .then((results) => results.json())
       .then((results) => {
         this.props.fetchedHabits(results)
@@ -53,15 +55,16 @@ upReps(e) {
         'Content-type' : 'application/json',
         'Authorization': `bearer ${Storage.getToken()}`
       }
+
     })
     .then(data => data.json())
     .then(res => {
       this.props.refetchHabitTrigger()
       this.props.addReps(res)
+
     })
   }
 }
-
 
 createBoxes(habit) {
   let reps = [...Array(41).keys()]

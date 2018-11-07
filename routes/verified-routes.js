@@ -53,15 +53,18 @@ const Habit = require('../models/habit-model').habit
           res.json({msg: 'habit saved'})
           })
         })
+
     })
 
     .get((req, res) => {
       if (!req.user) console.log('you shall not pass!')
       User.findById(req.user, (err, user) => {
+        console.log("finding user by id")
         if (err) res.send(err);
       })
       .populate('habits')
       .exec((err, user) => {
+        console.log("in exec")
         if (err) res.send(err)
         res.json(user.habits)
       })
@@ -73,6 +76,8 @@ const Habit = require('../models/habit-model').habit
       Habit.findById(req.params.habit_id, (err, habit) => {
         if (err) res.send(err)
         habit.initial += 1
+
+
         if (habit.checked[habit.checked.length - 1] !== habit.difference) {
           habit.checked.push(habit.difference)
         }
