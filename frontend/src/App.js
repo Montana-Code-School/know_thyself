@@ -59,6 +59,7 @@ class App extends Component {
     this.setState({
       habits: habits,
     })
+    console.log(results)
   }
   // Passed down to Editor.js through Profile.js. stores value in text editor
   // counts words (words are passed as props down to Editor.js)
@@ -138,9 +139,6 @@ class App extends Component {
     })
   }
 
-  addReps(res) {
-    if (res.initial === res.reps) return console.log("they equal")
-  }
 
 
   render() {
@@ -182,7 +180,6 @@ class App extends Component {
                         fetchedTips={this.fetchedTips.bind(this)}
                         clearHabitForm={this.clearHabitForm.bind(this)}
                         getRandomTip={this.getRandomTip.bind(this)}
-                        addReps={this.addReps.bind(this)}
                         // state
                         tip={this.state.tip}
                         habits={this.state.habits}

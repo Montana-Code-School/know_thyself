@@ -75,12 +75,6 @@ const Habit = require('../models/habit-model').habit
       if (!req.user) console.log('thou shall not go on!')
       Habit.findById(req.params.habit_id, (err, habit) => {
         if (err) res.send(err)
-        habit.initial += 1
-
-
-        if (habit.checked[habit.checked.length - 1] !== habit.difference) {
-          habit.checked.push(habit.difference)
-        }
         habit.save((err, user) => {
           if (err) res.send(err)
           user.save((err, user) => {

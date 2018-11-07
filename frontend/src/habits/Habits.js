@@ -89,11 +89,6 @@ refetchHabitTrigger() {
                        placeholder="Habit"
                        value={this.props.title}
                        style={styles.inputs} />
-                <Input onChange={this.props.handleHabitReps}
-                       type="number"
-                       placeholder="Repetitions"
-                       value={this.props.reps}
-                       style={styles.inputs} />
                 <Button id="creator"
                         onClick={(e) => this.addHabit(e)}
                         style={styles.addButton}>Add
@@ -105,7 +100,6 @@ refetchHabitTrigger() {
                       title={this.props.title}
                       reps={this.props.reps}
                       shouldRefetch={this.state.shouldRefetch}
-                      addReps={this.props.addReps}
                       refetchHabitTrigger={this.refetchHabitTrigger.bind(this)}
                       />
           </div>

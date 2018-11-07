@@ -60,7 +60,6 @@ upReps(e) {
     .then(data => data.json())
     .then(res => {
       this.props.refetchHabitTrigger()
-      this.props.addReps(res)
 
     })
   }
@@ -71,11 +70,11 @@ createBoxes(habit) {
   let elements = []
   for (var i = 0; i < reps.length; i++) {
     if (habit.checked.indexOf(reps[i]) > -1) {
-      elements.push(<div key={i-1}
+      elements.push(<div key={i}
                          style={styles.boxesYes}>
                     </div>)
     } else {
-      elements.push(<div key={i-1}
+      elements.push(<div key={i}
                          style={styles.boxes}>
                     </div>)
     }
@@ -120,7 +119,7 @@ removeHabit(e) {
                 <div className="bar"
                      style={{ backgroundColor: 'green',
                               maxWidth: '100%',
-                              width: (!habit.checked.length ? '0%' : habit.checked.length/habit.difference * 100 + '%'),
+                              width: !habit.checked.length ? '0%' : habit.checked.length/habit.difference * 100 + '%',
                               height: '100%',
                               borderRadius: '13px'}}>
                 </div>
