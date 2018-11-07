@@ -15,13 +15,6 @@ const styles = {
   },
   habitCard: {
     margin: '1% 0 2% 3%',
-<<<<<<< HEAD
-    width: '25%',
-    display: 'inline-block'
-  },
-  habitTitle: {
-    fontSize: '20pt'
-=======
     width: '65%',
     display: 'inline-block'
   },
@@ -34,8 +27,11 @@ const styles = {
     opacity: '.5'
   },
   habitTitle: {
-    fontSize: '17pt'
->>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
+    fontSize: '17pt',
+  },
+  dayCount: {
+    fontSize: '14pt',
+    fontStyle: 'italic'
   },
   progressBar: {
     border: 'solid 1px black',
@@ -66,16 +62,16 @@ const styles = {
     fontSize: 14,
     margin: '0 0 6% 10%'
   },
+
   bar: {
     color: 'green',
   },
   lower: {
-    marginTop: '5%'
+    marginTop: '2%'
   },
   plus: {
-    marginRight: '30%'
-<<<<<<< HEAD
-=======
+    marginRight: '30%',
+    marginBottom: '1%'
   },
   boxes: {
     width: '12px',
@@ -99,7 +95,7 @@ const styles = {
     margin: '1px',
     display: 'inline-block',
     backgroundColor: 'red'
->>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
+
   }
 }
 export default styles

@@ -53,16 +53,9 @@ const Habit = require('../models/habit-model').habit
           res.json({msg: 'habit saved'})
           })
         })
-<<<<<<< HEAD
-      })
-
-    .get((req, res) => {
-      console.log(req,'this is the req')
-=======
     })
 
     .get((req, res) => {
->>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
       if (!req.user) console.log('you shall not pass!')
       User.findById(req.user, (err, user) => {
         console.log("finding user by id")
@@ -82,32 +75,26 @@ const Habit = require('../models/habit-model').habit
       Habit.findById(req.params.habit_id, (err, habit) => {
         if (err) res.send(err)
         habit.initial += 1
-<<<<<<< HEAD
         console.log('req params habit', req.user, 'habit', habit)
         habit.save((err, user) => {
           if (err) res.send(err)
           user.save((err, user) => {
             console.log("in the else", habit)
-=======
         if (habit.checked[habit.checked.length - 1] !== habit.difference) {
           habit.checked.push(habit.difference)
         }
         habit.save((err, user) => {
           if (err) res.send(err)
           user.save((err, user) => {
->>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
             if (err) res.send(err)
             res.json(habit)
           })
         })
       })
     })
+  })
+})
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
     .delete(function(req, res) {
       if (!req.user) console.log('thou shall not go on!')
       Habit.deleteOne({
@@ -120,30 +107,15 @@ const Habit = require('../models/habit-model').habit
         if (err)
           res.send(err)
         for (var i = 0; i < user.habits.length; i++) {
-<<<<<<< HEAD
-          console.log( user.habits.length)
-          if (user.habits[i]._id == req.params.habit_id) {
-            user.habits.splice(i, 1)
-          }
-          console.log(user.habits.length, 'im in the for loop')
-
-        }
-        user.save((err) => {
-          console.log('user save before if err statement')
-          console.log(user.habits.length)
-=======
           if (user.habits[i]._id == req.params.habit_id) {
             user.habits.splice(i, 1)
           }
 
         }
         user.save((err) => {
->>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
           if (err) res.send(err)
           res.json({msg: 'deleted habit'})
         })
       })
     })
-    // well post is being stupid now. break to fix the ladies computer
-    // no worries. just push up on some new branch when you get a shot
 module.exports = router

@@ -54,10 +54,6 @@ class App extends Component {
   }
   // sets tips state from componentDidMount in Habits.js
   fetchedHabits(results) {
-<<<<<<< HEAD
-=======
-    console.log(results)
->>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
     const habits = results.reverse()
     this.setState({
       habits: habits,
@@ -142,11 +138,6 @@ class App extends Component {
   }
 
   addReps(res) {
-<<<<<<< HEAD
-    console.log(res)
-=======
-
->>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
     if (res.initial === res.reps) return console.log("they equal")
   }
 
@@ -188,6 +179,7 @@ class App extends Component {
                         handleHabitReps={this.handleHabitReps.bind(this)}
                         fetchedHabits={this.fetchedHabits.bind(this)}
                         fetchedTips={this.fetchedTips.bind(this)}
+                        clearHabitForm={this.clearHabitForm.bind(this)}
                         getRandomTip={this.getRandomTip.bind(this)}
                         addReps={this.addReps.bind(this)}
                         // state
@@ -195,9 +187,6 @@ class App extends Component {
                         habits={this.state.habits}
                         title={this.state.title}
                         reps={this.state.reps}
-                        clearHabitForm={this.clearHabitForm.bind(this)}
-                        // addHabit={this.addHabit.bind(this)}
-                        // removeHabit={this.removeHabit.bind(this)}
                         />
           <Route component={Error}/>
         </Switch>
