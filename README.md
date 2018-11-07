@@ -1,4 +1,3 @@
-
 <p align="center">
   <a href="https://gitpoint.co/">
     <img alt="Know Thyself" title="Know Thyself" src="https://i.imgur.com/Q3qbgNu.png" width="450">
@@ -41,17 +40,23 @@ To run locally you need to...
 
 ## Built With
 
-* [Express](https://expressjs.com/) - Web Framework
-* [MongoDB](https://www.mongodb.com/) - Local Database Management
-* [MLAB](https://rometools.github.io/rome/) - Online Database Management
-* [React](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [ Material UI](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Node](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
+* [Heroku](https://heroku.com/)
+* [Passport](http://www.passportjs.org/)
+* [OAuth](https://oauth.net/)
+* [JWT](https://jwt.io/)
+* [MongoDB](https://www.mongodb.com/)
+* [Mongoose](https://mongoosejs.com/)
+* [MLAB](https://mlab.com/)
+* [React](https://reactjs.org/)
+* [Material UI](https://material-ui.com/)
 
 
 ## Authors
 
 
-* **[Jake Marsh](https://github.com/JMarsh2201)** - *Initial work* 
+* **[Jake Marsh](https://github.com/JMarsh2201)** - *Initial work*
 * **[Alison Morgan](https://github.com/alison-morgan)** - *Initial work*  
 * **[Kyle Gillett](https://github.com/kegillett)** - *Initial work*
 
@@ -59,6 +64,7 @@ To run locally you need to...
 
 ## Acknowledgments
 
+* Our Family and Friends!!!
 * [Montana Code School](https://montanacodeschool.com/)
 * [750words.com](750words.com) - For Inspiration
 * [Ed Weymouth](https://github.com/ed42311)
