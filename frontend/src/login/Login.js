@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { Redirect } from 'react-router-dom';
 import {Typography, Card, Grid , CardContent, CardActions } from '@material-ui/core';
-import {List, ListItem, ListItemText} from '@material-ui/core';
 import config from '../config.json';
 import Storage from '../storage';
 import SignUp from '../locallogin/Local-signup';
@@ -81,26 +80,30 @@ class Login extends Component {
             >
             <Card className='card1' style={styles.card1}>
               <CardContent className='cc1' style={styles.cc1}>
-                <Typography className='ct1' style={styles.ct1} gutterBottom>
+                <Card className='card6' style={styles.card6}>
+                <Typography className='ct1' style={styles.ct1}>
                   Know Thyself
                 </Typography>
-                <List className='list1' style={styles.list1}>
-                  {['Writing Prompts',
-                  'Habit Tracker',
-                  'Track your progress']
-                  .map(value => (
-                    <ListItem key={value}>
-                      <ListItemText primary={value} />
-                    </ListItem>
-                  ))}
-                </List>
-                <List className='list2' style={styles.list2}>
-                  {['Writing Tips', 'Privacy', 'Things'].map(value => (
-                    <ListItem key={value}>
-                      <ListItemText primary={value} />
-                    </ListItem>
-                  ))}
-                </List>
+                <Typography className='ct9' style={styles.ct9}>
+                  "Simple Journaling - Hard Prompts"
+                </Typography>
+                </Card>
+                <br></br>
+                <br></br>
+                <Typography className='ct8' style={styles.ct8}>
+                  Take a little bit of time each day to reflect on yourself,
+                  your choices, and how you can improve you life with our
+                  online Journal, and thoughtful Prompts.
+                <br></br>
+                <br></br>
+                  Hold yourself accountable and track your progress with our
+                  Habit Tracker.
+                <br></br>
+                <br></br>
+                  We'll help you get started with Writing and Habit Tracking Tips.
+                </Typography>
+                <br></br>
+                <br></br>
                 <Typography style={styles.ct2} className='ct2'>
                   'Knowing yourself is the beginning of all wisdom.' -Aristotle
                 </Typography>
@@ -116,6 +119,7 @@ class Login extends Component {
                   >
                   Sign-up or Login
                 </Typography>
+                <br></br>
                 <SignUp />
                 <Typography className='ct4' style={styles.ct4}>- or -</Typography>
                 <CardActions>

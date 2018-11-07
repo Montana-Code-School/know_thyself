@@ -1,7 +1,8 @@
 const styles = {
   tipCard: {
     width: '20%',
-    height: 300,
+    height: '40%',
+    minHeight: '300px',
     display: 'inline-block',
     float: 'right',
     margin: '2% 3% 0 3%',
@@ -11,7 +12,8 @@ const styles = {
     width: '66%',
     margin: '2% 0 0 6%',
     float: 'left',
-    display: 'inline-block'
+    display: 'inline-block',
+    minHeight: '600px'
   },
   promptCard: {
     width: '66%',
@@ -23,10 +25,11 @@ const styles = {
   innerCard: {
     width: '95%',
     height: '96%',
+    minHeight: '300px',
     display: 'inline-block',
     margin: '2% 2% 2% 2%',
     border: 'solid 1px #373737',
-    padding: 0
+    padding: 0,
   },
   submit: {
     marginLeft: '6%',

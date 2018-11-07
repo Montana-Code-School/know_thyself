@@ -15,11 +15,19 @@ const styles = {
   },
   habitCard: {
     margin: '1% 0 2% 3%',
-    width: '25%',
+    width: '65%',
     display: 'inline-block'
   },
+  habitCardComplete: {
+    margin: '1% 0 2% 3%',
+    width: '25%',
+    display: 'inline-block',
+    backgroundColor: 'lightgrey',
+    border: 'solid 2px grey',
+    opacity: '.5'
+  },
   habitTitle: {
-    fontSize: '20pt'
+    fontSize: '17pt'
   },
   progressBar: {
     border: 'solid 1px black',
@@ -58,6 +66,29 @@ const styles = {
   },
   plus: {
     marginRight: '30%'
+  },
+  boxes: {
+    width: '12px',
+    height: '12px',
+    border: 'solid .5px grey',
+    margin: '1px',
+    display: 'inline-block'
+  },
+  boxesYes: {
+    width: '10px',
+    height: '12px',
+    border: 'solid .5px grey',
+    margin: '1px',
+    display: 'inline-block',
+    backgroundColor: 'green'
+  },
+  boxesNo: {
+    width: '10px',
+    height: '12px',
+    border: 'solid .5px grey',
+    margin: '1px',
+    display: 'inline-block',
+    backgroundColor: 'red'
   }
 }
 export default styles

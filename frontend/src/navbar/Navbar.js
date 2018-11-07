@@ -62,9 +62,6 @@ class NavBar extends React.Component {
     this.setState({athabits: true});
   };
 
-  revealTodo = () => {
-    this.setState({attodo: true});
-  }
 
   render() {
     const { classes, path } = this.props;
@@ -77,9 +74,6 @@ class NavBar extends React.Component {
     }
     if (path !== '/habits' && this.state.athabits) {
      return <Redirect push to="/habits" />;
-    }
-    if (path !== '/todo' &&this.state.attodo) {
-      return <Redirect push to="/todo" />;
     }
     return (
       <div >
@@ -98,10 +92,16 @@ class NavBar extends React.Component {
               onClick={this.handleDrawerOpen}>
               <MenuIcon />
             </IconButton>
-            <Typography noWrap className='ct1' style={styles.ct1} variant="h4">
+            <Typography noWrap className='ct1' style={{fontFamily:
+                                                      "Satisfy, cursive",
+                                                      color: "#E7DFDD"}}
+                                                      variant="h4">
               Know Thyself
             </Typography>
-            <div className='timeweather' style={styles.timeweather}>
+            <div className='timeweather' style={{flex: "1",
+                                                alignItems: "flex-end",
+                                                flexDirection: "column",
+                                                display: "flex"}}>
               <Time />
               <Weather />
             </div>
@@ -116,7 +116,7 @@ class NavBar extends React.Component {
           <div className={classes.drawerHeader}>
             <List>
               <ListItem>
-                <ListItemText>Stuff</ListItemText>
+                <ListItemText>Know Thy Options</ListItemText>
                 <IconButton onClick={this.handleDrawerClose}>
                   <ChevronLeftIcon />
                 </IconButton>
@@ -133,9 +133,6 @@ class NavBar extends React.Component {
             </ListItem>
             <ListItem>
               <Button onClick={this.revealHabits} >Habits</Button>
-            </ListItem>
-            <ListItem>
-              <Button onClick={this.revealTodo} >Todo</Button>
             </ListItem>
           </List>
         </Drawer>

@@ -3,8 +3,8 @@ import { Button, Card, CardContent, Typography  } from '@material-ui/core';
 import Create from '@material-ui/icons/Create'
 import Navbar from '../navbar/Navbar';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import Storage from '../storage'
-import TextEditor from '../editor/Editor'
+import Storage from '../storage';
+import TextEditor from '../editor/Editor';
 import styles from './Profile-styles'
 
 const theme = createMuiTheme({
@@ -78,7 +78,7 @@ class Profile extends Component {
         body: JSON.stringify(input),
       })
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => this.props.clear())
     }
   }
 

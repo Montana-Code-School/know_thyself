@@ -5,7 +5,6 @@ import Login from './login/Login';
 import Profile from './profile/Profile';
 import Entries from './entries/Entries';
 import Habits from './habits/Habits';
-import Todo from './todo/Todo';
 
 class App extends Component {
   constructor(props) {
@@ -23,7 +22,6 @@ class App extends Component {
       title: '',
       reps: '',
       initial: 0,
-      complete: 0,
       finished: false
     }
     // reference created and passed to react-quill. used to save text formatting
@@ -39,8 +37,12 @@ class App extends Component {
   }
   // sets tips state from componentDidMount in Profile.js and Habits.js
   fetchedTips(results) {
+    let tips = results
+    if(results[1].length ) {
+      tips = results[1]
+    }
     this.setState({
-      tips: results[1]
+      tips: tips
     })
   }
   // sets entries state from componentDidMount in Entries.js
@@ -52,7 +54,8 @@ class App extends Component {
   }
   // sets tips state from componentDidMount in Habits.js
   fetchedHabits(results) {
-    const habits = results[0].reverse()
+    console.log(results)
+    const habits = results.reverse()
     this.setState({
       habits: habits,
     })
@@ -84,6 +87,12 @@ class App extends Component {
     this.setState({
       value: '',
       words: ''
+    })
+  }
+  clearHabitForm() {
+    this.setState({
+      title: '',
+      reps: ''
     })
   }
   // chooses a random index from prompts state upon profile render.
@@ -129,18 +138,11 @@ class App extends Component {
     })
   }
 
-  completeReps () {
-    this.setState({
-      reps: 1,
-      complete: 1,
-      finished: true
-    })
+  addReps(res) {
+
+    if (res.initial === res.reps) return console.log("they equal")
   }
 
-  // removeHabit () {
-  //   this.props.habits.$remove(habit);
-  //   console.log(this.props.habits);
-  // }
 
   render() {
     return (
@@ -180,16 +182,16 @@ class App extends Component {
                         fetchedHabits={this.fetchedHabits.bind(this)}
                         fetchedTips={this.fetchedTips.bind(this)}
                         getRandomTip={this.getRandomTip.bind(this)}
-                        completeReps={this.completeReps.bind(this)}
+                        addReps={this.addReps.bind(this)}
                         // state
                         tip={this.state.tip}
                         habits={this.state.habits}
                         title={this.state.title}
                         reps={this.state.reps}
+                        clearHabitForm={this.clearHabitForm.bind(this)}
                         // addHabit={this.addHabit.bind(this)}
                         // removeHabit={this.removeHabit.bind(this)}
                         />
-          <PrivateRoute path='/todo' component={Todo} />
           <Route component={Error}/>
         </Switch>
       </BrowserRouter>

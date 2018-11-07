@@ -4,7 +4,7 @@ const User = require('../models/user-model');
 const jwt = require('jsonwebtoken');
 
 router.route('/passwordreset')
-  .post((req, res) => {
+  .put((req, res) => {
     console.log(req.body)
     User.findOne({email: req.body.email }, (err, user) => {
       if (err) {console.log(err, "not a user")}

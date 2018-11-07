@@ -49,10 +49,10 @@ class PasswordModal extends Component{
             style={styles.passwordSubmit}
           >Submit</Button>
           <Typography
-            className="sumbit"
+            className="secretHint"
             variant="h6"
             id="modal-title"
-            style={styles.submit}>
+            style={styles.secretHint}>
             Secret Hint, Favorite Color.
           </Typography>
         </div>
