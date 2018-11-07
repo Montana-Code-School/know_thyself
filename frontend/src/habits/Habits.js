@@ -102,6 +102,7 @@ refetchHabitTrigger() {
                       habits={this.props.habits}
                       title={this.props.title}
                       reps={this.props.reps}
+                      initial={this.props.initial}
                       shouldRefetch={this.state.shouldRefetch}
                       addReps={this.props.addReps}
                       refetchHabitTrigger={this.refetchHabitTrigger.bind(this)}

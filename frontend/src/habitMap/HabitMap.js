@@ -86,9 +86,9 @@ removeHabit(e) {
               <Card key={habit._id} className="row habit" style={styles.habitCard}>
                 <CardContent className="four columns" transition="slide">
                   <Typography className='habitTitle' style={styles.habitTitle} >{habit.title}</Typography>
-                  <Typography className='habitReps' style={styles.habitReps} >{habit.initial} complete</Typography>
+                  <Typography className='habitReps' style={styles.habitReps} >{habit.initial} completed of {habit.reps}</Typography>
                   <div style={styles.progressBar}>
-                    <div className="bar" style={{ backgroundColor: 'green', width: '100%', height: '100%', borderRadius: '15px'}}></div>
+                    <div className="bar" style={{ backgroundColor: 'red', width: 100 - habit.initial * (100 / habit.reps) + '%' , height: '100%', borderRadius: '15px'}}></div>
                   </div>
                   <div className="lower" style={styles.lower}>
                     <Button className='plus'
@@ -103,6 +103,7 @@ removeHabit(e) {
                      >
                        <AddIcon id={habit._id} onClick={e => this.upReps(e)}/>
                     </Button>
+                    <button>Reset</button>
                     <button
                       onClick={this.removeHabit.bind(this)}
                       id={habit._id}

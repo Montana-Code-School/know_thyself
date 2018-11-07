@@ -91,7 +91,7 @@ class Profile extends Component {
         <Card style={styles.editorCard}>
           <Card style={styles.promptCard}>
             <CardContent>
-              <Typography>
+              <Typography style={{fontSize: 18}}>
                 {this.props.prompt}
               </Typography>
             </CardContent>
@@ -109,14 +109,16 @@ class Profile extends Component {
               <Typography style={styles.advice}>
                 Advice:
               </Typography>
-              <Typography>
+              <Typography style={{fontSize: 18}}>
                 {this.props.tip}
               </Typography>
             </CardContent>
           </Card>
         </Card>
+
         <Button
           style={styles.submit}
+          variant="contained"
           className='submit'
           onClick={(e) => this.handleSubmit(e)}
           disabled={this.props.disabled}

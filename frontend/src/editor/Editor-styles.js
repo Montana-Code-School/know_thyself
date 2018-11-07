@@ -4,11 +4,11 @@ const styles = {
     margin: '0 2% 2% 2%',
     float: 'left',
     display: 'inline-block',
-    border: 'solid 1px #373737',
+    // border: 'solid 1px #373737',
     height: '440px'
   },
   wordCount: {
-    fontSize: 12,
+    fontSize: '12pt',
     marginBottom: 0,
     marginLeft: '76%',
     fontStyle: 'italic'

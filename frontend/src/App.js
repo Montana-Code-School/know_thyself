@@ -187,6 +187,7 @@ class App extends Component {
                         habits={this.state.habits}
                         title={this.state.title}
                         reps={this.state.reps}
+                        initial={this.state.initial}
                         clearHabitForm={this.clearHabitForm.bind(this)}
                         // addHabit={this.addHabit.bind(this)}
                         // removeHabit={this.removeHabit.bind(this)}
