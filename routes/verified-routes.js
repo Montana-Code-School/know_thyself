@@ -39,8 +39,6 @@ const Habit = require('../models/habit-model').habit
       })
     });
 
-
-
   router.route('/habit')
     .post((req, res) => {
       if (!req.user) console.log('you shall not pass!')
@@ -95,8 +93,6 @@ const Habit = require('../models/habit-model').habit
       })
     })
 
-
-
     .delete(function(req, res) {
       if (!req.user) console.log('thou shall not go on!')
       Habit.deleteOne({
@@ -114,7 +110,6 @@ const Habit = require('../models/habit-model').habit
             user.habits.splice(i, 1)
           }
           console.log(user.habits.length, 'im in the for loop')
-
         }
         user.save((err) => {
           console.log('user save before if err statement')
@@ -124,6 +119,5 @@ const Habit = require('../models/habit-model').habit
         })
       })
     })
-    // well post is being stupid now. break to fix the ladies computer
-    // no worries. just push up on some new branch when you get a shot
+
 module.exports = router

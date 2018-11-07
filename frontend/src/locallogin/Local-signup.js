@@ -119,7 +119,6 @@ class SignUp extends Component {
     })
   }
 
-
   handleChange = (event) => {
     const { name, value } = event.target
     const { user } = this.state

@@ -26,7 +26,6 @@
 .ql-editor {
   border: solid 1px #373737;
   border-radius: 4px;
-  /* box-sizing: border-box; */
   line-height: 1.42;
   height: 100%;
   outline: none;

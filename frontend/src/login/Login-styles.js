@@ -69,7 +69,6 @@ const styles = {
     fontFamily:'K2D',
     fontSize:18,
     textAlign :'center',
-    // textShadow: '.5px .5px .5px black'
   },
   card4:{
     minWidth: '70%',
@@ -83,7 +82,6 @@ const styles = {
     fontFamily:'K2D',
     fontSize:20,
     textAlign :'center',
-    // textShadow: '.25px .25px .25px black'
   },
   card5:{
     minWidth: '70%',
@@ -97,7 +95,6 @@ const styles = {
     fontFamily:'K2D',
     fontSize:20,
     textAlign :'center',
-    // textShadow: '.5px .5px .5px black'
   },
   ct8: {
     color:'black',
@@ -114,13 +111,11 @@ const styles = {
     fontSize: 20,
     marginBottom: '1%',
     textShadow: '.5px .5px .5px black',
-
   },
   card6:{
     marginLeft: '10%',
     marginRight: '10%',
     backgroundColor: 'rgba(251,247,245,.70)',
-
   }
 }
 

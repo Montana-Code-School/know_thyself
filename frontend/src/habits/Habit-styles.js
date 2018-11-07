@@ -26,7 +26,6 @@ const styles = {
     borderRadius: '15px',
     margin: '13px 0 0 0',
     height: '18px',
-    // padding: '0 14px',
     cursor: 'pointer'
   },
   tipCard: {

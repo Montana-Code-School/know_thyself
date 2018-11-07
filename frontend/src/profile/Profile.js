@@ -85,9 +85,10 @@ class Profile extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <Navbar path={this.props.location.pathname}
-                theme={theme}
-                position="sticky"/>
+        <Navbar
+          path={this.props.location.pathname}
+          theme={theme}
+          position="sticky"/>
         <Card style={styles.editorCard}>
           <Card style={styles.promptCard}>
             <CardContent>
@@ -96,10 +97,11 @@ class Profile extends Component {
               </Typography>
             </CardContent>
           </Card>
-          <TextEditor handleChange={this.props.handleChange}
-                      value={this.props.value}
-                      words={this.props.words}
-                      editorReference={this.props.editorReference}
+          <TextEditor
+            handleChange={this.props.handleChange}
+            value={this.props.value}
+            words={this.props.words}
+            editorReference={this.props.editorReference}
           />
         </Card>
         <Card style={styles.tipCard}>
@@ -115,7 +117,6 @@ class Profile extends Component {
             </CardContent>
           </Card>
         </Card>
-
         <Button
           style={styles.submit}
           variant="contained"

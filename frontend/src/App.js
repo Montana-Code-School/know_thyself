@@ -28,7 +28,6 @@ class App extends Component {
     // upon entry saving
     this.textInput = React.createRef()
   }
-
   // sets prompts state from componentsDidMount in Profile.js
   fetchedPrompts(results) {
     this.setState({
@@ -142,57 +141,57 @@ class App extends Component {
     if (res.initial === res.reps) return console.log("they equal")
   }
 
-
   render() {
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Login}/>
-          <PrivateRoute path="/profile"
-                        component={Profile}
-                        // methods and handlers
-                        fetchedPrompts={this.fetchedPrompts.bind(this)}
-                        fetchedTips={this.fetchedTips.bind(this)}
-                        handleChange={this.handleChange.bind(this)}
-                        getRandomPrompt={this.getRandomPrompt.bind(this)}
-                        getRandomTip={this.getRandomTip.bind(this)}
-                        clear={this.clear.bind(this)}
-                        // state
-                        prompt={this.state.prompt}
-                        tip={this.state.tip}
-                        value={this.state.value}
-                        disabled={this.state.disabled}
-                        words={this.state.words}
-                        // refs
-                        editorReference={this.textInput}
-                        />
-          <PrivateRoute path='/entries'
-                        component={Entries}
-                        // methods and handlers
-                        fetchedEntries={this.fetchedEntries.bind(this)}
-                        // state
-                        entries={this.state.entries}
-                        />
-          <PrivateRoute path='/habits'
-                        component={Habits}
-                        // methods and handlers
-                        handleHabitTitle={this.handleHabitTitle.bind(this)}
-                        handleHabitReps={this.handleHabitReps.bind(this)}
-                        fetchedHabits={this.fetchedHabits.bind(this)}
-                        fetchedTips={this.fetchedTips.bind(this)}
-                        getRandomTip={this.getRandomTip.bind(this)}
-                        addReps={this.addReps.bind(this)}
-                        // state
-                        tip={this.state.tip}
-                        habits={this.state.habits}
-                        title={this.state.title}
-                        reps={this.state.reps}
-                        initial={this.state.initial}
-                        clearHabitForm={this.clearHabitForm.bind(this)}
-                        // addHabit={this.addHabit.bind(this)}
-                        // removeHabit={this.removeHabit.bind(this)}
-                        />
-          <Route component={Error}/>
+          <PrivateRoute
+            path="/profile"
+            component={Profile}
+            // methods and handlers
+            fetchedPrompts={this.fetchedPrompts.bind(this)}
+            fetchedTips={this.fetchedTips.bind(this)}
+            handleChange={this.handleChange.bind(this)}
+            getRandomPrompt={this.getRandomPrompt.bind(this)}
+            getRandomTip={this.getRandomTip.bind(this)}
+            clear={this.clear.bind(this)}
+            // state
+            prompt={this.state.prompt}
+            tip={this.state.tip}
+            value={this.state.value}
+            disabled={this.state.disabled}
+            words={this.state.words}
+            // refs
+            editorReference={this.textInput}
+            />
+          <PrivateRoute
+            path='/entries'
+            component={Entries}
+            // methods and handlers
+            fetchedEntries={this.fetchedEntries.bind(this)}
+            // state
+            entries={this.state.entries}
+            />
+          <PrivateRoute
+            path='/habits'
+            component={Habits}
+            // methods and handlers
+            handleHabitTitle={this.handleHabitTitle.bind(this)}
+            handleHabitReps={this.handleHabitReps.bind(this)}
+            fetchedHabits={this.fetchedHabits.bind(this)}
+            fetchedTips={this.fetchedTips.bind(this)}
+            getRandomTip={this.getRandomTip.bind(this)}
+            addReps={this.addReps.bind(this)}
+            // state
+            tip={this.state.tip}
+            habits={this.state.habits}
+            title={this.state.title}
+            reps={this.state.reps}
+            initial={this.state.initial}
+            clearHabitForm={this.clearHabitForm.bind(this)}
+            />
+      <Route component={Error}/>
         </Switch>
       </BrowserRouter>
     );
