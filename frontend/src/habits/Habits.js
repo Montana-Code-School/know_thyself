@@ -72,7 +72,9 @@ class Habits extends Component {
                     Advice:
                   </Typography>
                   <Typography>
-                    {this.props.tip}
+                    Studies show that it takes, on average, six weeks to form a
+                    habit for any given individual. That's 42 days. We help you
+                    track your progress based on those studies.
                   </Typography>
                 </CardContent>
               </Card>
@@ -86,11 +88,6 @@ class Habits extends Component {
                        placeholder="Habit"
                        value={this.props.title}
                        style={styles.inputs} />
-                <Input onChange={this.props.handleHabitReps}
-                       type="number"
-                       placeholder="Repetitions"
-                       value={this.props.reps}
-                       style={styles.inputs} />
                 <Button id="creator"
                         onClick={(e) => this.addHabit(e)}
                         style={styles.addButton}>Add
@@ -101,9 +98,7 @@ class Habits extends Component {
                       habits={this.props.habits}
                       title={this.props.title}
                       reps={this.props.reps}
-                      initial={this.props.initial}
                       shouldRefetch={this.state.shouldRefetch}
-                      addReps={this.props.addReps}
                       refetchHabitTrigger={this.refetchHabitTrigger.bind(this)}
                       />
           </div>

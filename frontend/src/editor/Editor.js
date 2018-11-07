@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
 import { Typography  } from '@material-ui/core';
 import styles from './Editor-styles';
-import './Editor.css';
+import './Editor.css'
 
 class TextEditor extends Component {
   render() {

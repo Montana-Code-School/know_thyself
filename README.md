@@ -22,7 +22,9 @@ Know Thyself if a web journaling app to help build self knowledge through the pr
   - Habit Tracker (add, track and remove habits)
 
 ## Getting Started / Installing
+
 #### [-Use our App on Heroku-](https://dry-cove-74246.herokuapp.com)
+
 
 #### Install locally following these steps
 - Clone or fork the repo
@@ -37,11 +39,6 @@ To run locally you need to...
 - The other, in knowthyself/frontend... ```npm start```
 
 
-<!-- ## Running the tests
-
-``mocha tesing/test.js`` -->
-
-
 ## Built With
 
 * [Express](https://expressjs.com/) - Web Framework
@@ -53,9 +50,11 @@ To run locally you need to...
 
 ## Authors
 
+
 * **[Jake Marsh](https://github.com/JMarsh2201)** - *Initial work* 
 * **[Alison Morgan](https://github.com/alison-morgan)** - *Initial work*  
 * **[Kyle Gillett](https://github.com/kegillett)** - *Initial work*
+
 
 
 ## Acknowledgments

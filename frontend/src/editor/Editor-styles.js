@@ -8,6 +8,7 @@ const styles = {
   },
   wordCount: {
     fontSize: '12pt',
+
     marginBottom: 0,
     marginLeft: '76%',
     fontStyle: 'italic'
