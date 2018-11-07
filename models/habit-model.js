@@ -20,7 +20,7 @@ HabitSchema.pre('save', function(next) {
   if (this.isNew) {
     this.createdAt = new Date()
   } else {
-    this.modifiedAt = new Date("2018-11-10T17:34:49.133Z")
+    this.modifiedAt = new Date()
     this.difference = Math.ceil(Math.abs(this.modifiedAt.getTime() - this.createdAt.getTime()) / (1000 * 3600 * 24))
     if (this.checked[this.checked.length - 1] !== this.difference - 1) {
       this.checked.push(this.difference - 1)

@@ -143,6 +143,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
+          <Route exact path='/' component={Login}/>
           <PrivateRoute path="/profile"
                         component={Profile}
                         // methods and handlers
