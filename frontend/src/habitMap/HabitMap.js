@@ -101,6 +101,27 @@ class HabitMap extends Component {
     }
   }
 
+upReps(e) {
+  if (Storage.getToken()) {
+    let pathname = `/verify/habit/${e.target.id}`
+    if (process.env.NODE_ENV === 'development') {
+      pathname=`http://localhost:4001${pathname}`
+    }
+    fetch( pathname, {
+      method: 'PUT',
+      headers: {
+        'Content-type' : 'application/json',
+        'Authorization': `bearer ${Storage.getToken()}`
+      }
+
+    })
+    .then(data => data.json())
+    .then(res => {
+      this.props.addReps(res)
+      this.props.refetchHabitTrigger()
+    })
+  }
+}
 
 
 removeHabit(e) {
@@ -122,14 +143,14 @@ removeHabit(e) {
 }
 
   render() {
-    console.log(this.props)
     return (
           <div>
             {this.props.habits.map(habit =>
+
               <Card key={habit._id} className="row habit" style={styles.habitCard}>
                 <CardContent className="four columns" transition="slide">
                   <Typography className='habitTitle' style={styles.habitTitle} >{habit.title}</Typography>
-                  <Typography className='habitReps' style={styles.habitReps} >{habit.reps} till complete</Typography>
+                  <Typography className='habitReps' style={styles.habitReps} >{habit.initial} complete</Typography>
                   <div style={styles.progressBar}>
                     <div className="bar" style={{ backgroundColor: 'green', width: '100%', height: '100%', borderRadius: '15px'}}></div>
                   </div>
@@ -144,7 +165,7 @@ removeHabit(e) {
                             v-show="!habit.finished"
                             // style="{ background: habit.random }"
                      >
-                       <AddIcon />
+                       <AddIcon id={habit._id} onClick={e => this.upReps(e)}/>
                     </Button>
                     <button
                       onClick={this.removeHabit.bind(this)}

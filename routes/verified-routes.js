@@ -77,6 +77,25 @@ const Habit = require('../models/habit-model').habit
     })
 
   router.route('/habit/:habit_id')
+    .put((req, res) => {
+      if (!req.user) console.log('thou shall not go on!')
+      Habit.findById(req.params.habit_id, (err, habit) => {
+        if (err) res.send(err)
+        habit.initial += 1
+        console.log('req params habit', req.params.habit_id, 'habit', habit)
+        habit.save((err, habit) => {
+          if (err) res.send(err)
+          req.user.save((err, user) => {
+            console.log("in the else", req.habit)
+            if (err) res.send(err)
+            res.json({message: 'you save the habit'})
+          })
+        })
+      })
+    })
+
+
+
     .delete(function(req, res) {
       if (!req.user) console.log('thou shall not go on!')
       Habit.deleteOne({

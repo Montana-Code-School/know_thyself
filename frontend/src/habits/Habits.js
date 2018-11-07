@@ -31,8 +31,7 @@ addHabit() {
     let input = {
       title: this.props.title,
       reps: this.props.reps,
-      initial: this.props.reps,
-      complete: 0,
+      initial: 0,
       finished: false
     }
     let pathname = '/verify/habit'
@@ -104,6 +103,7 @@ refetchHabitTrigger() {
                       title={this.props.title}
                       reps={this.props.reps}
                       shouldRefetch={this.state.shouldRefetch}
+                      addReps={this.props.addReps}
                       refetchHabitTrigger={this.refetchHabitTrigger.bind(this)}
                       />
           </div>

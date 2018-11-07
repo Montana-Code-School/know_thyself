@@ -22,7 +22,6 @@ class App extends Component {
       title: '',
       reps: '',
       initial: 0,
-      complete: 0,
       finished: false
     }
     // reference created and passed to react-quill. used to save text formatting
@@ -55,7 +54,6 @@ class App extends Component {
   }
   // sets tips state from componentDidMount in Habits.js
   fetchedHabits(results) {
-    console.log('not infinite')
     const habits = results.reverse()
     this.setState({
       habits: habits,
@@ -139,12 +137,9 @@ class App extends Component {
     })
   }
 
-  completeReps () {
-    this.setState({
-      reps: 1,
-      complete: 1,
-      finished: true
-    })
+  addReps(res) {
+    console.log(res)
+    // if (res.user.initial === res.habit.reps) return console.log("they equal")
   }
 
 
@@ -186,7 +181,7 @@ class App extends Component {
                         fetchedHabits={this.fetchedHabits.bind(this)}
                         fetchedTips={this.fetchedTips.bind(this)}
                         getRandomTip={this.getRandomTip.bind(this)}
-                        completeReps={this.completeReps.bind(this)}
+                        addReps={this.addReps.bind(this)}
                         // state
                         tip={this.state.tip}
                         habits={this.state.habits}
