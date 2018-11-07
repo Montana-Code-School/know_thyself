@@ -84,7 +84,7 @@ class HabitMap extends Component {
           'Authorization': `bearer ${Storage.getToken()}`
         }
       })
-      .then((results) => results.json())
+      .then((res) => res.json())
       .then((results) => {
         this.props.fetchedHabits(results)
       })

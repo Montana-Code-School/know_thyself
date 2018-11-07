@@ -60,17 +60,18 @@ const Habit = require('../models/habit-model').habit
           res.json({msg: 'habit saved'})
           })
         })
-
       })
 
     .get((req, res) => {
-      console.log('in verified-routes')
+      console.log(req,'this is the req')
       if (!req.user) console.log('you shall not pass!')
       User.findById(req.user, (err, user) => {
+        console.log("finding user by id")
         if (err) res.send(err);
       })
       .populate('habits')
       .exec((err, user) => {
+        console.log("in exec")
         if (err) res.send(err)
         res.json(user.habits)
       })
@@ -82,11 +83,11 @@ const Habit = require('../models/habit-model').habit
       Habit.findById(req.params.habit_id, (err, habit) => {
         if (err) res.send(err)
         habit.initial += 1
-        console.log('req params habit', req.params.habit_id, 'habit', habit)
-        habit.save((err, habit) => {
+        console.log('req params habit', req.user, 'habit', habit)
+        habit.save((err, user) => {
           if (err) res.send(err)
-          req.user.save((err, user) => {
-            console.log("in the else", req.habit)
+          user.save((err, user) => {
+            console.log("in the else", habit)
             if (err) res.send(err)
             res.json({message: 'you save the habit'})
           })

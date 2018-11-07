@@ -23,7 +23,7 @@ const UserSchema = new Schema({
     select: false
   },
   goals: [],
-  habits: [],
+  habits: [{type: Schema.Types.ObjectId, ref: 'habit'}],
   entries: [{type: Schema.Types.ObjectId, ref: 'entry'}]
 })
 
