@@ -17,13 +17,8 @@ const styles = {
     width: '66%',
     margin: '2% 0 0 6%',
     float: 'left',
-
     minHeight: '610px',
-    // height: 'auto'
-
   },
-
-
   promptCard: {
     width: '66%',
     height: '5%',

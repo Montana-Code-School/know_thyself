@@ -19,45 +19,44 @@ class Habits extends Component {
     fetch(routeUrl)
       .then((results) => results.json())
       .then((results) => {
-
         this.props.fetchedTips(results)
         this.props.getRandomTip()
       })
       .catch((err) => console.log(err))
   }
 
-addHabit() {
-  if (Storage.getToken()) {
-    let input = {
-      title: this.props.title,
-      reps: this.props.reps,
-      initial: 0,
-      finished: false
+  addHabit() {
+    if (Storage.getToken()) {
+      let input = {
+        title: this.props.title,
+        reps: this.props.reps,
+        initial: 0,
+        finished: false
+      }
+      let pathname = '/verify/habit'
+      if (process.env.NODE_ENV === 'development') {
+        pathname=`http://localhost:4001${pathname}`
+      }
+      fetch( pathname, {
+        method: 'POST',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization': `bearer ${Storage.getToken()}`
+        },
+        body: JSON.stringify(input),
+      })
+      .then(res => {
+        this.refetchHabitTrigger()
+        this.props.clearHabitForm()
+      })
     }
-    let pathname = '/verify/habit'
-    if (process.env.NODE_ENV === 'development') {
-      pathname=`http://localhost:4001${pathname}`
-    }
-    fetch( pathname, {
-      method: 'POST',
-      headers: {
-        'Content-type' : 'application/json',
-        'Authorization': `bearer ${Storage.getToken()}`
-      },
-      body: JSON.stringify(input),
-    })
-    .then(res => {
-      this.refetchHabitTrigger()
-      this.props.clearHabitForm()
+  }
+
+  refetchHabitTrigger() {
+    this.setState({
+      shouldRefetch: !this.state.shouldRefetch
     })
   }
-}
-
-refetchHabitTrigger() {
-  this.setState({
-    shouldRefetch: !this.state.shouldRefetch
-  })
-}
 
   render() {
     return (
@@ -108,7 +107,5 @@ refetchHabitTrigger() {
     );
   }
 }
-
-
 
 export default withStyles(styles)(Habits);

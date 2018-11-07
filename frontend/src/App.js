@@ -28,7 +28,6 @@ class App extends Component {
     // upon entry saving
     this.textInput = React.createRef()
   }
-
   // sets prompts state from componentsDidMount in Profile.js
   fetchedPrompts(results) {
     this.setState({
@@ -140,12 +139,10 @@ class App extends Component {
   }
 
 
-
   render() {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Login}/>
           <PrivateRoute path="/profile"
                         component={Profile}
                         // methods and handlers

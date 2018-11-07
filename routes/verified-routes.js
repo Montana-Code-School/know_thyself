@@ -100,7 +100,6 @@ const Habit = require('../models/habit-model').habit
           if (user.habits[i]._id == req.params.habit_id) {
             user.habits.splice(i, 1)
           }
-
         }
         user.save((err) => {
           if (err) res.send(err)
@@ -108,6 +107,5 @@ const Habit = require('../models/habit-model').habit
         })
       })
     })
-    // well post is being stupid now. break to fix the ladies computer
-    // no worries. just push up on some new branch when you get a shot
+
 module.exports = router

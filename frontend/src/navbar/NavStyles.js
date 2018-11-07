@@ -4,7 +4,6 @@ const styles = theme => ({
 
   typography: {
     useNextVariants: true,
-
   },
   root: {
     display: 'flex',

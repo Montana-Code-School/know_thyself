@@ -43,19 +43,12 @@ class HabitMap extends Component {
     }
   }
 
-upReps(e) {
-  if (Storage.getToken()) {
-    let pathname = `/verify/habit/${e.target.id}`
-    if (process.env.NODE_ENV === 'development') {
-      pathname=`http://localhost:4001${pathname}`
-    }
-    fetch( pathname, {
-      method: 'PUT',
-      headers: {
-        'Content-type' : 'application/json',
-        'Authorization': `bearer ${Storage.getToken()}`
+  upReps(e) {
+    if (Storage.getToken()) {
+      let pathname = `/verify/habit/${e.target.id}`
+      if (process.env.NODE_ENV === 'development') {
+        pathname=`http://localhost:4001${pathname}`
       }
-
     })
     .then(data => data.json())
     .then(res => {
@@ -82,23 +75,23 @@ createBoxes(habit) {
   return elements
 }
 
-removeHabit(e) {
-  if (Storage.getToken()) {
-    let pathname = `/verify/habit/${e.target.id}`
-    if (process.env.NODE_ENV === 'development') {
-      pathname=`http://localhost:4001${pathname}`
-    }
-    fetch( pathname, {
-      method: 'DELETE',
-      headers: {
-        'Content-type' : 'application/json',
-        'Authorization': `bearer ${Storage.getToken()}`
+  removeHabit(e) {
+    if (Storage.getToken()) {
+      let pathname = `/verify/habit/${e.target.id}`
+      if (process.env.NODE_ENV === 'development') {
+        pathname=`http://localhost:4001${pathname}`
       }
-    })
-    .then(data => console.log(this.props))
-    .then(res => this.props.refetchHabitTrigger())
+      fetch( pathname, {
+        method: 'DELETE',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization': `bearer ${Storage.getToken()}`
+        }
+      })
+      .then(data => console.log(this.props))
+      .then(res => this.props.refetchHabitTrigger())
+    }
   }
-}
 
   render() {
     return (
@@ -147,7 +140,5 @@ removeHabit(e) {
     );
   }
 }
-
-
 
 export default withStyles(styles)(HabitMap);
