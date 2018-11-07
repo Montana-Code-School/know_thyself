@@ -11,14 +11,14 @@ class App extends Component {
     super(props);
     this.state = {
       prompts: [],
-      entries: [],
-      value: '',
       prompt: '',
+      entries: [],
       tips: [],
       tip: '',
-      disabled: true,
-      words: '',
       habits: [],
+      value: '',
+      words: '',
+      disabled: true,
       title: '',
       reps: '',
       initial: 0,
@@ -54,6 +54,10 @@ class App extends Component {
   }
   // sets tips state from componentDidMount in Habits.js
   fetchedHabits(results) {
+<<<<<<< HEAD
+=======
+    console.log(results)
+>>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
     const habits = results.reverse()
     this.setState({
       habits: habits,
@@ -138,7 +142,11 @@ class App extends Component {
   }
 
   addReps(res) {
+<<<<<<< HEAD
     console.log(res)
+=======
+
+>>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
     if (res.initial === res.reps) return console.log("they equal")
   }
 

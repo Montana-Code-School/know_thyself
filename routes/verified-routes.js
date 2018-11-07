@@ -13,33 +13,26 @@ const Habit = require('../models/habit-model').habit
       entry.title = body.title
       entry.user = req.user._id
       entry.save((err) => {
-        console.log("in entry save")
         if (err) res.send(err)
         req.user.entries.push(entry)
         req.user.save((err) => {
-          console.log("in user save before error")
           if (err) res.send(err)
-          console.log("is not error")
           res.json({msg: 'entry saved'})
           })
         })
     })
+
     .get((req, res) => {
-      console.log("in verified-routes")
       if (!req.user) console.log('you shall not pass!')
       User.findById(req.user, (err, user) => {
-        console.log("finding user by id")
         if (err) res.send(err);
       })
       .populate('entries')
       .exec((err, user) => {
-        console.log("in exec")
         if (err) res.send(err)
         res.json(user.entries)
       })
     });
-
-
 
   router.route('/habit')
     .post((req, res) => {
@@ -60,10 +53,16 @@ const Habit = require('../models/habit-model').habit
           res.json({msg: 'habit saved'})
           })
         })
+<<<<<<< HEAD
       })
 
     .get((req, res) => {
       console.log(req,'this is the req')
+=======
+    })
+
+    .get((req, res) => {
+>>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
       if (!req.user) console.log('you shall not pass!')
       User.findById(req.user, (err, user) => {
         console.log("finding user by id")
@@ -83,11 +82,20 @@ const Habit = require('../models/habit-model').habit
       Habit.findById(req.params.habit_id, (err, habit) => {
         if (err) res.send(err)
         habit.initial += 1
+<<<<<<< HEAD
         console.log('req params habit', req.user, 'habit', habit)
         habit.save((err, user) => {
           if (err) res.send(err)
           user.save((err, user) => {
             console.log("in the else", habit)
+=======
+        if (habit.checked[habit.checked.length - 1] !== habit.difference) {
+          habit.checked.push(habit.difference)
+        }
+        habit.save((err, user) => {
+          if (err) res.send(err)
+          user.save((err, user) => {
+>>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
             if (err) res.send(err)
             res.json(habit)
           })
@@ -95,8 +103,11 @@ const Habit = require('../models/habit-model').habit
       })
     })
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
     .delete(function(req, res) {
       if (!req.user) console.log('thou shall not go on!')
       Habit.deleteOne({
@@ -109,6 +120,7 @@ const Habit = require('../models/habit-model').habit
         if (err)
           res.send(err)
         for (var i = 0; i < user.habits.length; i++) {
+<<<<<<< HEAD
           console.log( user.habits.length)
           if (user.habits[i]._id == req.params.habit_id) {
             user.habits.splice(i, 1)
@@ -119,6 +131,14 @@ const Habit = require('../models/habit-model').habit
         user.save((err) => {
           console.log('user save before if err statement')
           console.log(user.habits.length)
+=======
+          if (user.habits[i]._id == req.params.habit_id) {
+            user.habits.splice(i, 1)
+          }
+
+        }
+        user.save((err) => {
+>>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
           if (err) res.send(err)
           res.json({msg: 'deleted habit'})
         })

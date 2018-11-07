@@ -15,11 +15,27 @@ const styles = {
   },
   habitCard: {
     margin: '1% 0 2% 3%',
+<<<<<<< HEAD
     width: '25%',
     display: 'inline-block'
   },
   habitTitle: {
     fontSize: '20pt'
+=======
+    width: '65%',
+    display: 'inline-block'
+  },
+  habitCardComplete: {
+    margin: '1% 0 2% 3%',
+    width: '25%',
+    display: 'inline-block',
+    backgroundColor: 'lightgrey',
+    border: 'solid 2px grey',
+    opacity: '.5'
+  },
+  habitTitle: {
+    fontSize: '17pt'
+>>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
   },
   progressBar: {
     border: 'solid 1px black',
@@ -58,6 +74,32 @@ const styles = {
   },
   plus: {
     marginRight: '30%'
+<<<<<<< HEAD
+=======
+  },
+  boxes: {
+    width: '12px',
+    height: '12px',
+    border: 'solid .5px grey',
+    margin: '1px',
+    display: 'inline-block'
+  },
+  boxesYes: {
+    width: '10px',
+    height: '12px',
+    border: 'solid .5px grey',
+    margin: '1px',
+    display: 'inline-block',
+    backgroundColor: 'green'
+  },
+  boxesNo: {
+    width: '10px',
+    height: '12px',
+    border: 'solid .5px grey',
+    margin: '1px',
+    display: 'inline-block',
+    backgroundColor: 'red'
+>>>>>>> f906e843f8d2c47450c9bf017bc875f1c112689e
   }
 }
 export default styles
