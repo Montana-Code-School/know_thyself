@@ -139,7 +139,7 @@ class App extends Component {
 
   addReps(res) {
     console.log(res)
-    // if (res.user.initial === res.habit.reps) return console.log("they equal")
+    if (res.initial === res.reps) return console.log("they equal")
   }
 
 

@@ -89,7 +89,7 @@ const Habit = require('../models/habit-model').habit
           user.save((err, user) => {
             console.log("in the else", habit)
             if (err) res.send(err)
-            res.json({message: 'you save the habit'})
+            res.json(habit)
           })
         })
       })
@@ -122,7 +122,6 @@ const Habit = require('../models/habit-model').habit
           if (err) res.send(err)
           res.json({msg: 'deleted habit'})
         })
-        console.log('made it past loop')
       })
     })
     // well post is being stupid now. break to fix the ladies computer
