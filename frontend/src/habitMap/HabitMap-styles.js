@@ -27,7 +27,11 @@ const styles = {
     opacity: '.5'
   },
   habitTitle: {
-    fontSize: '17pt'
+    fontSize: '17pt',
+  },
+  dayCount: {
+    fontSize: '14pt',
+    fontStyle: 'italic'
   },
   progressBar: {
     border: 'solid 1px black',
@@ -62,10 +66,11 @@ const styles = {
     color: 'green',
   },
   lower: {
-    marginTop: '5%'
+    marginTop: '2%'
   },
   plus: {
-    marginRight: '30%'
+    marginRight: '30%',
+    marginBottom: '1%'
   },
   boxes: {
     width: '12px',

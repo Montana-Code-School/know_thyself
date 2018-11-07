@@ -106,11 +106,21 @@ removeHabit(e) {
                 className="row habit"
                 style={habit.difference >= 41 ? styles.habitCardComplete : styles.habitCard}>
             <CardContent className="four columns" transition="slide">
-              <Typography className='habitTitle' style={styles.habitTitle} >{habit.title}</Typography>
+              <Typography className='habitTitle'
+                          style={styles.habitTitle} >
+                          {habit.title}
+              </Typography>
+              <Typography className='dayCount' style={styles.dayCount} >day {!habit.difference ? 1 : habit.difference}</Typography>
               {this.createBoxes(habit)}
-              <Typography className='habitReps' style={styles.habitReps} >{habit.checked.length} out of 42 days</Typography>
+              <Typography className='habitReps' style={styles.habitReps} >{habit.checked.length} out of 42 days completed</Typography>
               <div style={styles.progressBar}>
-                <div className="bar" style={{ backgroundColor: 'green', maxWidth: '100%', width: habit.checked.length/42 * 100 + '%', height: '100%', borderRadius: '13px'}}></div>
+                <div className="bar"
+                     style={{ backgroundColor: 'green',
+                              maxWidth: '100%',
+                              width: (!habit.checked.length ? '0%' : habit.checked.length/habit.difference * 100 + '%'),
+                              height: '100%',
+                              borderRadius: '13px'}}>
+                </div>
               </div>
               <div className="lower" style={styles.lower}>
                 <Button className='plus'
@@ -118,10 +128,7 @@ removeHabit(e) {
                         varient='fab'
                         color='primary'
                         aria-label='Add'
-                        id="progress"
-                        // onClick={this.completeReps(habit)}
-                        // style="{ background: habit.random }"
-                 >
+                        id="progress">
                    <AddIcon id={habit._id} onClick={e => this.upReps(e)}/>
                 </Button>
                 <button

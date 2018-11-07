@@ -73,7 +73,9 @@ refetchHabitTrigger() {
                     Advice:
                   </Typography>
                   <Typography>
-                    {this.props.tip}
+                    Studies show that it takes, on average, six weeks to form a
+                    habit for any given individual. That's 42 days. We help you
+                    track your progress based on those studies.
                   </Typography>
                 </CardContent>
               </Card>
