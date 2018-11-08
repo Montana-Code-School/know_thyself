@@ -41,7 +41,8 @@ const styles = {
   submit: {
     marginLeft: '6%',
     marginRight: '40%',
-    display: 'flex-root'
+    display: 'flex-root',
+    marginTop: '1.5%'
   },
   advice: {
     display: 'inline-block',
