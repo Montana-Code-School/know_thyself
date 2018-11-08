@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const dateFormat = require('dateformat')
 
-
 const HabitSchema = new Schema({
   title: String,
   reps: Number,
