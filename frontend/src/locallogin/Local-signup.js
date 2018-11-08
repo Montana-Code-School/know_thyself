@@ -89,7 +89,11 @@ class SignUp extends Component {
 
   changePassword(event){
     event.preventDefault();
-    fetch( 'http://localhost:4001/api/passwordreset', {
+    let pathname = '/api/passwordreset'
+    if (process.env.NODE_ENV === 'development') {
+      pathname=`http://localhost:4001${pathname}`
+    }
+    fetch( pathname, {
       method: 'put',
       headers: {
         'Content-type': 'application/json'
