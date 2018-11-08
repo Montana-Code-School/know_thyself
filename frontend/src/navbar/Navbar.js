@@ -9,6 +9,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Time from '../time/Time'
 import Weather from '../weather/Weather'
 import styles from './NavStyles'
+<<<<<<< HEAD
+=======
+
+>>>>>>> af0c5b03b6a7c3e868854cc2b64e0d94bc5f7595
 
 class NavBar extends React.Component {
   state = {
@@ -21,7 +25,6 @@ class NavBar extends React.Component {
 
   static propTypes = {
       location: PropTypes.object.isRequired
-
     }
 
   handleDrawerOpen = () => {
@@ -48,28 +51,46 @@ class NavBar extends React.Component {
     this.setState({attodo: true});
   }
 
+  revealProfile = () => {
+    this.setState({atprofile: true});
+  };
+
+  revealEntry = () => {
+    this.setState({atentries: true});
+  };
+
+  revealHabits = () => {
+    this.setState({athabits: true});
+  };
+
   render() {
     const { classes, path } = this.props;
     const { open } = this.state;
     if (path !== '/profile' && this.state.atprofile) {
-   return <Redirect push to="/profile" />;
- }
+      return <Redirect push to="/profile" />;
+    }
     if (path !== '/entries' && this.state.atentries) {
-   return <Redirect push to="/entries" />;
- }
-   if (path !== '/habits' && this.state.athabits) {
-  return <Redirect push to="/habits" />;
-  }
-  if (path !== '/todo' &&this.state.attodo) {
-  return <Redirect push to="/todo" />;
-  }
+      return <Redirect push to="/entries" />;
+    }
+    if (path !== '/habits' && this.state.athabits) {
+     return <Redirect push to="/habits" />;
+    }
     return (
       <div >
-        <AppBar position="static"
+        <AppBar
+          position="static"
           className={classNames(classes.appBar, {
-              [classes.appBarShift]: open,
+          [classes.appBarShift]: open,
           })}>
+<<<<<<< HEAD
           <Toolbar className="toolbar" variant="dense" style={{backgroundColor: '#373737' }} isableGutters={!open}>
+=======
+          <Toolbar
+            className="toolbar"
+            variant="dense"
+            style={{backgroundColor: '#373737' }}
+            disableGutters={!open}>
+>>>>>>> af0c5b03b6a7c3e868854cc2b64e0d94bc5f7595
             <IconButton
               className={classNames(classes.menuButton, open && classes.hide)}
               color="inherit"
@@ -77,10 +98,21 @@ class NavBar extends React.Component {
               onClick={this.handleDrawerOpen}>
               <MenuIcon />
             </IconButton>
+<<<<<<< HEAD
             <Typography noWrap className='' style={{fontFamily: "'Satisfy', cursive", color: "#E7DFDD"}} variant="h4">
               Know Thyself
             </Typography>
             <div className='timeweather' style={{flex: "1", alignItems: "flex-end", flexDirection: "column", display: "flex"}}>
+=======
+            <Typography
+              noWrap className='ct1'
+              style={{fontFamily:"Satisfy, cursive", color: "#E7DFDD"}}
+              variant="h4">
+              Know Thyself
+            </Typography>
+            <div className='timeweather'
+              style={{flex: "1", alignItems: "flex-end", flexDirection: "column", display: "flex"}}>
+>>>>>>> af0c5b03b6a7c3e868854cc2b64e0d94bc5f7595
               <Time />
               <Weather />
             </div>
@@ -95,7 +127,7 @@ class NavBar extends React.Component {
           <div className={classes.drawerHeader}>
             <List>
               <ListItem>
-                <ListItemText>Stuff</ListItemText>
+                <ListItemText>Know Thy Options</ListItemText>
                 <IconButton onClick={this.handleDrawerClose}>
                   <ChevronLeftIcon />
                 </IconButton>
@@ -105,16 +137,13 @@ class NavBar extends React.Component {
           <Divider />
           <List>
             <ListItem>
-              <Button onClick={this.revealProfile} >Profile</Button>
+              <Button onClick={this.revealProfile}>Profile</Button>
             </ListItem>
             <ListItem>
-              <Button onClick={this.revealEntry} >Entries</Button>
+              <Button onClick={this.revealEntry}>Entries</Button>
             </ListItem>
             <ListItem>
-              <Button onClick={this.revealHabits} >Habits</Button>
-            </ListItem>
-            <ListItem>
-              <Button onClick={this.revealTodo} >Todo</Button>
+              <Button onClick={this.revealHabits}>Habits</Button>
             </ListItem>
           </List>
         </Drawer>
@@ -124,8 +153,7 @@ class NavBar extends React.Component {
 }
 
 NavBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(NavBar);

@@ -4,7 +4,10 @@ const styles = theme => ({
 
   typography: {
     useNextVariants: true,
+<<<<<<< HEAD
 
+=======
+>>>>>>> af0c5b03b6a7c3e868854cc2b64e0d94bc5f7595
   },
   root: {
     display: 'flex',
@@ -61,8 +64,12 @@ const styles = theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+<<<<<<< HEAD
     },
 
+=======
+    }
+>>>>>>> af0c5b03b6a7c3e868854cc2b64e0d94bc5f7595
 });
 
 export default styles

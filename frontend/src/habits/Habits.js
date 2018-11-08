@@ -1,76 +1,111 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
-import Navbar from '../navbar/Navbar'
+import { Button, Card, CardContent, Typography, Input  } from '@material-ui/core';
+import { Create } from '@material-ui/icons';
+import Navbar from '../navbar/Navbar';
+import Storage from '../storage';
+import HabitMap from '../habitMap/HabitMap';
+import styles from './Habit-styles';
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-});
-
-class Todo extends React.Component {
+class Habits extends Component {
   state = {
-    checked: [0],
-  };
-
-  handleToggle = value => () => {
-    const { checked } = this.state;
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
+    shouldRefetch: false
+  }
+  componentDidMount() {
+    let routeUrl = '/api/tips'
+    if (process.env.NODE_ENV === 'development') {
+      routeUrl = 'http://localhost:4001/api/tips'
     }
+    fetch(routeUrl)
+      .then((results) => results.json())
+      .then((results) => {
+        this.props.fetchedTips(results)
+        this.props.getRandomTip()
+      })
+      .catch((err) => console.log(err))
+  }
 
+  addHabit() {
+    if (Storage.getToken()) {
+      let input = {
+        title: this.props.title,
+        reps: this.props.reps,
+        initial: 0,
+        finished: false
+      }
+      let pathname = '/verify/habit'
+      if (process.env.NODE_ENV === 'development') {
+        pathname=`http://localhost:4001${pathname}`
+      }
+      fetch( pathname, {
+        method: 'POST',
+        headers: {
+          'Content-type' : 'application/json',
+          'Authorization': `bearer ${Storage.getToken()}`
+        },
+        body: JSON.stringify(input),
+      })
+      .then(res => {
+        this.refetchHabitTrigger()
+        this.props.clearHabitForm()
+      })
+    }
+  }
+
+  refetchHabitTrigger() {
     this.setState({
-      checked: newChecked,
-    });
-  };
+      shouldRefetch: !this.state.shouldRefetch
+    })
+  }
 
   render() {
-    const { classes } = this.props;
-
     return (
       <div>
-        <Navbar path={this.props.location.pathname}/>
-      <div className={classes.root}>
-        <List>
-          {[0, 1, 2, 3].map(value => (
-            <ListItem key={value} role={undefined} dense button onClick={this.handleToggle(value)}>
-              <Checkbox
-                checked={this.state.checked.indexOf(value) !== -1}
-                tabIndex={-1}
-                disableRipple
-              />
-              <ListItemText primary={`Line item ${value + 1}`} />
-              <ListItemSecondaryAction>
-                <IconButton aria-label="Comments">
-                  <CommentIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </List>
+        <Navbar path={this.props.location.pathname} fetchedHabits={this.props.fetchedHabits}/>
+        <div className="container">
+          <div id="app">
+            <Card style={styles.tipCard}>
+              <Card style={styles.innerCard}>
+                <CardContent>
+                  <Create/>
+                  <Typography style={styles.advice}>
+                    Advice:
+                  </Typography>
+                  <Typography>
+                    Studies show that it takes, on average, six weeks to form a
+                    habit for any given individual. That's 42 days. We help you
+                    track your progress based on those studies.
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Card>
+            <Card style={styles.addCard}>
+              <Typography style={styles.head}>Habit Tracker</Typography>
+              <CardContent>
+                <Input onChange={this.props.handleHabitTitle}
+                       type="text"
+                       id='habitTitle'
+                       placeholder="Habit"
+                       value={this.props.title}
+                       style={styles.inputs} />
+                <Button id="creator"
+                        onClick={(e) => this.addHabit(e)}
+                        style={styles.addButton}>Add
+                </Button>
+              </CardContent>
+            </Card>
+            <HabitMap fetchedHabits={this.props.fetchedHabits}
+                      habits={this.props.habits}
+                      title={this.props.title}
+                      reps={this.props.reps}
+                      shouldRefetch={this.state.shouldRefetch}
+                      refetchHabitTrigger={this.refetchHabitTrigger.bind(this)}
+                      />
+          </div>
         </div>
       </div>
     );
   }
 }
 
-Todo.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Todo);
+export default withStyles(styles)(Habits);

@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/user-model')
 
+// here we grab the token from the headers, and verify it, once decoded, we can
+// see that it contains a user_id, we then search the db for that id, and return
+// the user attached to the request.  We then move back to login.js
 module.exports = (req, res, next) => {
   console.log("authorization")
   if(!req.headers.authorization) {
@@ -15,19 +18,16 @@ module.exports = (req, res, next) => {
     if (decoded.sub) {
       id = decoded.sub
     } else  id = decoded.id
-
-    console.log(decoded)
     if(err){
-      console.log("err in auth-routes")
       res.status(401).end()
     } else {
-      console.log("not err in auth-routes")
-      // const id = decoded.sub
+      console.log("in token-verification")
       // find user and attach to request
       return User.findById(id, (err, user) => {
         console.log("found user by id")
         if (err) res.status(401).end()
         req.user = user
+
         return next()
       })
     }

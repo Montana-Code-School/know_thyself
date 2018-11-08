@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Button } from '@material-ui/core';
+import { Button, Card, CardContent, Typography  } from '@material-ui/core';
+import Create from '@material-ui/icons/Create'
 import Navbar from '../navbar/Navbar';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import Storage from '../storage'
-import './Profile.css'
-import TextEditor from '../editor/Editor'
+import Storage from '../storage';
+import TextEditor from '../editor/Editor';
+import styles from './Profile-styles'
 
 
 const theme = createMuiTheme({
@@ -12,23 +13,6 @@ const theme = createMuiTheme({
     useNextVariants: true
   }
 })
-
-const styles = {
-  paper:{
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    margin: '0 12% 0 12%',
-    fontSize: '12px',
-    fontStyle: 'italic',
-    fontWeight: 'lighter',
-    color: 'grey'
-  },
-  textfield:{
-    height: '100%',
-    width: '100%'
-  }
-};
 
 class Profile extends Component {
   state = {
@@ -48,38 +32,27 @@ class Profile extends Component {
       })
     }
   }
-
+  //here we send our token back to token-verification to be decoded and if verified,
+  //have access to prompts and entries associated with that user.
   componentDidMount() {
-    let promptsFetch, entriesFetch
+    let promptsFetch, tipsFetch
     if (process.env.NODE_ENV === 'development') {
-       promptsFetch = fetch('http://localhost:4001/api/prompts')
-       entriesFetch = fetch('http://localhost:4001/verify/entry',
-      {
-         method: 'GET',
-         headers: {
-           'Content-type' : 'application/json',
-           'Authorization': `bearer ${Storage.getToken()}`
-         }
-       })
+      promptsFetch = fetch('http://localhost:4001/api/prompts')
+      tipsFetch = fetch('http://localhost:4001/api/tips')
     } else {
-       promptsFetch = fetch('/api/prompts');
-       entriesFetch = fetch('/verify/entry',
-      {
-        method: 'GET',
-        headers: {
-          'Content-type' : 'application/json',
-          'Authorization': `bearer ${Storage.getToken()}`
-          }
-      })
+      promptsFetch = fetch('/api/prompts');
+      tipsFetch = fetch('/api/tips')
     }
-    Promise.all([promptsFetch, entriesFetch])
+    Promise.all([promptsFetch, tipsFetch])
       .then((results) => {
         const promptsBlob = results[0].json()
-        const entriesBlob = results[1].json()
-        Promise.all([promptsBlob, entriesBlob])
+        const tipsBlob = results[1].json()
+        Promise.all([promptsBlob, tipsBlob])
           .then((results) => {
-            this.props.fetched(results)
+            this.props.fetchedPrompts(results)
+            this.props.fetchedTips(results)
             this.props.getRandomPrompt()
+            this.props.getRandomTip()
           })
       })
       .catch((err) => console.log(err))
@@ -89,7 +62,6 @@ class Profile extends Component {
     if (Storage.getToken()) {
       let formatted = this.props.value.replace(/(<br>)/g, '')
       formatted = formatted.replace(/(>\s)/g, '>&nbsp;&nbsp;&nbsp;&nbsp;')
-      console.log(formatted)
       let input = {
         body: formatted,
         title: this.props.prompt
@@ -99,7 +71,7 @@ class Profile extends Component {
         pathname=`http://localhost:4001${pathname}`
       }
       fetch( pathname, {
-        method: 'POST',
+        method: 'post',
         headers: {
           'Content-type' : 'application/json',
           'Authorization': `bearer ${Storage.getToken()}`
@@ -114,6 +86,7 @@ class Profile extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
+<<<<<<< HEAD
         <Navbar path={this.props.location.pathname} theme={theme} position="sticky"/>
         <h3>{this.props.prompt}</h3>
         <TextEditor handleChange={this.props.handleChange}
@@ -123,7 +96,43 @@ class Profile extends Component {
                     words={this.props.words}
                     editorReference={this.props.editorReference}
                     />
+=======
+        <Navbar
+          path={this.props.location.pathname}
+          theme={theme}
+          position="sticky"/>
+        <Card style={styles.editorCard}>
+          <Card style={styles.promptCard}>
+            <CardContent>
+              <Typography style={{fontSize: 18}}>
+                {this.props.prompt}
+              </Typography>
+            </CardContent>
+          </Card>
+          <TextEditor
+            handleChange={this.props.handleChange}
+            value={this.props.value}
+            words={this.props.words}
+            editorReference={this.props.editorReference}
+          />
+        </Card>
+        <Card style={styles.tipCard}>
+          <Card style={styles.innerCard}>
+            <CardContent>
+              <Create/>
+              <Typography style={styles.advice}>
+                Advice:
+              </Typography>
+              <Typography style={{fontSize: 18}}>
+                {this.props.tip}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Card>
+>>>>>>> af0c5b03b6a7c3e868854cc2b64e0d94bc5f7595
         <Button
+          style={styles.submit}
+          variant="contained"
           className='submit'
           onClick={(e) => this.handleSubmit(e)}
           disabled={this.props.disabled}
