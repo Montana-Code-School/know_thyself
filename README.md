@@ -22,7 +22,7 @@ Know Thyself if a web journaling app to help build self knowledge through the pr
 
 ## Getting Started / Installing
 
-#### [-Use our App on Heroku-](https://dry-cove-74246.herokuapp.com)
+#### [-Use our App on Heroku-](https://knowthyself-mtcs.herokuapp.com/)
 
 
 #### Install locally following these steps
@@ -31,6 +31,19 @@ Know Thyself if a web journaling app to help build self knowledge through the pr
 - In knowthyself/frontend... ```npm install```
 
 This will install all the dependencies needed to run locally.
+
+* To setup Oauth login
+- go to console.developer.google.com
+- creat a new project 
+- search from Oauth api
+- from there create credientials => create Oauth client ID
+- in credientals => Oauth consent screen
+- add authorized domain - it will be localhost://3000
+- go back to credentials => click on your project
+- add your origin URI (eg.localhost://3000) and your redirect URI (eg localhost://3000/auth/google & localhost://3000/profile)
+- add client secret and client ID
+- make an .env file in the root directory and plug in all this information
+- .env files are formatted like this ```SOME_VAR=somevalue```
 
 To run locally you need to...
 - Have two instances of terminal open
