@@ -31,7 +31,11 @@ class SignUp extends Component {
   processLogin(e) {
     e.preventDefault();
     const { user } = this.state
-    fetch( 'http://localhost:4001/auth/login', {
+    let pathname = '/auth/login';
+    if (process.env.NODE_ENV === 'development') {
+      pathname=`http://localhost:4001${pathname}`
+    }
+    fetch(pathname, {
       method: 'post',
       headers: {
         'Content-type': 'application/json'
@@ -56,8 +60,11 @@ class SignUp extends Component {
   processSignup(event){
     event.preventDefault();
     const { user } = this.state
-    console.log(user)
-    fetch( 'http://localhost:4001/auth/signup', {
+    let pathname = '/auth/signup';
+    if (process.env.NODE_ENV === 'development') {
+      pathname=`http://localhost:4001${pathname}`
+    }
+    fetch( pathname, {
       method: 'post',
       headers: {
         'Content-type': 'application/json'
